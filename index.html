@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cher Thai Eatery - Ultimate Management System</title>
+  <!-- ตัวช่วยลากวางบนมือถือ/iPad -->
+  <script src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      color: #333;
+    }
+    /* 🗂️ แถบ Sidebar ด้านซ้าย */
+    .sidebar {
+      width: 240px;
+      background-color: #1e293b;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+    .sidebar.collapsed {
+      width: 65px;
+    }
+    .sidebar-brand {
+      padding: 20px 10px;
+      font-size: 15px;
+      font-weight: bold;
+      background-color: #0f172a;
+      border-bottom: 1px solid #334155;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sidebar.collapsed .sidebar-brand-text {
+      display: none;
+    }
+    .toggle-btn {
+      background: #334155;
+      border: none;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .toggle-btn:hover {
+      background: #475569;
+    }
+    .sidebar-menu {
+      list-style: none;
+      padding: 10px 0;
+      margin: 0;
+      flex: 1;
+      overflow: hidden;
+    }
+    .sidebar-item {
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .sidebar-item:hover {
+      background-color: #334155;
+    }
+    .sidebar-item.active {
+      background-color: #2563eb;
+      font-weight: bold;
+    }
+    .sidebar.collapsed .sidebar-text {
+      display: none;
+    }
+    .sidebar-footer {
+      padding: 15px;
+      font-size: 11px;
+      color: #94a3b8;
+      border-top: 1px solid #334155;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .sidebar.collapsed .sidebar-footer {
+      display: none;
+    }
+    
+    /* 🖥️ พื้นที่เนื้อหาหลักด้านขวา */
+    .main-content {
+      flex: 1;
+      padding: 25px;
+      overflow-y: auto;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    .page-section {
+      display: none;
+    }
+    .page-section.active {
+      display: block;
+    }
+
+    h1, h2 {
+      color: #1e293b;
+      margin-top: 0;
+    }
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .panel-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    button.save-btn {
+      width: 100%;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button.save-btn:hover {
+      background-color: #219653;
+    }
+
+    /* กล่องเลือกหลายโต๊ะ (รวมโต๊ะ) */
+    .table-checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      max-height: 120px;
+      overflow-y: auto;
+      background: #f8fafc;
+      padding: 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+    }
+    .table-checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* ตาราง Timeline รายโต๊ะ (หน้า 2) */
+    .timeline-container {
+      background: white;
+      border-radius: 10px;
+      overflow-x: auto;
+      max-height: 600px;
+    }
+    table.timeline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    table.timeline-table th, table.timeline-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px;
+      vertical-align: middle;
+    }
+    table.timeline-table th {
+      background-color: #1e293b;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .table-label {
+      background-color: #e2e8f0;
+      font-weight: bold;
+      text-align: center;
+      width: 90px;
+      font-size: 14px;
+    }
+    .timeline-card {
+      background-color: #ff9800;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      position: relative;
+      font-size: 12px;
+      display: inline-block;
+      margin-right: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .timeline-card .delete-btn {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    /* 🗺️ หน้าที่ 3: ผังร้าน & จัดการคิวลากวาง */
+    .layout-page-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .queue-sidebar {
+      flex: 1;
+      min-width: 280px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    .queue-card {
+      background-color: #ff9800;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 10px;
+      cursor: grab;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .queue-card:active {
+      cursor: grabbing;
+    }
+    .checkout-drop-zone {
+      background: #e8f5e9;
+      border: 2px dashed #4caf50;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      color: #2e7d32;
+      font-weight: bold;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .restaurant-layout-box {
+      flex: 2;
+      min-width: 450px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .restaurant-layout {
+      background: #e9ecef;
+      padding: 15px;
+      border-radius: 10px;
+      position: relative;
+    }
+    .table-box {
+      background: #9e9e9e;
+      border: 2px solid #555;
+      color: #111;
+      border-radius: 6px;
+      padding: 6px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 12px;
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .table-box.occupied {
+      background-color: #f97316;
+      color: white;
+      border-color: #c2410c;
+      cursor: grab;
+    }
+    .bar-box {
+      background: #2e7d32;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+    .gate-box {
+      background: #c62828;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    /* ⏰ หน้าที่ 1: สรุปเวลาโต๊ะว่าง */
+    .availability-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 15px;
+    }
+    .availability-card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 5px solid #22c55e;
+    }
+    .availability-card.has-booking {
+      border-left-color: #f97316;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🗂️ แถบ Sidebar ด้านซ้าย (มีปุ่มพับเก็บ) -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="sidebar-brand-text">🍽️ Cher Thai</span>
+      <button class="toggle-btn" onclick="toggleSidebar()" title="พับ/ขยายเมนู">◀</button>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="sidebar-item active" onclick="switchPage('availability-page', this)" title="เช็คเวลาโต๊ะว่าง">
+        <span>⏰</span> <span class="sidebar-text">เช็คโต๊ะว่าง</span>
+      </li>
+      <li class="sidebar-item" onclick="switchPage('grid-page', this)" title="ระบบจองโต๊ะ">
+        <span>📊</span> <span class="sidebar-text">ระบบจอง (Timeline)</span>
+      </li>
+      <li class="sidebar-item" onclick="switchPage('layout-page', this)" title="ผังร้าน & จัดการคิว">
+        <span>🗺️</span> <span class="sidebar-text">ผังร้าน & จัดการคิว</span>
+      </li>
+    </ul>
+    <div class="sidebar-footer" id="today-hours-badge">
+      <!-- เวลาเปิดปิดวันนี้ -->
+    </div>
+  </div>
+
+  <!-- 🖥️ เนื้อหาหลักด้านขวา -->
+  <div class="main-content">
+
+    <!-- 📄 หน้าที่ 1: เช็คเวลาโต๊ะว่าง (หน้าแรก) -->
+    <div id="availability-page" class="page-section active">
+      <h1>เช็คเวลาโต๊ะว่าง (Table Availability Timeline)</h1>
+      <p style="color: #64748b; font-size: 13px; margin-bottom: 20px;">
+        ℹ️ หน้าแรก: แสดงช่วงเวลาที่โต๊ะ "ว่าง" และ "ไม่ว่าง" ตลอดทั้งวันแบบละเอียด (รอบนั่งทาน 90 นาที)
+      </p>
+      
+      <div class="availability-grid" id="availability-grid-container">
+        <!-- สร้างด้วย JS -->
+      </div>
+    </div>
+
+    <!-- 📄 หน้าที่ 2: ระบบจองโต๊ะ (Timeline 90 นาที) -->
+    <div id="grid-page" class="page-section">
+      <h1>ระบบจองรายนาที (บล็อกเวลาอัตโนมัติ 90 นาที ไม่ให้ทับซ้อน)</h1>
+      <div class="main-container">
+        
+        <!-- ฝั่งซ้าย: ฟอร์มจอง -->
+        <div class="panel-box" style="flex: 1; min-width: 290px;">
+          <h2>📝 ลงทะเบียนจองโต๊ะ</h2>
+          <div class="form-group">
+            <label>ชื่อลูกค้า:</label>
+            <input type="text" id="cust-name" placeholder="เช่น Ryan">
+          </div>
+          <div class="form-group">
+            <label>จำนวนคน (Pax):</label>
+            <input type="number" id="cust-pax" placeholder="เช่น 4">
+          </div>
+          <div class="form-group">
+            <label>เลือกโต๊ะ (ติ๊กเพื่อรวมโต๊ะได้):</label>
+            <div class="table-checkbox-grid" id="table-checkboxes"></div>
+          </div>
+          <div class="form-group">
+            <label>เวลาที่จอง (ระบุได้ถึงรายนาที เช่น 12:15):</label>
+            <input type="time" id="cust-time" value="12:00">
+          </div>
+          <div class="form-group">
+            <label>หมายเหตุ (Note):</label>
+            <input type="text" id="cust-note" placeholder="เช่น แพ้อาหารทะเล">
+          </div>
+          <button class="save-btn" id="save-booking-btn">บันทึกการจอง</button>
+        </div>
+
+        <!-- ฝั่งขวา: ตาราง Timeline รายโต๊ะ -->
+        <div class="panel-box" style="flex: 2; min-width: 500px;">
+          <h2 style="color: #1e293b;">📅 ตารางรายการจองแยกตามโต๊ะ (เรียงตามเวลา)</h2>
+          <div style="font-size: 11px; color: #64748b; margin-bottom: 10px;">
+            ℹ️ ทุกการจองจะถูกคำนวณช่วงเวลานั่งทาน 90 นาที และระบบจะห้ามไม่ให้มีการจองทับซ้อนเด็ดขาด
+          </div>
+          <div class="timeline-container">
+            <table class="timeline-table">
+              <thead>
+                <tr>
+                  <th style="width: 90px;">โต๊ะ</th>
+                  <th>รายการจองและช่วงเวลานั่งทาน (90 นาที)</th>
+                </tr>
+              </thead>
+              <tbody id="timeline-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 📄 หน้าที่ 3: ผังร้าน & จัดการคิวลากวาง -->
+    <div id="layout-page" class="page-section">
+      <h1>ผังร้านอาหาร & จัดการคิว (คลิกโต๊ะเพื่อ Walk-in / ลากวาง / เช็คบิล)</h1>
+      
+      <div class="layout-page-container">
+        
+        <!-- ฝั่งซ้าย: ตารางคิวรอด้านข้าง -->
+        <div class="queue-sidebar">
+          <h3 style="color: #d32f2f; margin-top:0;">📋 คิวรอเข้าร้าน / จองแล้ว</h3>
+          <p style="font-size: 11px; color: #666;">ลากการ์ดชื่อไปวางบนโต๊ะเมื่อลูกค้ามาถึง (ถ้าจองรวมโต๊ะ ลากวางที่โต๊ะไหนก็ได้ จะควบรวมให้อัตโนมัติ)</p>
+          
+          <div id="waiting-queue-container" style="min-height: 200px;"></div>
+
+          <div class="checkout-drop-zone" id="checkout-zone">
+            💵 ลากการ์ดโต๊ะมาปล่อยตรงนี้เพื่อ "เช็คบิล/เคลียร์โต๊ะ"
+          </div>
+        </div>
+
+        <!-- ฝั่งขวา: ผังโต๊ะในร้าน -->
+        <div class="restaurant-layout-box">
+          <h3 style="margin-top:0;">🗺️ ผังโต๊ะในร้าน (คลิกโต๊ะว่างเพื่อ Walk-in ด่วน)</h3>
+          <div class="restaurant-layout">
+            <!-- โซน O1-O6 -->
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; justify-content: center;">
+              <div class="table-box" id="layout-O1" data-table="O1">O1</div>
+              <div class="table-box" id="layout-O2" data-table="O2">O2</div>
+              <div class="table-box" id="layout-O3" data-table="O3">O3</div>
+              <div class="table-box" id="layout-O4" data-table="O4">O4</div>
+              <div class="table-box" id="layout-O5" data-table="O5">O5</div>
+              <div class="table-box" id="layout-O6" data-table="O6">O6</div>
+            </div>
+
+            <!-- ผังหลัก 3 คอลัมน์ -->
+            <div style="display: flex; gap: 15px; justify-content: space-between;">
+              <!-- ซ้าย: Bar + โต๊ะ 3-9 -->
+              <div style="display: flex; gap: 8px;">
+                <div class="bar-box" style="width: 25px; height: 280px;">BAR</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div class="table-box" id="layout-3" data-table="3" style="width: 45px; height: 32px;">3</div>
+                  <div class="table-box" id="layout-4" data-table="4" style="width: 45px; height: 32px;">4</div>
+                  <div class="table-box" id="layout-5" data-table="5" style="width: 45px; height: 32px;">5</div>
+                  <div class="table-box" id="layout-6" data-table="6" style="width: 45px; height: 32px;">6</div>
+                  <div class="table-box" id="layout-7" data-table="7" style="width: 45px; height: 32px;">7</div>
+                  <div class="table-box" id="layout-8" data-table="8" style="width: 45px; height: 32px;">8</div>
+                  <div class="table-box" id="layout-9" data-table="9" style="width: 45px; height: 32px;">9</div>
+                </div>
+              </div>
+
+              <!-- กลาง: Gate + โต๊ะ 10-17 -->
+              <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                <div class="gate-box" style="width: 80px; height: 20px;">Gate</div>
+                <div class="table-box" id="layout-10" data-table="10" style="width: 45px; height: 32px;">10</div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <div class="table-box" id="layout-11" data-table="11" style="width: 45px; height: 32px;">11</div>
+                  <div class="table-box" id="layout-11_1" data-table="11/1" style="width: 38px; height: 38px; border-radius: 50%;">11/1</div>
+                </div>
+                <div class="table-box" id="layout-12" data-table="12" style="width: 45px; height: 32px;">12</div>
+                <div class="table-box" id="layout-13" data-table="13" style="width: 45px; height: 32px;">13</div>
+                <div class="table-box" id="layout-14" data-table="14" style="width: 45px; height: 32px;">14</div>
+                <div style="display: flex; gap: 6px;">
+                  <div class="table-box" id="layout-15" data-table="15" style="width: 45px; height: 32px;">15</div>
+                  <div class="table-box" id="layout-16" data-table="16" style="width: 45px; height: 32px;">16</div>
+                </div>
+                <div class="table-box" id="layout-17" data-table="17" style="width: 55px; height: 32px;">17</div>
+              </div>
+
+              <!-- ขวา: โต๊ะ 18-21 และ 23 -->
+              <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <div class="table-box" id="layout-18" data-table="18" style="width: 45px; height: 32px;">18</div>
+                  <div class="table-box" id="layout-19" data-table="19" style="width: 45px; height: 32px;">19</div>
+                  <div class="table-box" id="layout-20" data-table="20" style="width: 45px; height: 32px;">20</div>
+                  <div class="table-box" id="layout-21" data-table="21" style="width: 45px; height: 32px;">21</div>
+                </div>
+                <div style="margin-top: 90px;">
+                  <div class="table-box" id="layout-23" data-table="23" style="width: 55px; height: 32px;">23</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function switchPage(pageId, element) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+      
+      document.getElementById(pageId).classList.add('active');
+      element.classList.add('active');
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const toggleBtn = sidebar.querySelector('.toggle-btn');
+      sidebar.classList.toggle('collapsed');
+      
+      if (sidebar.classList.contains('collapsed')) {
+        toggleBtn.innerText = '▶';
+      } else {
+        toggleBtn.innerText = '◀';
+      }
+    }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDZZGaMx86u09DLVyE5l63uRJp24Gwvh5o",
+      authDomain: "cher-thai-eatery.firebaseapp.com",
+      projectId: "cher-thai-eatery",
+      storageBucket: "cher-thai-eatery.firebasestorage.app",
+      messagingSenderId: "290440086914",
+      appId: "1:290440086914:web:a7a2d9d9defc306e0fbb9b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const tablesList = ["O1", "O2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "11/1", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "23"];
+    
+    // สร้าง Checkbox เลือกโต๊ะฝั่งซ้าย
+    const checkboxContainer = document.getElementById('table-checkboxes');
+    tablesList.forEach(tName => {
+      const label = document.createElement('label');
+      label.className = 'table-checkbox-item';
+      label.innerHTML = `<input type="checkbox" name="selected-tables" value="${tName}"> โต๊ะ ${tName}`;
+      checkboxContainer.appendChild(label);
+    });
+
+    const timelineBody = document.getElementById('timeline-body');
+    const availabilityGridContainer = document.getElementById('availability-grid-container');
+
+    function buildStructures() {
+      timelineBody.innerHTML = '';
+      tablesList.forEach(tName => {
+        const tr = document.createElement('tr');
+        const rowId = `timeline-row-${tName.replace('/', '_')}`;
+        tr.innerHTML = `
+          <td class="table-label">${tName}</td>
+          <td id="${rowId}" style="min-height: 50px;">
+            <span style="color: #94a3b8; font-size: 11px;">ว่างตลอดวัน</span>
+          </td>
+        `;
+        timelineBody.appendChild(tr);
+      });
+
+      availabilityGridContainer.innerHTML = '';
+      tablesList.forEach(tName => {
+        const card = document.createElement('div');
+        card.className = 'availability-card';
+        card.id = `avail-card-${tName.replace('/', '_')}`;
+        card.innerHTML = `
+          <div style="font-weight: bold; font-size: 15px; margin-bottom: 6px; display:flex; justify-content:space-between;">
+            <span>โต๊ะ ${tName}</span>
+            <span id="avail-status-${tName.replace('/', '_')}" style="font-size: 12px; color: #16a34a;">🟢 ว่าง</span>
+          </div>
+          <div id="avail-timeline-${tName.replace('/', '_')}" style="font-size: 12px; color: #334155; line-height: 1.5;">
+            เปิดว่าง: 12:00 - ปิดร้าน
+          </div>
+        `;
+        availabilityGridContainer.appendChild(card);
+      });
+    }
+    buildStructures();
+
+    function updateSidebarBadge() {
+      const dayOfWeek = new Date().getDay();
+      let text = "<b>เวลาเปิด-ปิดวันนี้:</b><br>";
+      if (dayOfWeek >= 2 && dayOfWeek <= 4) text += "• 12:00-15:00 / 18:00-22:30";
+      else if (dayOfWeek === 5) text += "• 12:00-15:00 / 18:00-23:00";
+      else if (dayOfWeek === 6) text += "• 12:00-23:00 (เปิดยาว)";
+      else if (dayOfWeek === 0) text += "• 12:00-22:00";
+      else text += "• วันจันทร์";
+      document.getElementById('today-hours-badge').innerHTML = text;
+    }
+    updateSidebarBadge();
+
+    function timeToMinutes(timeStr) {
+      const [h, m] = timeStr.split(':').map(Number);
+      return h * 60 + m;
+    }
+
+    function minutesToTime(totalMins) {
+      const h = Math.floor(totalMins / 60) % 24;
+      const m = totalMins % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    let globalActiveBookings = [];
+
+    function checkOverlap(tableNames, newStartMin, excludeBookingId = null) {
+      const DURATION = 90; // 90 นาที
+      const newEndMin = newStartMin + DURATION;
+
+      for (let booking of globalActiveBookings) {
+        if (excludeBookingId && booking.id === excludeBookingId) continue;
+
+        const bookingTables = (booking.assignedTables && booking.assignedTables.length > 0) ? booking.assignedTables : booking.tableNames;
+        const hasCommonTable = bookingTables.some(t => tableNames.includes(t));
+        
+        if (hasCommonTable) {
+          const existingStart = timeToMinutes(booking.bookingTime);
+          const existingEnd = existingStart + DURATION;
+
+          if (newStartMin < existingEnd && newEndMin > existingStart) {
+            return {
+              isOverlap: true,
+              conflictCustomer: booking.customerName,
+              conflictTime: `${booking.bookingTime} - ${minutesToTime(existingEnd)}`
+            };
+          }
+        }
+      }
+      return { isOverlap: false };
+    }
+
+    // บันทึกการจองใหม่
+    document.getElementById('save-booking-btn').addEventListener('click', async function() {
+      const name = document.getElementById('cust-name').value.trim();
+      const pax = document.getElementById('cust-pax').value.trim() || '1';
+      const timeVal = document.getElementById('cust-time').value;
+      const note = document.getElementById('cust-note').value.trim();
+
+      const selectedTables = [];
+      document.querySelectorAll('input[name="selected-tables"]:checked').forEach(cb => {
+        selectedTables.push(cb.value);
+      });
+
+      if (!name) { alert('กรุณากรอกชื่อลูกค้าก่อนนะครับ!'); return; }
+      if (selectedTables.length === 0) { alert('กรุณาเลือกโต๊ะอย่างน้อย 1 โต๊ะครับ!'); return; }
+      if (!timeVal) { alert('กรุณาระบุเวลาจองครับ!'); return; }
+
+      const newStartMin = timeToMinutes(timeVal);
+      const overlapCheck = checkOverlap(selectedTables, newStartMin);
+
+      if (overlapCheck.isOverlap) {
+        alert(`❌ ไม่สามารถจองได้! เวลาชนกับคิวของคุณ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})\nโต๊ะนี้ติดจองช่วง 90 นาทีอยู่ครับ`);
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "minute_timeline_bookings"), {
+          tableNames: selectedTables,
+          customerName: name,
+          pax: pax,
+          bookingTime: timeVal,
+          note: note,
+          assignedTables: [],
+          timestamp: Date.now()
+        });
+
+        document.getElementById('cust-name').value = '';
+        document.getElementById('cust-pax').value = '';
+        document.getElementById('cust-note').value = '';
+        document.querySelectorAll('input[name="selected-tables"]').forEach(cb => cb.checked = false);
+        alert('บันทึกคิวเรียบร้อย!');
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    const waitingQueueContainer = document.getElementById('waiting-queue-container');
+    const checkoutZone = document.getElementById('checkout-zone');
+
+    checkoutZone.addEventListener('dragover', (e) => e.preventDefault());
+    checkoutZone.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      const bookingId = e.dataTransfer.getData('bookingId');
+      if (bookingId) {
+        await deleteDoc(doc(db, "minute_timeline_bookings", bookingId));
+      }
+    });
+
+    // ฟังก์ชันคลิกโต๊ะเพื่อ Walk-in ด่วน (ไม่ต้องใส่ชื่อก็ได้ จะขึ้นเป็น Walk-in อัตโนมัติ)
+    tablesList.forEach(tName => {
+      const boxId = `layout-${tName.replace('/', '_')}`;
+      const box = document.getElementById(boxId);
+      if (!box) return;
+
+      box.addEventListener('click', async () => {
+        const isOccupied = globalActiveBookings.some(b => b.assignedTables && b.assignedTables.includes(tName));
+        if (isOccupied) return;
+
+        let inputName = prompt(`Walk-in ด่วนที่โต๊ะ ${tName}:\nกรอกชื่อลูกค้า (กด OK ข้ามเพื่อใช้ชื่อ "Walk-in"):`, "");
+        if (inputName === null) return; // กดยกเลิก
+        
+        const customerDisplayName = inputName.trim() === "" ? "Walk-in" : inputName.trim();
+        const pax = prompt('จำนวนคน (Pax):', '2');
+        
+        const now = new Date();
+        const timeVal = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        const startMin = timeToMinutes(timeVal);
+
+        const overlapCheck = checkOverlap([tName], startMin);
+        if (overlapCheck.isOverlap) {
+          alert(`❌ โต๊ะนี้ติดจองเวลา ${overlapCheck.conflictTime} ไม่สามารถ Walk-in ได้`);
+          return;
+        }
+
+        await addDoc(collection(db, "minute_timeline_bookings"), {
+          tableNames: [tName],
+          customerName: customerDisplayName,
+          pax: pax || '1',
+          bookingTime: timeVal,
+          note: 'Walk-in หน้าร้าน',
+          assignedTables: [tName],
+          timestamp: Date.now()
+        });
+      });
+
+      // รองรับการลากวาง (Drag & Drop) ควบรวมโต๊ะอัตโนมัติ
+      box.addEventListener('dragover', (e) => e.preventDefault());
+      box.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        const bookingId = e.dataTransfer.getData('bookingId');
+        if (bookingId) {
+          const targetBooking = globalActiveBookings.find(b => b.id === bookingId);
+          if (targetBooking) {
+            // หากมีการจองรวมโต๊ะไว้ (เช่น [11, 12]) จะดึงทั้งหมดมาควบรวมทันที แม้จะลากมาวางที่โต๊ะ 11 หรือ 12 ตัวใดตัวหนึ่ง
+            const tablesToAssign = targetBooking.tableNames.length > 1 ? targetBooking.tableNames : [tName];
+
+            const startMin = timeToMinutes(targetBooking.bookingTime);
+            const overlapCheck = checkOverlap(tablesToAssign, startMin, bookingId);
+
+            if (overlapCheck.isOverlap) {
+              alert(`❌ ไม่สามารถวางที่โต๊ะนี้ได้! เวลาชนกับคิวของคุณ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})`);
+              return;
+            }
+
+            await setDoc(doc(db, "minute_timeline_bookings", bookingId), { assignedTables: tablesToAssign }, { merge: true });
+          }
+        }
+      });
+    });
+
+    // ซิงค์ข้อมูล Real-time จาก Firebase
+    onSnapshot(collection(db, "minute_timeline_bookings"), (snapshot) => {
+      waitingQueueContainer.innerHTML = '';
+      globalActiveBookings = [];
+      
+      tablesList.forEach(tName => {
+        const box = document.getElementById(`layout-${tName.replace('/', '_')}`);
+        if (box) {
+          box.innerHTML = tName;
+          box.className = 'table-box';
+          box.draggable = false;
+        }
+        const rowEl = document.getElementById(`timeline-row-${tName.replace('/', '_')}`);
+        if (rowEl) rowEl.innerHTML = '<span style="color: #94a3b8; font-size: 11px;">ว่างตลอดวัน</span>';
+
+        const availCard = document.getElementById(`avail-card-${tName.replace('/', '_')}`);
+        const statusEl = document.getElementById(`avail-status-${tName.replace('/', '_')}`);
+        const timelineEl = document.getElementById(`avail-timeline-${tName.replace('/', '_')}`);
+        if (availCard && statusEl && timelineEl) {
+          availCard.className = 'availability-card';
+          statusEl.style.color = '#16a34a';
+          statusEl.innerText = '🟢 ว่าง';
+          timelineEl.innerHTML = '<span style="color: #16a34a;">ว่างตลอดเวลา (12:00 - ปิดร้าน)</span>';
+        }
+      });
+
+      snapshot.forEach((firebaseDoc) => {
+        const data = firebaseDoc.data();
+        globalActiveBookings.push({ id: firebaseDoc.id, ...data });
+      });
+
+      const bookingsByTable = {};
+      tablesList.forEach(tName => bookingsByTable[tName] = []);
+
+      globalActiveBookings.forEach(b => {
+        const activeTables = (b.assignedTables && b.assignedTables.length > 0) ? b.assignedTables : [];
+        activeTables.forEach(tName => {
+          if (!bookingsByTable[tName]) bookingsByTable[tName] = [];
+          bookingsByTable[tName].push(b);
+        });
+      });
+
+      globalActiveBookings.forEach(data => {
+        const docId = data.id;
+        const hasAssigned = data.assignedTables && data.assignedTables.length > 0;
+
+        if (!hasAssigned) {
+          const card = document.createElement('div');
+          card.className = 'queue-card';
+          card.draggable = true;
+          let combinedBadge = data.tableNames.length > 1 ? ` 🔗[รวมโต๊ะ: ${data.tableNames.join(', ')}]` : '';
+          card.innerHTML = `
+            <div>👤 ${data.customerName} (${data.pax}น.)${combinedBadge}</div>
+            <div style="font-size: 11px; color: #ffe0b2;">⏰ ${data.bookingTime} น. (จองโต๊ะ: ${data.tableNames.join(', ')})</div>
+            ${data.note ? `<div style="font-size: 10px; opacity: 0.9;">📝 ${data.note}</div>` : ''}
+          `;
+          card.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('bookingId', docId);
+          });
+          waitingQueueContainer.appendChild(card);
+        } else {
+          data.assignedTables.forEach(tName => {
+            const box = document.getElementById(`layout-${tName.replace('/', '_')}`);
+            if (box) {
+              box.className = 'table-box occupied';
+              box.draggable = true;
+              let combinedText = data.assignedTables.length > 1 ? ` (รวมโต๊ะ)` : '';
+              box.innerHTML = `
+                <div style="font-size: 10px;">${tName}${combinedText}</div>
+                <div style="font-size: 10px; font-weight: bold; overflow:hidden; text-overflow:ellipsis;">${data.customerName}</div>
+                <div style="font-size: 9px;">(${data.pax}น.)</div>
+              `;
+              box.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('bookingId', docId);
+              });
+            }
+          });
+        }
+      });
+
+      Object.keys(bookingsByTable).forEach(tName => {
+        const rowEl = document.getElementById(`timeline-row-${tName.replace('/', '_')}`);
+        const availCard = document.getElementById(`avail-card-${tName.replace('/', '_')}`);
+        const statusEl = document.getElementById(`avail-status-${tName.replace('/', '_')}`);
+        const timelineEl = document.getElementById(`avail-timeline-${tName.replace('/', '_')}`);
+
+        if (bookingsByTable[tName].length > 0) {
+          bookingsByTable[tName].sort((a, b) => a.bookingTime.localeCompare(b.bookingTime));
+
+          let cardsHtml = '';
+          bookingsByTable[tName].forEach(b => {
+            const startMin = timeToMinutes(b.bookingTime);
+            const endMin = startMin + 90;
+            const timeRangeStr = `${b.bookingTime} - ${minutesToTime(endMin)}`;
+            let assignedArr = (b.assignedTables && b.assignedTables.length > 0) ? b.assignedTables : b.tableNames;
+            let combinedBadge = assignedArr.length > 1 ? ` 🔗[รวมโต๊ะ: ${assignedArr.join(', ')}]` : '';
+
+            cardsHtml += `
+              <div class="timeline-card">
+                <div style="font-size: 11px; color: #ffe0b2;">⏰ ${timeRangeStr} น. (90 นาที)${combinedBadge}</div>
+                <div style="font-size: 13px;">${b.customerName} (${b.pax} คน)</div>
+                ${b.note ? `<div style="font-size: 11px; opacity: 0.9;">📝 ${b.note}</div>` : ''}
+                <button class="delete-btn" onclick="window.deleteBooking('${b.id}')" title="ลบรายการ">✕</button>
+              </div>
+            `;
+          });
+          if (rowEl) rowEl.innerHTML = cardsHtml;
+
+          const OPEN_MIN = 12 * 60;
+          const CLOSE_MIN = 23 * 60;
+          
+          let scheduleHTML = "";
+          let lastCheckMin = OPEN_MIN;
+
+          bookingsByTable[tName].forEach(b => {
+            const bStart = timeToMinutes(b.bookingTime);
+            const bEnd = bStart + 90;
+
+            if (bStart > lastCheckMin) {
+              scheduleHTML += `<div style="color: #16a34a; font-size: 11px;">🟢 ว่าง: ${minutesToTime(lastCheckMin)} - ${b.bookingTime}</div>`;
+            }
+
+            scheduleHTML += `<div style="color: #f97316; font-size: 11px;">🟠 ไม่ว่าง: ${b.bookingTime} - ${minutesToTime(bEnd)} (${b.customerName})</div>`;
+            
+            lastCheckMin = Math.max(lastCheckMin, bEnd);
+          });
+
+          if (lastCheckMin < CLOSE_MIN) {
+            scheduleHTML += `<div style="color: #16a34a; font-size: 11px;">🟢 ว่าง: ${minutesToTime(lastCheckMin)} - 23:00</div>`;
+          }
+
+          if (availCard && statusEl && timelineEl) {
+            availCard.className = 'availability-card has-booking';
+            statusEl.style.color = '#f97316';
+            statusEl.innerText = '🟠 มีคิวจอง';
+            timelineEl.innerHTML = scheduleHTML;
+          }
+        }
+      });
+    });
+
+    window.deleteBooking = async function(docId) {
+      if (confirm('ต้องการลบรายการจองนี้ใช่ไหม?')) {
+        await deleteDoc(doc(db, "minute_timeline_bookings", docId));
+      }
+    };
+  </script>
+
+</body>
+</html>
