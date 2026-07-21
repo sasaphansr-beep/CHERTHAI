@@ -358,7 +358,7 @@
 </head>
 <body>
 
-  <!-- 🗂️ แถบ Sidebar ด้านซ้าย (มีปุ่มพับเก็บ) -->
+  <!-- 🗂️ แถบ Sidebar ด้านซ้าย -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <span class="sidebar-brand-text">🍽️ Cher Thai</span>
@@ -375,24 +375,19 @@
         <span>🗺️</span> <span class="sidebar-text">ผังร้าน & จัดการคิว</span>
       </li>
     </ul>
-    <div class="sidebar-footer" id="today-hours-badge">
-      <!-- เวลาเปิดปิดวันนี้ -->
-    </div>
+    <div class="sidebar-footer" id="today-hours-badge"></div>
   </div>
 
   <!-- 🖥️ เนื้อหาหลักด้านขวา -->
   <div class="main-content">
 
-    <!-- 📄 หน้าที่ 1: เช็คเวลาโต๊ะว่าง (หน้าแรก) -->
+    <!-- 📄 หน้าที่ 1: เช็คเวลาโต๊ะว่าง -->
     <div id="availability-page" class="page-section active">
       <h1>เช็คเวลาโต๊ะว่าง (Table Availability Timeline)</h1>
       <p style="color: #64748b; font-size: 13px; margin-bottom: 20px;">
-        ℹ️ หน้าแรก: แสดงช่วงเวลาที่โต๊ะ "ว่าง" และ "ไม่ว่าง" ตลอดทั้งวันแบบละเอียด (รอบนั่งทาน 90 นาที)
+        ℹ️ แสดงช่วงเวลาที่โต๊ะ "ว่าง" และ "ไม่ว่าง" ตลอดทั้งวันแบบละเอียด (รอบนั่งทาน 90 นาที ทั้งจากคิวที่ลงทะเบียนและ Walk-in)
       </p>
-      
-      <div class="availability-grid" id="availability-grid-container">
-        <!-- สร้างด้วย JS -->
-      </div>
+      <div class="availability-grid" id="availability-grid-container"></div>
     </div>
 
     <!-- 📄 หน้าที่ 2: ระบบจองโต๊ะ (Timeline 90 นาที) -->
@@ -400,7 +395,6 @@
       <h1>ระบบจองรายนาที (บล็อกเวลาอัตโนมัติ 90 นาที ไม่ให้ทับซ้อน)</h1>
       <div class="main-container">
         
-        <!-- ฝั่งซ้าย: ฟอร์มจอง -->
         <div class="panel-box" style="flex: 1; min-width: 290px;">
           <h2>📝 ลงทะเบียนจองโต๊ะ</h2>
           <div class="form-group">
@@ -426,11 +420,10 @@
           <button class="save-btn" id="save-booking-btn">บันทึกการจอง</button>
         </div>
 
-        <!-- ฝั่งขวา: ตาราง Timeline รายโต๊ะ -->
         <div class="panel-box" style="flex: 2; min-width: 500px;">
           <h2 style="color: #1e293b;">📅 ตารางรายการจองแยกตามโต๊ะ (เรียงตามเวลา)</h2>
           <div style="font-size: 11px; color: #64748b; margin-bottom: 10px;">
-            ℹ️ ทุกการจองจะถูกคำนวณช่วงเวลานั่งทาน 90 นาที และระบบจะห้ามไม่ให้มีการจองทับซ้อนเด็ดขาด
+            ℹ️ ทุกการจอง (ไม่ว่าจะอยู่หน้าคิวรอหรือลากมาลงโต๊ะแล้ว) จะถูกนำมาคำนวณช่วงเวลานั่งทาน 90 นาที เพื่อป้องกันการจองทับซ้อน
           </div>
           <div class="timeline-container">
             <table class="timeline-table">
@@ -454,10 +447,9 @@
       
       <div class="layout-page-container">
         
-        <!-- ฝั่งซ้าย: ตารางคิวรอด้านข้าง -->
         <div class="queue-sidebar">
           <h3 style="color: #d32f2f; margin-top:0;">📋 คิวรอเข้าร้าน / จองแล้ว</h3>
-          <p style="font-size: 11px; color: #666;">ลากการ์ดชื่อไปวางบนโต๊ะเมื่อลูกค้ามาถึง (ถ้าจองรวมโต๊ะ ลากวางที่โต๊ะไหนก็ได้ จะควบรวมให้อัตโนมัติ)</p>
+          <p style="font-size: 11px; color: #666;">ลากการ์ดชื่อไปวางบนโต๊ะเมื่อลูกค้ามาถึง (หากรวมโต๊ะ จะควบรวมให้อัตโนมัติ)</p>
           
           <div id="waiting-queue-container" style="min-height: 200px;"></div>
 
@@ -466,7 +458,6 @@
           </div>
         </div>
 
-        <!-- ฝั่งขวา: ผังโต๊ะในร้าน -->
         <div class="restaurant-layout-box">
           <h3 style="margin-top:0;">🗺️ ผังโต๊ะในร้าน (คลิกโต๊ะว่างเพื่อ Walk-in ด่วน)</h3>
           <div class="restaurant-layout">
@@ -653,6 +644,7 @@
       for (let booking of globalActiveBookings) {
         if (excludeBookingId && booking.id === excludeBookingId) continue;
 
+        // เช็คการชนกันโดยใช้โต๊ะที่กำลังใช้งานจริง (assignedTables ถ้ามี ถ้าไม่มีใช้ tableNames)
         const bookingTables = (booking.assignedTables && booking.assignedTables.length > 0) ? booking.assignedTables : booking.tableNames;
         const hasCommonTable = bookingTables.some(t => tableNames.includes(t));
         
@@ -697,13 +689,13 @@
       }
 
       try {
-        await addDoc(collection(db, "minute_timeline_bookings"), {
+        await addDoc(collection(db, "cher_thai_restaurant_system"), {
           tableNames: selectedTables,
           customerName: name,
           pax: pax,
           bookingTime: timeVal,
           note: note,
-          assignedTables: [],
+          assignedTables: [], // ตอนจองยังอยู่ในคิวรอฝั่งซ้าย
           timestamp: Date.now()
         });
 
@@ -725,22 +717,23 @@
       e.preventDefault();
       const bookingId = e.dataTransfer.getData('bookingId');
       if (bookingId) {
-        await deleteDoc(doc(db, "minute_timeline_bookings", bookingId));
+        await deleteDoc(doc(db, "cher_thai_restaurant_system", bookingId));
       }
     });
 
-    // ฟังก์ชันคลิกโต๊ะเพื่อ Walk-in ด่วน (ไม่ต้องใส่ชื่อก็ได้ จะขึ้นเป็น Walk-in อัตโนมัติ)
+    // ฟังก์ชันจัดการคลิก Walk-in และลากวางคิวลงผังโต๊ะ
     tablesList.forEach(tName => {
       const boxId = `layout-${tName.replace('/', '_')}`;
       const box = document.getElementById(boxId);
       if (!box) return;
 
+      // Click เพื่อ Walk-in ด่วน
       box.addEventListener('click', async () => {
         const isOccupied = globalActiveBookings.some(b => b.assignedTables && b.assignedTables.includes(tName));
         if (isOccupied) return;
 
         let inputName = prompt(`Walk-in ด่วนที่โต๊ะ ${tName}:\nกรอกชื่อลูกค้า (กด OK ข้ามเพื่อใช้ชื่อ "Walk-in"):`, "");
-        if (inputName === null) return; // กดยกเลิก
+        if (inputName === null) return;
         
         const customerDisplayName = inputName.trim() === "" ? "Walk-in" : inputName.trim();
         const pax = prompt('จำนวนคน (Pax):', '2');
@@ -755,18 +748,18 @@
           return;
         }
 
-        await addDoc(collection(db, "minute_timeline_bookings"), {
+        await addDoc(collection(db, "cher_thai_restaurant_system"), {
           tableNames: [tName],
           customerName: customerDisplayName,
           pax: pax || '1',
           bookingTime: timeVal,
           note: 'Walk-in หน้าร้าน',
-          assignedTables: [tName],
+          assignedTables: [tName], // นั่งโต๊ะทันที
           timestamp: Date.now()
         });
       });
 
-      // รองรับการลากวาง (Drag & Drop) ควบรวมโต๊ะอัตโนมัติ
+      // Drag & Drop เพื่อ Assign โต๊ะ (ควบรวมโต๊ะอัตโนมัติ)
       box.addEventListener('dragover', (e) => e.preventDefault());
       box.addEventListener('drop', async (e) => {
         e.preventDefault();
@@ -774,9 +767,7 @@
         if (bookingId) {
           const targetBooking = globalActiveBookings.find(b => b.id === bookingId);
           if (targetBooking) {
-            // หากมีการจองรวมโต๊ะไว้ (เช่น [11, 12]) จะดึงทั้งหมดมาควบรวมทันที แม้จะลากมาวางที่โต๊ะ 11 หรือ 12 ตัวใดตัวหนึ่ง
             const tablesToAssign = targetBooking.tableNames.length > 1 ? targetBooking.tableNames : [tName];
-
             const startMin = timeToMinutes(targetBooking.bookingTime);
             const overlapCheck = checkOverlap(tablesToAssign, startMin, bookingId);
 
@@ -785,14 +776,14 @@
               return;
             }
 
-            await setDoc(doc(db, "minute_timeline_bookings", bookingId), { assignedTables: tablesToAssign }, { merge: true });
+            await setDoc(doc(db, "cher_thai_restaurant_system", bookingId), { assignedTables: tablesToAssign }, { merge: true });
           }
         }
       });
     });
 
-    // ซิงค์ข้อมูล Real-time จาก Firebase
-    onSnapshot(collection(db, "minute_timeline_bookings"), (snapshot) => {
+    // ซิงค์ข้อมูล Real-time ทั่วทั้งระบบ
+    onSnapshot(collection(db, "cher_thai_restaurant_system"), (snapshot) => {
       waitingQueueContainer.innerHTML = '';
       globalActiveBookings = [];
       
@@ -822,22 +813,13 @@
         globalActiveBookings.push({ id: firebaseDoc.id, ...data });
       });
 
-      const bookingsByTable = {};
-      tablesList.forEach(tName => bookingsByTable[tName] = []);
-
-      globalActiveBookings.forEach(b => {
-        const activeTables = (b.assignedTables && b.assignedTables.length > 0) ? b.assignedTables : [];
-        activeTables.forEach(tName => {
-          if (!bookingsByTable[tName]) bookingsByTable[tName] = [];
-          bookingsByTable[tName].push(b);
-        });
-      });
-
+      // จัดการแสดงผลคิวรอ และ ผังโต๊ะในร้าน
       globalActiveBookings.forEach(data => {
         const docId = data.id;
         const hasAssigned = data.assignedTables && data.assignedTables.length > 0;
 
         if (!hasAssigned) {
+          // ยังไม่อยู่บนผังร้าน -> อยู่ในคิวรอด้านข้าง
           const card = document.createElement('div');
           card.className = 'queue-card';
           card.draggable = true;
@@ -852,6 +834,7 @@
           });
           waitingQueueContainer.appendChild(card);
         } else {
+          // อยู่บนผังร้านแล้ว -> แสดงผลบนโต๊ะที่ถูก Assign
           data.assignedTables.forEach(tName => {
             const box = document.getElementById(`layout-${tName.replace('/', '_')}`);
             if (box) {
@@ -871,6 +854,18 @@
         }
       });
 
+      // คำนวณข้อมูลสำหรับนำไปแสดงผลในหน้า 1 และ หน้า 2 (ใช้ทั้ง tableNames และ assignedTables มาคิดรวมกัน)
+      const bookingsByTable = {};
+      tablesList.forEach(tName => bookingsByTable[tName] = []);
+
+      globalActiveBookings.forEach(b => {
+        const activeTables = (b.assignedTables && b.assignedTables.length > 0) ? b.assignedTables : b.tableNames;
+        activeTables.forEach(tName => {
+          if (!bookingsByTable[tName]) bookingsByTable[tName] = [];
+          bookingsByTable[tName].push(b);
+        });
+      });
+
       Object.keys(bookingsByTable).forEach(tName => {
         const rowEl = document.getElementById(`timeline-row-${tName.replace('/', '_')}`);
         const availCard = document.getElementById(`avail-card-${tName.replace('/', '_')}`);
@@ -880,6 +875,7 @@
         if (bookingsByTable[tName].length > 0) {
           bookingsByTable[tName].sort((a, b) => a.bookingTime.localeCompare(b.bookingTime));
 
+          // 1. อัปเดตตาราง Timeline (หน้า 2)
           let cardsHtml = '';
           bookingsByTable[tName].forEach(b => {
             const startMin = timeToMinutes(b.bookingTime);
@@ -899,6 +895,7 @@
           });
           if (rowEl) rowEl.innerHTML = cardsHtml;
 
+          // 2. อัปเดตตารางเวลาว่างตลอดวัน (หน้า 1 - Table Availability Timeline)
           const OPEN_MIN = 12 * 60;
           const CLOSE_MIN = 23 * 60;
           
@@ -934,7 +931,7 @@
 
     window.deleteBooking = async function(docId) {
       if (confirm('ต้องการลบรายการจองนี้ใช่ไหม?')) {
-        await deleteDoc(doc(db, "minute_timeline_bookings", docId));
+        await deleteDoc(doc(db, "cher_thai_restaurant_system", docId));
       }
     };
   </script>
