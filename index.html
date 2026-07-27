@@ -582,7 +582,7 @@
       border-color: #ef4444;
     }
 
-    /* 🔒 Custom Modal สไตล์ SevenRooms ทั้งแบบแจ้งเตือนและยืนยัน */
+    /* 🔒 Custom Modal สไตล์ SevenRooms หรูหรา ทั้งแบบแจ้งเตือนและยืนยัน */
     .custom-modal-overlay {
       display: none;
       position: fixed;
@@ -871,7 +871,7 @@
               <span id="sr-upcoming-count" class="badge-count">0 (0)</span>
             </div>
             <div class="sr-content open" id="sr-upcoming-content">
-              <div id="waiting-queue-container" style="min-height: 35px;"></div>
+              <div id="waiting-queue-container" style="min-height: 35px;"><div style="font-size: 11px; color: #94a3b8; padding: 4px;">ไม่มีรายการ</div></div>
             </div>
           </div>
 
@@ -1055,7 +1055,7 @@
             </tr>
           </thead>
           <tbody id="customer-report-body">
-            <tr><td colspan="9" style="text-align: center; color: #94a3b8;">ไม่มีรายการ</td></tr>
+            <tr><td colspan="9" style="text-align: center; color: #94a3b8;">ไม่พบข้อมูลการจองในวันที่เลือก</td></tr>
           </tbody>
         </table>
       </div>
@@ -1131,11 +1131,16 @@
           inputContainer.style.display = 'none';
         }
 
+        const buttonsContainer = btnOk.parentNode;
+        buttonsContainer.querySelectorAll('.custom-action-btn').forEach(b => b.remove());
+
         if (isConfirm) {
           btnCancel.style.display = 'block';
+          btnOk.style.display = 'block';
           btnOk.innerText = 'ตกลง';
         } else {
           btnCancel.style.display = 'none';
+          btnOk.style.display = 'block';
           btnOk.innerText = 'ปิด';
         }
 
@@ -1243,8 +1248,8 @@
 
     const tablesList = ["O1", "O2", "O3", "O4", "O5", "O6", "3", "4", "5", "6", "7", "8", "9", "10", "11", "11/1", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "23"];
     
-    // 🌟 โต๊ะหลัก 4 คน (โต๊ะ 3-4 และ 11-11/1) สามารถแยกเป็นโต๊ะ 2 คนได้อิสระ
-    const tables4Pax = ["3", "4", "11", "11/1", "17"];
+    // 🌟 [โต๊ะ 4 คนหลักคือ 3-4 และ 11-11/1]
+    const tables4Pax = ["3", "4", "11", "11/1", "12", "17"];
     const tables3Pax = ["9", "18", "23"];
     const tables2Pax = ["O1", "O2", "O3", "O4", "O5", "O6", "3", "4", "5", "6", "7", "8", "10", "11", "11/1", "12", "13", "14", "15", "16", "19", "20", "21"];
 
@@ -1447,7 +1452,7 @@
       return true;
     }
 
-    // 🌟 [ระบบจัดโต๊ะอัจฉริยะ โต๊ะ 4 คนหลักคือ 3-4 และ 11-11/1 แต่ยืดหยุ่นแยกเดี่ยวได้]
+    // 🌟 [ระบบจัดโต๊ะอัจฉริยะ]
     function autoSelectTables() {
       if (isUserManualSelected) return;
 
@@ -1636,9 +1641,17 @@
       }
     });
 
+    // 🌟 [ฟังก์ชันนั่งโต๊ะพร้อม Confirm ยืนยันลูกค้ารายนี้ และเช็คเงื่อนไขก่อนเวลา 15 นาทีอัตโนมัติ]
     window.seatCustomer = async function(docId, tableNamesArr) {
       const targetBooking = globalAllBookings.find(b => b.id === docId);
       if (!targetBooking) return;
+
+      let confirmSeat = await showAppModal(
+        '🪑 ยืนยันการจัดโต๊ะ', 
+        `ต้องการให้คุณ <b>${targetBooking.customerName}</b> (${targetBooking.pax} Pax) นั่งที่โต๊ะ <b>${tableNamesArr.join(', ')}</b> ใช่หรือไม่?`, 
+        true
+      );
+      if (!confirmSeat.success) return;
 
       const now = new Date();
       const currentHours = String(now.getHours()).padStart(2, '0');
@@ -1656,8 +1669,8 @@
       };
 
       if (diffMins > 15) {
-        let res = await showAppModal('🕒 แจ้งเตือนเวลา', `ลูกค้ามาถึงก่อนเวลาจอง (${targetBooking.bookingTime} น.) ตั้ง ${diffMins} นาที<br><br>ต้องการเลื่อนเวลาเริ่มนับรอบเป็น ${currentTimeStr} น. เลยหรือไม่?`, true);
-        if (res.success) {
+        let resTime = await showAppModal('🕒 แจ้งเตือนเวลา', `ลูกค้ามาถึงก่อนเวลาจอง (${targetBooking.bookingTime} น.) ตั้ง ${diffMins} นาที<br><br>ต้องการเลื่อนเวลาเริ่มนับรอบเป็น ${currentTimeStr} น. เลยหรือไม่?`, true);
+        if (resTime.success) {
           updatePayload.bookingTime = currentTimeStr;
         }
       }
@@ -2081,7 +2094,7 @@
       globalActiveBookings.forEach(b => {
         if (b.status !== 'left' && b.status !== 'noshow' && b.status !== 'canceled') totalPax += parseInt(b.pax || 0);
       });
-      document.getElementById('daily-summary-text').innerText = `📊 ยอดจองวันที่ ${selectedDate}: ${globalActiveBookings.filter(b => b.status !== 'left' && b.status !== 'noshow' && b.status !== 'canceled').length} รายการ (รวม ${totalPax} คน)`;
+      document.getElementById('daily-summary-text').innerText = `📊 ยอดจองวันที่ ${selectedDate}: ${globalActiveBookings.filter(b => b.status !== 'left' && b.status !== 'noshow' && b.status !== 'canceled').length} รายการ (รวม ${totalPax} Pax)`;
 
       tablesList.forEach(tName => {
         const box = document.getElementById(`layout-${tName.replace('/', '_')}`);
@@ -2123,7 +2136,7 @@
         if (status !== 'left' && status !== 'noshow' && status !== 'canceled') {
           const totalItem = document.createElement('div');
           totalItem.style.cssText = "padding: 5px; border-bottom: 1px solid #1e293b; font-size: 11px;";
-          totalItem.innerHTML = `<b>${data.bookingTime}</b> - ${data.customerName} (${data.pax}น.) [${hasAssigned ? 'นั่งโต๊ะ: ' + data.assignedTables.join(', ') : 'รอเข้าร้าน'}]`;
+          totalItem.innerHTML = `<b>${data.bookingTime}</b> - ${data.customerName} (${data.pax} Pax) [${hasAssigned ? 'นั่งโต๊ะ: ' + data.assignedTables.join(', ') : 'รอเข้าร้าน'}]`;
           srListTotal.appendChild(totalItem);
         }
 
@@ -2132,7 +2145,7 @@
           const card = document.createElement('div');
           card.className = 'queue-item-drag';
           card.draggable = true;
-          card.innerHTML = `✅ <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime} ${phoneText}`;
+          card.innerHTML = `✅ <b>${data.customerName}</b> (${data.pax} Pax) ⏰${data.bookingTime} ${phoneText}`;
           card.addEventListener('dragstart', (e) => e.dataTransfer.setData('bookingId', docId));
           srListLeft.appendChild(card);
         } else if (status === 'noshow') {
@@ -2141,7 +2154,7 @@
           card.className = 'queue-item-drag';
           card.draggable = true;
           card.style.borderColor = '#64748b';
-          card.innerHTML = `❌ <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime}`;
+          card.innerHTML = `❌ <b>${data.customerName}</b> (${data.pax} Pax) ⏰${data.bookingTime}`;
           card.addEventListener('dragstart', (e) => e.dataTransfer.setData('bookingId', docId));
           srListNoshow.appendChild(card);
         } else if (status === 'canceled') {
@@ -2150,7 +2163,7 @@
           card.className = 'queue-item-drag';
           card.draggable = true;
           card.style.borderColor = '#475569';
-          card.innerHTML = `🚫 <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.updateStatus('${docId}', 'upcoming')" style="float:right; background:#334155; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">คืนคิว</button>`;
+          card.innerHTML = `🚫 <b>${data.customerName}</b> (${data.pax} Pax) ⏰${data.bookingTime} <button onclick="window.updateStatus('${docId}', 'upcoming')" style="float:right; background:#334155; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">คืนคิว</button>`;
           card.addEventListener('dragstart', (e) => e.dataTransfer.setData('bookingId', docId));
           srListCanceled.appendChild(card);
         } else if (!hasAssigned) {
@@ -2161,7 +2174,7 @@
           let combinedBadge = data.tableNames.length > 1 ? ` 🔗[รวมโต๊ะ: ${data.tableNames.join(', ')}]` : '';
           let confBadge = status === 'confirmed' ? ' 🔵[คอนเฟิมแล้ว]' : '';
           card.innerHTML = `
-            <div>👤 ${data.customerName} (${data.pax}น.)${combinedBadge}${confBadge}</div>
+            <div>👤 ${data.customerName} (${data.pax} Pax)${combinedBadge}${confBadge}</div>
             <div style="font-size: 10px; color: #94a3b8;">⏰ ${data.bookingTime} น. (โต๊ะ: ${data.tableNames.join(', ')}${phoneText})</div>
           `;
           
@@ -2170,10 +2183,7 @@
           });
           
           card.addEventListener('click', async () => {
-            let res = await showAppModal('🪑 ยืนยันการนั่งโต๊ะ', `นำคุณ ${data.customerName} เข้านั่งที่โต๊ะ ${data.tableNames.join(', ')} ใช่ไหม?`, true);
-            if (res.success) {
-              window.seatCustomer(docId, data.tableNames);
-            }
+            window.seatCustomer(docId, data.tableNames);
           });
 
           waitingQueueContainer.appendChild(card);
@@ -2181,7 +2191,7 @@
           seatedCount++;
           const seatedItem = document.createElement('div');
           seatedItem.style.cssText = "padding: 5px; border-bottom: 1px solid #1e293b; font-size: 11px;";
-          seatedItem.innerHTML = `<b>โต๊ะ ${data.assignedTables.join(', ')}</b>: ${data.customerName} (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.unseatCustomer('${docId}')" style="float:right; background:#ef4444; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">ดึงกลับคิว</button>`;
+          seatedItem.innerHTML = `<b>โต๊ะ ${data.assignedTables.join(', ')}</b>: ${data.customerName} (${data.pax} Pax) ⏰${data.bookingTime} <button onclick="window.unseatCustomer('${docId}')" style="float:right; background:#ef4444; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">ดึงกลับคิว</button>`;
           srListSeated.appendChild(seatedItem);
 
           data.assignedTables.forEach(tName => {
@@ -2211,7 +2221,7 @@
               chip.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 let realTimeMsg = `📊 ข้อมูลโต๊ะ ${tName}<br>`;
-                realTimeMsg += `👤 ลูกค้า: ${data.customerName} (${data.pax} คน)<br>`;
+                realTimeMsg += `👤 ลูกค้า: ${data.customerName} (${data.pax} Pax)<br>`;
                 realTimeMsg += `⏰ เวลาจอง: ${data.bookingTime} น.<br>`;
                 realTimeMsg += `⏱️ เวลานั่งจริง: ${timerText} (จำกัดรอบ 90 นาที)<br><br>`;
                 realTimeMsg += `ต้องการเช็คบิล / ให้ลูกค้าลุกจากโต๊ะนี้ใช่ไหม?`;
@@ -2236,6 +2246,7 @@
       document.getElementById('sr-canceled-count').innerText = `${canceledCount}`;
 
       if (activeCount === 0) srListTotal.innerHTML = '<div style="font-size: 11px; color: #94a3b8; padding: 4px;">ไม่มีรายการ</div>';
+      if (upcomingCount === 0) waitingQueueContainer.innerHTML = '<div style="font-size: 11px; color: #94a3b8; padding: 4px;">ไม่มีรายการ</div>';
       if (seatedCount === 0) srListSeated.innerHTML = '<div style="font-size: 11px; color: #94a3b8; padding: 4px; min-height:35px;">ไม่มีรายการ</div>';
       if (leftCount === 0) srListLeft.innerHTML = '<div style="font-size: 11px; color: #94a3b8; padding: 4px; min-height:35px;">ไม่มีรายการ</div>';
       if (noshowCount === 0) srListNoshow.innerHTML = '<div style="font-size: 11px; color: #94a3b8; padding: 4px; min-height:35px;">ไม่มีรายการ</div>';
@@ -2286,7 +2297,6 @@
 
                 let assignedTables = [newTable];
                 
-                // 🌟 [ตรรกะจับคู่โต๊ะ 3-4 และ 11-11/1 สำหรับ 4 คน เมื่อวันปกติ]
                 if (bookingPax >= 3) {
                   if (newTable === "3" || newTable === "4") {
                     assignedTables = ["3", "4"];
@@ -2295,7 +2305,7 @@
                   } else {
                     const currentCap = tableCapacity[newTable] || 2;
                     if (bookingPax > currentCap) {
-                      let resMerge = await showAppModal('⚠️ แจ้งเตือนรวมโต๊ะ', `ลูกค้ามีจำนวน ${bookingPax} ท่าน แต่โต๊ะ ${newTable} รองรับได้ ${currentCap} ท่าน<br><br>ต้องการ Merge (รวมโต๊ะ) กับโต๊ะข้างๆ ที่ว่างในช่วงเวลานี้อัตโนมัติหรือไม่?`, true);
+                      let resMerge = await showAppModal('⚠️ แจ้งเตือนรวมโต๊ะ', `ลูกค้ามีจำนวน ${bookingPax} Pax แต่โต๊ะ ${newTable} รองรับได้ ${currentCap} Pax<br><br>ต้องการ Merge (รวมโต๊ะ) กับโต๊ะข้างๆ ที่ว่างในช่วงเวลานี้อัตโนมัติหรือไม่?`, true);
 
                       if (resMerge.success) {
                         let foundNeighbor = null;
@@ -2338,8 +2348,7 @@
                 }
 
                 try {
-                  await setDoc(doc(db, "cher_thai_restaurant_system", bookingId), { tableNames: assignedTables, assignedTables: assignedTables }, { merge: true });
-                  await showAppModal('✅ สำเร็จ', `ย้ายคุณ "${targetBooking.customerName}" ไปที่โต๊ะ ${assignedTables.join(', ')} เรียบร้อยแล้ว`);
+                  window.seatCustomer(bookingId, assignedTables);
                 } catch (err) {
                   console.error(err);
                   await showAppModal('❌ เกิดข้อผิดพลาด', 'ไม่สามารถย้ายโต๊ะได้');
@@ -2364,7 +2373,7 @@
             cardsHtml += `
               <div class="timeline-card" draggable="true" ondragstart="event.dataTransfer.setData('timelineBookingId', '${b.id}')" title="ลากเพื่อย้ายโต๊ะ">
                 <div style="font-size: 11px; color: #cbd5e1;">⏰ ${timeRangeStr} น. (90 นาที)${combinedBadge}</div>
-                <div style="font-size: 13px;">${b.customerName} (${b.pax} คน)${phoneStr}</div>
+                <div style="font-size: 13px;">${b.customerName} (${b.pax} Pax)${phoneStr}</div>
                 ${b.note ? `<div style="font-size: 11px; opacity: 0.9;">📝 ${b.note}</div>` : ''}
                 <button class="delete-btn" onclick="window.deleteBooking('${b.id}')" title="ลบรายการ">✕</button>
               </div>
@@ -2426,6 +2435,31 @@
         await setDoc(doc(db, "cher_thai_restaurant_system", docId), { status: 'canceled', assignedTables: [], seatedTimestamp: null }, { merge: true });
       }
     };
+
+    // 🌟 [รองรับการรับ Drop คิวลงบนกล่องโต๊ะในผังร้าน]
+    document.querySelectorAll('.table-box').forEach(box => {
+      box.addEventListener('dragover', (e) => e.preventDefault());
+      box.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        const bookingId = e.dataTransfer.getData('bookingId') || e.dataTransfer.getData('timelineBookingId');
+        const targetTable = box.getAttribute('data-table');
+        if (bookingId && targetTable) {
+          const targetBooking = globalAllBookings.find(b => b.id === bookingId);
+          if (targetBooking) {
+            const tablesToAssign = targetBooking.tableNames.length > 1 ? targetBooking.tableNames : [targetTable];
+            const startMin = timeToMinutes(targetBooking.bookingTime);
+            const overlapCheck = checkOverlap(tablesToAssign, startMin, bookingId);
+
+            if (overlapCheck.isOverlap) {
+              await showAppModal('❌ แจ้งเตือน', `ไม่สามารถวางที่โต๊ะนี้ได้! เวลาชนกับคิวของ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})`);
+              return;
+            }
+
+            window.seatCustomer(bookingId, tablesToAssign);
+          }
+        }
+      });
+    });
   </script>
 
 </body>
