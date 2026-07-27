@@ -1288,7 +1288,7 @@
     const getTodayString = () => new Date().toISOString().split('T')[0];
     const todayStr = getTodayString();
     
-    // 🌟 [ตั้งค่าวันที่เริ่มต้นให้เป็นวันปัจจุบันอัตโนมัติทุกครั้งที่เปิดเว็บ]
+    // 🌟 [บังคับเช็คและเคลียร์วันเก่าทิ้ง บังคับให้เป็นวันปัจจุบันจริงเสมอเมื่อเปิดเว็บ]
     viewDatePicker.value = todayStr;
     bookingDateInput.value = todayStr;
     layoutDatePicker.value = todayStr;
@@ -2087,6 +2087,16 @@
     }, 10000);
 
     function renderDashboard() {
+      // 🌟 [เช็คและบังคับอัปเดตวันที่เป็นวันนี้แบบ Real-time ถ้าข้ามวันแล้วเปิดแอปค้างไว้]
+      const currentRealToday = getTodayString();
+      if (viewDatePicker.value !== currentRealToday && !viewDatePicker.matches(':focus')) {
+        viewDatePicker.value = currentRealToday;
+        bookingDateInput.value = currentRealToday;
+      }
+      if (layoutDatePicker.value !== currentRealToday && !layoutDatePicker.matches(':focus')) {
+        layoutDatePicker.value = currentRealToday;
+      }
+
       const selectedDate = viewDatePicker.value;
       const layoutSelectedDate = layoutDatePicker.value;
       const closedBanner = document.getElementById('closed-banner-box');
