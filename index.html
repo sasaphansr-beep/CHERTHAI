@@ -1288,7 +1288,6 @@
     const layoutDatePicker = document.getElementById('layout-date-picker');
     const customerReportDatePicker = document.getElementById('customer-report-date-picker');
 
-    // 🌟 [แก้ปัญหา Timezone: คำนวณวันที่ตามเวลาท้องถิ่นประเทศไทย (Local Date YYYY-MM-DD) แบบแม่นยำ]
     const getTodayString = () => {
       const now = new Date();
       const localDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
@@ -1314,7 +1313,8 @@
     window.setTodayDate = function() {
       viewDatePicker.value = todayStr;
       bookingDateInput.value = todayStr;
-      validateAndRenderDate();
+      renderDashboard();
+      autoSelectTables();
     };
 
     window.setLayoutTodayDate = function() {
@@ -1324,25 +1324,18 @@
 
     function isMonday(dateStr) {
       if (!dateStr) return false;
-      const d = new Date(dateStr);
+      // ป้องกันบักเวลา Timezone เลื่อมวัน ใช้การแยกสตริง YYYY-MM-DD ตรงๆ
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return false;
+      const d = new Date(parts[0], parts[1] - 1, parts[2]);
       return d.getDay() === 1;
     }
 
-    async function validateAndRenderDate() {
-      const selectedDate = viewDatePicker.value;
-
-      if (isMonday(selectedDate)) {
-        await showAppModal('❌ แจ้งเตือน', 'ร้านปิดทำการทุกวันจันทร์! กรุณาเลือกวันอื่น');
-        const d = new Date(selectedDate);
-        d.setDate(d.getDate() + 1);
-        const nextDate = d.toISOString().split('T')[0];
-        viewDatePicker.value = nextDate;
-        bookingDateInput.value = nextDate;
-      }
-
+    viewDatePicker.addEventListener('change', () => {
+      bookingDateInput.value = viewDatePicker.value;
       renderDashboard();
       autoSelectTables();
-    }
+    });
 
     const checkboxContainer = document.getElementById('table-checkboxes');
     tablesList.forEach(tName => {
@@ -1559,13 +1552,7 @@
       autoSelectTables();
     });
     timeInput.addEventListener('change', autoSelectTables);
-    bookingDateInput.addEventListener('change', async () => {
-      if (isMonday(bookingDateInput.value)) {
-        await showAppModal('❌ แจ้งเตือน', 'ร้านหยุดทุกวันจันทร์! กรุณาเลือกวันอื่น');
-        const d = new Date(bookingDateInput.value);
-        d.setDate(d.getDate() + 1);
-        bookingDateInput.value = d.toISOString().split('T')[0];
-      }
+    bookingDateInput.addEventListener('change', () => {
       viewDatePicker.value = bookingDateInput.value;
       renderDashboard();
       autoSelectTables();
@@ -1857,11 +1844,6 @@
       }
     };
 
-    viewDatePicker.addEventListener('change', () => {
-      bookingDateInput.value = viewDatePicker.value;
-      validateAndRenderDate();
-    });
-
     layoutDatePicker.addEventListener('change', () => {
       renderDashboard();
     });
@@ -2094,15 +2076,6 @@
     }, 10000);
 
     function renderDashboard() {
-      const currentRealToday = getTodayString();
-      if (viewDatePicker.value !== currentRealToday && !viewDatePicker.matches(':focus')) {
-        viewDatePicker.value = currentRealToday;
-        bookingDateInput.value = currentRealToday;
-      }
-      if (layoutDatePicker.value !== currentRealToday && !layoutDatePicker.matches(':focus')) {
-        layoutDatePicker.value = currentRealToday;
-      }
-
       const selectedDate = viewDatePicker.value;
       const layoutSelectedDate = layoutDatePicker.value;
       const closedBanner = document.getElementById('closed-banner-box');
