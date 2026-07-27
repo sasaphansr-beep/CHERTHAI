@@ -1030,7 +1030,7 @@
             <input type="date" id="customer-report-date-picker" onchange="renderCustomerTable()" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: bold; font-size: 13px;">
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร:</label>
+            <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร (ค้นหาทั้งหมด):</label>
             <input type="text" id="customer-search-input" placeholder="พิมพ์ค้นหา..." oninput="renderCustomerTable()">
           </div>
           <div>
@@ -1043,6 +1043,7 @@
         <table class="timeline-table">
           <thead>
             <tr>
+              <th>วันที่จอง</th>
               <th>เวลา</th>
               <th>ชื่อลูกค้า</th>
               <th>เบอร์โทรศัพท์</th>
@@ -1055,7 +1056,7 @@
             </tr>
           </thead>
           <tbody id="customer-report-body">
-            <tr><td colspan="9" style="text-align: center; color: #94a3b8;">ไม่พบข้อมูลการจองในวันที่เลือก</td></tr>
+            <tr><td colspan="10" style="text-align: center; color: #94a3b8;">ไม่พบข้อมูลการจองในระบบ</td></tr>
           </tbody>
         </table>
       </div>
@@ -1109,7 +1110,7 @@
   </div>
 
   <script>
-    // 🌟 ระบบ Custom Modal (ลบคำว่า "ครับ" ทั้งหมดเพื่อความเป็นมืออาชีพ)
+    // 🌟 ระบบ Custom Modal (ไม่มีคำว่า "ครับ")
     function showAppModal(title, htmlContent, isConfirm = false, inputType = null) {
       return new Promise((resolve) => {
         const modal = document.getElementById('app-modal');
@@ -1877,25 +1878,24 @@
       }
     });
 
+    // 🌟 [อัปเกรดระบบค้นหาหน้าข้อมูลลูกค้า: ค้นหาทั้งหมดจากฐานข้อมูลแบบ Global Search ไม่จำกัดเฉพาะวันที่]
     window.renderCustomerTable = function() {
       const tbody = document.getElementById('customer-report-body');
-      const selectedDateFilter = document.getElementById('customer-report-date-picker').value;
       const searchKeyword = (document.getElementById('customer-search-input').value || "").toLowerCase().trim();
       
       tbody.innerHTML = '';
 
       let filtered = globalAllBookings.filter(b => {
-        const matchDate = !selectedDateFilter || b.bookingDate === selectedDateFilter;
         const name = (b.customerName || "").toLowerCase();
         const phone = (b.phone || "").toLowerCase();
         const matchSearch = !searchKeyword || name.includes(searchKeyword) || phone.includes(searchKeyword);
-        return matchDate && matchSearch;
+        return matchSearch;
       });
 
-      filtered.sort((a, b) => (a.bookingTime || "").localeCompare(b.bookingTime || ""));
+      filtered.sort((a, b) => (b.bookingDate || "").localeCompare(a.bookingDate || ""));
 
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; color: #94a3b8;">ไม่พบข้อมูลการจองในวันที่เลือก</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: #94a3b8;">ไม่พบข้อมูลการจองในระบบ</td></tr>';
         return;
       }
 
@@ -1922,6 +1922,7 @@
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
+          <td><b>${b.bookingDate || '-'}</b></td>
           <td><b>${b.bookingTime || '-'}</b></td>
           <td><b>${b.customerName || '-'}</b></td>
           <td>${b.phone || '-'}</td>
