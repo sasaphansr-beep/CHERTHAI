@@ -106,7 +106,6 @@
     .main-content {
       flex: 1;
       padding: 15px;
-      padding-bottom: 80px; /* เว้นพื้นที่ด้านล่างบนมือถือไม่ให้เมนูบังเนื้อหา */
       overflow-y: auto;
       box-sizing: border-box;
       display: flex;
@@ -628,7 +627,7 @@
       }
     }
 
-    /* 📱 Responsive สำหรับมือถือและ iPad (หน้าจอแคบกว่า 900px): ย้ายเมนูไปไว้ด้านล่างสุดของจอ */
+    /* 📱 Responsive สำหรับมือถือและ iPad (หน้าจอแคบกว่า 900px): ย้ายเมนูไปไว้ด้านล่างสุด Fixed ตลอดเวลา */
     @media (max-width: 900px) {
       body {
         flex-direction: column;
@@ -1277,7 +1276,6 @@
 
     const tablesList = ["O1", "O2", "O3", "O4", "O5", "O6", "3", "4", "5", "6", "7", "8", "9", "10", "11", "11/1", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "23"];
     
-    // 🌟 [โต๊ะ 4 คนหลักคือ 3-4 และ 11-11/1]
     const tables4Pax = ["3", "4", "11", "11/1", "12", "17"];
     const tables3Pax = ["9", "18", "23"];
     const tables2Pax = ["O1", "O2", "O3", "O4", "O5", "O6", "3", "4", "5", "6", "7", "8", "10", "11", "11/1", "12", "13", "14", "15", "16", "19", "20", "21"];
@@ -1290,6 +1288,7 @@
     const getTodayString = () => new Date().toISOString().split('T')[0];
     const todayStr = getTodayString();
     
+    // 🌟 [ตั้งค่าวันที่เริ่มต้นให้เป็นวันปัจจุบันอัตโนมัติทุกครั้งที่เปิดเว็บ]
     viewDatePicker.value = todayStr;
     bookingDateInput.value = todayStr;
     layoutDatePicker.value = todayStr;
@@ -1481,7 +1480,6 @@
       return true;
     }
 
-    // 🌟 [ระบบจัดโต๊ะอัจฉริยะ]
     function autoSelectTables() {
       if (isUserManualSelected) return;
 
@@ -1670,7 +1668,6 @@
       }
     });
 
-    // 🌟 [ฟังก์ชันนั่งโต๊ะพร้อม Confirm ยืนยันลูกค้ารายนี้ และเช็คเงื่อนไขก่อนเวลา 15 นาทีอัตโนมัติ]
     window.seatCustomer = async function(docId, tableNamesArr) {
       const targetBooking = globalAllBookings.find(b => b.id === docId);
       if (!targetBooking) return;
@@ -1906,7 +1903,6 @@
       }
     });
 
-    // 🌟 [Smart Search อัจฉริยะ: ช่องว่างแสดงวันที่เลือก | พิมพ์ค้นหาแสดงทั้งหมดข้ามวัน | ลบคำค้นหากลับมาแสดงวันนั้นทันที]
     window.renderCustomerTable = function() {
       const tbody = document.getElementById('customer-report-body');
       const selectedDateFilter = document.getElementById('customer-report-date-picker').value;
@@ -1920,7 +1916,6 @@
         const matchSearch = searchKeyword !== "" && (name.includes(searchKeyword) || phone.includes(searchKeyword));
         const matchDate = !selectedDateFilter || b.bookingDate === selectedDateFilter;
 
-        // ถ้ากำลังพิมพ์ค้นหา ให้แสดงผลตามคำค้นหาข้ามวัน แต่ถ้าช่องค้นหาว่าง ให้กลับมาแสดงเฉพาะวันที่เลือกตามปกติ
         return searchKeyword !== "" ? matchSearch : matchDate;
       });
 
