@@ -9,19 +9,19 @@
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f4f6f8;
+      background-color: #f1f5f9;
       margin: 0;
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      color: #333;
+      color: #1e293b;
     }
     .sidebar {
       width: 220px;
-      background-color: #1e293b;
-      color: white;
+      background-color: #0f172a;
+      color: #f8fafc;
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
@@ -36,8 +36,8 @@
       padding: 15px 10px;
       font-size: 14px;
       font-weight: bold;
-      background-color: #0f172a;
-      border-bottom: 1px solid #334155;
+      background-color: #020617;
+      border-bottom: 1px solid #1e293b;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
@@ -49,16 +49,16 @@
       display: none;
     }
     .toggle-btn {
-      background: #334155;
+      background: #1e293b;
       border: none;
-      color: white;
+      color: #cbd5e1;
       padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
     }
     .toggle-btn:hover {
-      background: #475569;
+      background: #334155;
     }
     .sidebar-menu {
       list-style: none;
@@ -76,13 +76,17 @@
       gap: 10px;
       transition: background 0.2s;
       white-space: nowrap;
+      color: #cbd5e1;
     }
     .sidebar-item:hover {
-      background-color: #334155;
+      background-color: #1e293b;
+      color: #ffffff;
     }
     .sidebar-item.active {
-      background-color: #2563eb;
+      background-color: #334155;
+      color: #ffffff;
       font-weight: bold;
+      border-left: 4px solid #94a3b8;
     }
     .sidebar.collapsed .sidebar-text {
       display: none;
@@ -90,8 +94,8 @@
     .sidebar-footer {
       padding: 12px;
       font-size: 10px;
-      color: #94a3b8;
-      border-top: 1px solid #334155;
+      color: #64748b;
+      border-top: 1px solid #1e293b;
       white-space: nowrap;
       overflow: hidden;
     }
@@ -121,7 +125,7 @@
       background: #ffffff;
       padding: 10px 15px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       margin-bottom: 15px;
       display: flex;
       align-items: center;
@@ -129,6 +133,7 @@
       flex-wrap: wrap;
       gap: 8px;
       flex-shrink: 0;
+      border: 1px solid #e2e8f0;
     }
     .date-bar-left {
       display: flex;
@@ -138,25 +143,27 @@
     }
     .date-bar-left input[type="date"], .layout-date-picker {
       padding: 6px 10px;
-      border: 1px solid #2563eb;
+      border: 1px solid #cbd5e1;
       border-radius: 6px;
       font-size: 13px;
       font-weight: bold;
       color: #1e293b;
       cursor: pointer;
+      background: #f8fafc;
     }
     .summary-badge {
-      background: #e0f2fe;
-      color: #0369a1;
+      background: #f1f5f9;
+      color: #334155;
       padding: 5px 12px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: bold;
+      border: 1px solid #cbd5e1;
     }
 
     .store-closed-banner {
       display: none;
-      background-color: #ef4444;
+      background-color: #334155;
       color: white;
       padding: 12px;
       border-radius: 8px;
@@ -164,11 +171,11 @@
       font-weight: bold;
       text-align: center;
       margin-bottom: 15px;
-      box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+      border: 1px solid #1e293b;
     }
 
     h1, h2 {
-      color: #1e293b;
+      color: #0f172a;
       margin-top: 0;
       font-size: 18px;
     }
@@ -180,38 +187,45 @@
     .panel-box {
       background: white;
       padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #e2e8f0;
     }
     .form-group {
       margin-bottom: 10px;
     }
     label {
       display: block;
-      font-weight: bold;
+      font-weight: 600;
       margin-bottom: 4px;
       font-size: 13px;
+      color: #334155;
     }
     input, select {
       width: 100%;
       padding: 8px;
       box-sizing: border-box;
-      border: 1px solid #ccc;
+      border: 1px solid #cbd5e1;
       border-radius: 6px;
       font-size: 13px;
+      background: #f8fafc;
       -webkit-appearance: none;
     }
     button.save-btn {
       width: 100%;
-      background-color: #27ae60;
+      background-color: #0f172a;
       color: white;
       border: none;
       padding: 10px;
       border-radius: 6px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
       margin-top: 8px;
+      transition: background 0.2s;
+    }
+    button.save-btn:hover {
+      background-color: #334155;
     }
 
     .table-checkbox-grid {
@@ -246,9 +260,9 @@
       cursor: pointer;
     }
     .table-checkbox-item input[type="checkbox"]:checked + span {
-      background-color: #2563eb;
+      background-color: #0f172a;
       color: #ffffff;
-      border-color: #1d4ed8;
+      border-color: #020617;
     }
 
     .timeline-container {
@@ -256,6 +270,7 @@
       border-radius: 8px;
       overflow-x: auto;
       max-height: 500px;
+      border: 1px solid #e2e8f0;
     }
     table.timeline-table {
       width: 100%;
@@ -263,12 +278,12 @@
       font-size: 12px;
     }
     table.timeline-table th, table.timeline-table td {
-      border: 1px solid #cbd5e1;
+      border: 1px solid #e2e8f0;
       padding: 8px;
       vertical-align: middle;
     }
     table.timeline-table th {
-      background-color: #1e293b;
+      background-color: #0f172a;
       color: white;
       font-weight: bold;
       text-align: center;
@@ -277,24 +292,26 @@
       z-index: 2;
     }
     .table-label {
-      background-color: #e2e8f0;
+      background-color: #f1f5f9;
       font-weight: bold;
       text-align: center;
       width: 80px;
       font-size: 13px;
+      color: #334155;
     }
     .timeline-card {
-      background-color: #ff9800;
+      background-color: #334155;
       color: white;
       padding: 6px 10px;
       border-radius: 5px;
-      font-weight: bold;
+      font-weight: 500;
       margin-bottom: 4px;
       position: relative;
       font-size: 12px;
       display: inline-block;
       margin-right: 6px;
       cursor: grab;
+      border-left: 3px solid #94a3b8;
     }
     .timeline-card:active {
       cursor: grabbing;
@@ -305,9 +322,12 @@
       right: 3px;
       background: none;
       border: none;
-      color: white;
+      color: #cbd5e1;
       font-size: 10px;
       cursor: pointer;
+    }
+    .timeline-card .delete-btn:hover {
+      color: #ffffff;
     }
 
     /* 🗺️ เลย์เอาต์ผังร้านและแถบคิว */
@@ -319,13 +339,14 @@
     .queue-sidebar {
       width: 290px;
       flex-shrink: 0;
-      background: #1e293b;
+      background: #0f172a;
       color: #f8fafc;
       padding: 12px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       overflow-y: auto;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #1e293b;
     }
     .queue-sidebar.collapsed {
       width: 75px;
@@ -338,24 +359,25 @@
       display: none;
     }
     .queue-sidebar.collapsed .sr-section {
-      background: #1e293b;
-      border: 1px solid #334155;
+      background: #0f172a;
+      border: 1px solid #1e293b;
       text-align: center;
       margin-bottom: 4px;
     }
     .queue-sidebar.collapsed .sr-header {
       justify-content: center;
       padding: 6px;
-      color: #38bdf8;
+      color: #94a3b8;
       font-size: 11px;
     }
 
     .sr-section {
       margin-bottom: 6px;
-      border-bottom: 1px solid #334155;
-      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      background: #020617;
       border-radius: 6px;
       overflow: hidden;
+      border: 1px solid #1e293b;
     }
     .sr-header {
       padding: 8px 10px;
@@ -375,7 +397,7 @@
     .sr-content {
       padding: 6px;
       display: none;
-      background: #1e293b;
+      background: #0f172a;
       min-height: 30px;
     }
     .sr-content.open {
@@ -383,24 +405,27 @@
     }
 
     .queue-card, .queue-item-drag {
-      background-color: #334155;
-      border-left: 4px solid #f59e0b;
-      color: white;
+      background-color: #1e293b;
+      border-left: 3px solid #64748b;
+      color: #f8fafc;
       padding: 6px 8px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-size: 11px;
       margin-bottom: 5px;
       cursor: grab;
       box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      border-top: 1px solid #334155;
+      border-right: 1px solid #334155;
+      border-bottom: 1px solid #334155;
     }
 
     .checkout-drop-zone {
-      background: #064e3b;
-      border: 2px dashed #10b981;
+      background: #1e293b;
+      border: 1px dashed #64748b;
       padding: 10px;
       border-radius: 6px;
       text-align: center;
-      color: #34d399;
+      color: #cbd5e1;
       font-weight: bold;
       font-size: 11px;
       margin-top: 10px;
@@ -410,30 +435,32 @@
       flex: 1;
       background: white;
       padding: 12px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       overflow: auto;
       -webkit-overflow-scrolling: touch;
+      border: 1px solid #e2e8f0;
     }
 
     .restaurant-layout {
-      background: #e9ecef;
+      background: #f8fafc;
       padding: 15px;
-      border-radius: 10px;
+      border-radius: 8px;
       position: relative;
       width: 700px;
       height: 520px;
       flex-shrink: 0;
       margin: 0 auto;
+      border: 1px solid #e2e8f0;
     }
 
     .table-box {
-      background: #9e9e9e;
-      border: 2px solid #555;
-      color: #111;
-      border-radius: 5px;
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      border-radius: 6px;
       padding: 2px;
       text-align: center;
       font-weight: bold;
@@ -445,11 +472,11 @@
       align-items: center;
       cursor: pointer;
       overflow-y: auto;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
     .table-box.occupied {
-      background-color: #f1f5f9;
-      border-color: #64748b;
+      background-color: #ffffff;
+      border-color: #94a3b8;
     }
     .table-box.round {
       border-radius: 50%;
@@ -458,28 +485,22 @@
     }
 
     .table-occupant-chip {
-      color: white;
-      border-radius: 3px;
-      padding: 2px 3px;
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 2px 4px;
       font-size: 9px;
       width: 92%;
       box-sizing: border-box;
       cursor: pointer;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-      margin-top: 1px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      margin-top: 2px;
     }
-    .table-occupant-chip.status-green { background-color: #16a34a; }
-    .table-occupant-chip.status-yellow { background-color: #eab308; color: #1e293b; font-weight: bold; }
-    .table-occupant-chip.status-red { background-color: #dc2626; animation: pulse 1.5s infinite; }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.7; }
-      100% { opacity: 1; }
-    }
+    .table-occupant-chip.status-green { background-color: #334155; }
+    .table-occupant-chip.status-yellow { background-color: #475569; color: #ffffff; font-weight: 500; }
+    .table-occupant-chip.status-red { background-color: #1e293b; border: 1px solid #64748b; }
 
     .bar-box {
-      background: #2e7d32;
+      background: #334155;
       color: white;
       display: flex;
       align-items: center;
@@ -495,7 +516,7 @@
       height: 410px;
     }
     .gate-box {
-      background: #c62828;
+      background: #475569;
       color: white;
       display: flex;
       align-items: center;
@@ -508,6 +529,81 @@
       top: 80px;
       width: 135px;
       height: 26px;
+    }
+
+    /* 🗺️ สไตล์ปุ่มด่วนคุมโทน SevenRooms เรียบหรู */
+    .sr-btn {
+      border: 1px solid #cbd5e1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      background: #ffffff;
+      color: #334155;
+      transition: all 0.2s;
+    }
+    .sr-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .sr-btn-confirm {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+    .sr-btn-confirm:hover {
+      background: #334155;
+    }
+    .sr-btn-edit {
+      background: #f8fafc;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+    .sr-btn-edit:hover {
+      background: #e2e8f0;
+    }
+    .sr-btn-cancel {
+      background: #ffffff;
+      color: #64748b;
+      border-color: #cbd5e1;
+    }
+    .sr-btn-cancel:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+    .sr-btn-delete {
+      background: #fef2f2;
+      color: #991b1b;
+      border-color: #fca5a5;
+    }
+    .sr-btn-delete:hover {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    /* 🔒 Custom Modal สไตล์ SevenRooms หรูหรา ทั้งแบบแจ้งเตือนและยืนยัน */
+    .custom-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .custom-modal {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      width: 380px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      border: 1px solid #cbd5e1;
+      animation: modalFadeIn 0.2s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* 🖨️ CSS สำหรับเวลาสั่งพิมพ์ PDF / Print */
@@ -591,19 +687,37 @@
       background: white;
       padding: 12px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      border-left: 4px solid #22c55e;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-left: 4px solid #475569;
       cursor: pointer;
       transition: transform 0.1s, box-shadow 0.1s;
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
     }
     .availability-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      border-left-color: #2563eb;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-left-color: #0f172a;
     }
   </style>
 </head>
 <body>
+
+  <!-- 🌟 Custom Generic Modal สำหรับ Alert และ Confirm ทั้งระบบ -->
+  <div id="app-modal" class="custom-modal-overlay">
+    <div class="custom-modal">
+      <h3 id="app-modal-title" style="margin-top:0; font-size:16px; color:#0f172a; display:flex; align-items:center; gap:8px;"></h3>
+      <div id="app-modal-content" style="font-size:13px; color:#334155; margin-bottom:15px; line-height: 1.5;"></div>
+      <div id="app-modal-input-container" style="margin-bottom: 15px; display: none;">
+        <input type="password" id="app-modal-input" placeholder="••••" style="text-align: center; font-size: 18px; letter-spacing: 4px;">
+      </div>
+      <div style="display: flex; gap: 8px; justify-content: flex-end;" id="app-modal-buttons">
+        <button id="app-modal-btn-cancel" class="sr-btn" style="padding: 6px 14px;">ยกเลิก</button>
+        <button id="app-modal-btn-ok" class="sr-btn sr-btn-confirm" style="padding: 6px 14px; font-weight: bold;">ตกลง</button>
+      </div>
+    </div>
+  </div>
 
   <!-- 🗂️ แถบ Sidebar ด้านซ้าย -->
   <div class="sidebar" id="sidebar">
@@ -639,7 +753,7 @@
       <div class="date-bar-left">
         <label style="margin:0; font-size:14px; font-weight:bold;">📅 เลือกวันที่:</label>
         <input type="date" id="view-date-picker">
-        <button onclick="setTodayDate()" style="padding: 6px 10px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">วันนี้</button>
+        <button onclick="setTodayDate()" style="padding: 6px 10px; background: #0f172a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">วันนี้</button>
       </div>
       <div class="summary-badge" id="daily-summary-text">
         📊 ยอดจอง: 0 รายการ
@@ -674,7 +788,7 @@
           <div class="form-group">
             <label>📞 เบอร์โทรศัพท์:</label>
             <input type="tel" id="cust-phone" placeholder="เช่น 081-234-5678" oninput="checkCustomerByPhone(this.value)">
-            <div id="customer-visit-badge" style="font-size: 11px; color: #2563eb; font-weight: bold; margin-top: 3px;"></div>
+            <div id="customer-visit-badge" style="font-size: 11px; color: #334155; font-weight: bold; margin-top: 3px;"></div>
           </div>
           <div class="form-group">
             <label>👤 ชื่อลูกค้า:</label>
@@ -689,7 +803,7 @@
             <input type="number" id="cust-pax" placeholder="เช่น 4" value="2" min="1">
           </div>
           <div class="form-group">
-            <label>🍽️ เลือกโต๊ะ:</label>
+            <label>🍽️ เลือกโต๊ะ (เลือกเอง Manual หรือปล่อยระบบจัดให้):</label>
             <div class="table-checkbox-grid" id="table-checkboxes"></div>
           </div>
           <div class="form-group">
@@ -700,7 +814,7 @@
         </div>
 
         <div class="panel-box" style="flex: 2; min-width: 300px;">
-          <h2 style="color: #1e293b;">📅 ตารางรายการจองแยกตามโต๊ะ</h2>
+          <h2 style="color: #0f172a;">📅 ตารางรายการจองแยกตามโต๊ะ</h2>
           <div class="timeline-container">
             <table class="timeline-table">
               <thead>
@@ -719,15 +833,15 @@
 
     <!-- 📄 หน้าที่ 3: ผังร้าน & จัดการคิวสไตล์ SevenRooms -->
     <div id="layout-page" class="page-section">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; background: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; background: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0; border: 1px solid #e2e8f0;">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <button onclick="toggleQueueSidebar()" id="toggle-queue-btn" style="padding: 6px 10px; background: #475569; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;" title="ซ่อน/แสดงแถบคิว">◀ ย่อแถบคิว</button>
+          <button onclick="toggleQueueSidebar()" id="toggle-queue-btn" style="padding: 6px 10px; background: #334155; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;" title="ซ่อน/แสดงแถบคิว">◀ ย่อแถบคิว</button>
           <h1 style="margin: 0; font-size: 16px;">ผังร้านอาหาร</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 6px;">
           <label style="margin: 0; font-weight: bold; font-size: 13px;">🗺️ เลือกวันที่:</label>
           <input type="date" id="layout-date-picker" class="layout-date-picker">
-          <button onclick="setLayoutTodayDate()" style="padding: 5px 10px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">วันนี้</button>
+          <button onclick="setLayoutTodayDate()" style="padding: 5px 10px; background: #0f172a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">วันนี้</button>
         </div>
       </div>
       
@@ -735,7 +849,7 @@
         
         <!-- แถบคิวซ้ายสไตล์ SevenRooms -->
         <div class="queue-sidebar" id="queue-sidebar-panel">
-          <h3 style="color: #f8fafc; margin-top:0; font-size: 13px; border-bottom: 1px solid #334155; padding-bottom: 6px;">
+          <h3 style="color: #f8fafc; margin-top:0; font-size: 13px; border-bottom: 1px solid #1e293b; padding-bottom: 6px;">
             <span class="short-title">📋 จัดการคิว</span>
           </h3>
 
@@ -865,18 +979,55 @@
     <div id="customer-page" class="page-section">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
         <h1 style="margin: 0;">รายงานข้อมูลลูกค้า (Customer Directory & Reports)</h1>
-        <button onclick="window.print()" style="background: #2563eb; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">📥 บันทึกเป็น PDF / ปริ้นท์รายงาน</button>
+        <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">📥 บันทึกเป็น PDF / ปริ้นท์รายงาน</button>
       </div>
       
       <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">
-        ℹ️ ประวัติลูกค้าและสถิติการมาทานทั้งหมดจะถูกเก็บไว้อย่างถาวร ไม่สูญหาย แม้จะมีการกดยกเลิกหรือเปลี่ยนสถานะ
+        ℹ️ ประวัติลูกค้าและสถิติการมาทานทั้งหมดจะถูกเก็บไว้อย่างถาวร สามารถใช้ Score Bar ด้านล่างเพื่อแก้ไขข้อมูลด่วนได้ทันที
       </p>
+
+      <!-- 🌟 แผง Score Bar -->
+      <div id="inline-score-bar" class="panel-box" style="display: none; background: #ffffff; border: 1px solid #cbd5e1; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h3 style="margin-top:0; color: #0f172a; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">✏️ Score Bar: แก้ไขข้อมูลการจอง / ลบข้อมูล</h3>
+        <input type="hidden" id="edit-doc-id">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 10px;">
+          <div>
+            <label>👤 ชื่อลูกค้า:</label>
+            <input type="text" id="edit-cust-name">
+          </div>
+          <div>
+            <label>📞 เบอร์โทร:</label>
+            <input type="text" id="edit-cust-phone">
+          </div>
+          <div>
+            <label>⏰ เวลาจอง (เช่น 1830):</label>
+            <input type="text" id="edit-cust-time" placeholder="1830">
+          </div>
+          <div>
+            <label>👥 จำนวนคน (Pax):</label>
+            <input type="number" id="edit-cust-pax">
+          </div>
+          <div>
+            <label>🍽️ โต๊ะ (เช่น 3 หรือ 3,4):</label>
+            <input type="text" id="edit-cust-tables">
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 10px;">
+          <div style="display: flex; gap: 8px;">
+            <button onclick="saveInlineEdit()" class="sr-btn" style="background: #0f172a; color: white; border: none; padding: 6px 15px; font-weight: bold;">💾 บันทึกการแก้ไข</button>
+            <button onclick="closeInlineEdit()" class="sr-btn" style="padding: 6px 15px;">❌ ปิด</button>
+          </div>
+          <div>
+            <button onclick="promptDeleteCustomerRecord()" class="sr-btn sr-btn-delete" style="padding: 6px 15px; font-weight: bold;">🗑️ ลบข้อมูล</button>
+          </div>
+        </div>
+      </div>
 
       <div class="panel-box" style="margin-bottom: 15px;">
         <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
           <div>
             <label style="font-size: 12px; margin-bottom: 2px;">📅 เลือกวันที่ดูรายงาน:</label>
-            <input type="date" id="customer-report-date-picker" onchange="renderCustomerTable()" style="padding: 6px 10px; border: 1px solid #2563eb; border-radius: 6px; font-weight: bold; font-size: 13px;">
+            <input type="date" id="customer-report-date-picker" onchange="renderCustomerTable()" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: bold; font-size: 13px;">
           </div>
           <div style="flex: 1; min-width: 200px;">
             <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร:</label>
@@ -900,7 +1051,7 @@
               <th>โต๊ะ</th>
               <th>หมายเหตุ (Note)</th>
               <th>สถานะปัจจุบัน</th>
-              <th style="width: 170px; text-align: center;">จัดการ (เปลี่ยนเวลา / Cancel)</th>
+              <th style="width: 220px; text-align: center;">จัดการด่วน</th>
             </tr>
           </thead>
           <tbody id="customer-report-body">
@@ -932,7 +1083,7 @@
             <label>📝 เหตุผลในการปิดร้าน:</label>
             <input type="text" id="closure-page-reason" placeholder="เช่น ปิดพักร้อนประจำปี / เหมาจัด Private Event" value="ปิดร้านพิเศษ">
           </div>
-          <button class="save-btn" onclick="saveStoreClosureFromPage()" style="background-color: #dc2626;">บันทึกช่วงเวลาปิดร้าน</button>
+          <button class="save-btn" onclick="saveStoreClosureFromPage()" style="background-color: #0f172a;">บันทึกช่วงเวลาปิดร้าน</button>
         </div>
 
         <div class="panel-box" style="flex: 2; min-width: 300px;">
@@ -958,6 +1109,56 @@
   </div>
 
   <script>
+    // 🌟 ระบบ Custom Modal แทน alert / confirm แบบเดิมทั้งระบบ
+    function showAppModal(title, htmlContent, isConfirm = false, inputType = null) {
+      return new Promise((resolve) => {
+        const modal = document.getElementById('app-modal');
+        const titleEl = document.getElementById('app-modal-title');
+        const contentEl = document.getElementById('app-modal-content');
+        const inputContainer = document.getElementById('app-modal-input-container');
+        const inputEl = document.getElementById('app-modal-input');
+        const btnCancel = document.getElementById('app-modal-btn-cancel');
+        const btnOk = document.getElementById('app-modal-btn-ok');
+
+        titleEl.innerHTML = title;
+        contentEl.innerHTML = htmlContent;
+
+        if (inputType === 'password') {
+          inputContainer.style.display = 'block';
+          inputEl.value = '';
+          setTimeout(() => inputEl.focus(), 100);
+        } else {
+          inputContainer.style.display = 'none';
+        }
+
+        if (isConfirm) {
+          btnCancel.style.display = 'block';
+          btnOk.innerText = 'ตกลง';
+        } else {
+          btnCancel.style.display = 'none';
+          btnOk.innerText = 'ปิด';
+        }
+
+        modal.style.display = 'flex';
+
+        const newBtnOk = btnOk.cloneNode(true);
+        const newBtnCancel = btnCancel.cloneNode(true);
+        btnOk.parentNode.replaceChild(newBtnOk, btnOk);
+        btnCancel.parentNode.replaceChild(newBtnCancel, btnCancel);
+
+        newBtnOk.onclick = function() {
+          let val = inputEl.value;
+          modal.style.display = 'none';
+          resolve({ success: true, value: val });
+        };
+
+        newBtnCancel.onclick = function() {
+          modal.style.display = 'none';
+          resolve({ success: false, value: null });
+        };
+      });
+    }
+
     function switchPage(pageId, element) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
@@ -1011,15 +1212,15 @@
       }, 100);
     }
 
-    window.checkPasswordAndSwitch = function(element) {
-      let password = prompt("🔒 กรุณากรอกรหัสผ่านผู้จัดการเพื่อเข้าสู่หน้าตั้งค่าปิดร้าน:", "");
-      if (password === "0000") {
+    window.checkPasswordAndSwitch = async function(element) {
+      let res = await showAppModal('🔒 ยืนยันรหัสผ่านผู้จัดการ', 'กรุณากรอกรหัสผ่านเพื่อเข้าสู่หน้าตั้งค่าปิดร้าน:', true, 'password');
+      if (res.success && res.value === "0000") {
         switchPage('closure-page', element);
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('closure-page-start').value = today;
         document.getElementById('closure-page-end').value = today;
-      } else if (password !== null) {
-        alert("❌ รหัสผ่านไม่ถูกต้อง!");
+      } else if (res.success) {
+        await showAppModal('❌ แจ้งเตือน', 'รหัสผ่านไม่ถูกต้อง');
       }
     }
   </script>
@@ -1086,11 +1287,11 @@
       return d.getDay() === 1;
     }
 
-    function validateAndRenderDate() {
+    async function validateAndRenderDate() {
       const selectedDate = viewDatePicker.value;
 
       if (isMonday(selectedDate)) {
-        alert('❌ ร้านปิดทำการทุกวันจันทร์ครับ! กรุณาเลือกวันอื่น');
+        await showAppModal('❌ แจ้งเตือน', 'ร้านปิดทำการทุกวันจันทร์! กรุณาเลือกวันอื่น');
         const d = new Date(selectedDate);
         d.setDate(d.getDate() + 1);
         const nextDate = d.toISOString().split('T')[0];
@@ -1107,11 +1308,16 @@
       const label = document.createElement('label');
       label.className = 'table-checkbox-item';
       label.innerHTML = `
-        <input type="checkbox" name="selected-tables" value="${tName}">
+        <input type="checkbox" name="selected-tables" value="${tName}" onchange="manualTableSelected()">
         <span>${tName}</span>
       `;
       checkboxContainer.appendChild(label);
     });
+
+    let isUserManualSelected = false;
+    window.manualTableSelected = function() {
+      isUserManualSelected = true;
+    };
 
     const timelineBody = document.getElementById('timeline-body');
     const availabilityGridContainer = document.getElementById('availability-grid-container');
@@ -1141,7 +1347,7 @@
         card.innerHTML = `
           <div style="font-weight: bold; font-size: 15px; margin-bottom: 6px; display:flex; justify-content:space-between;">
             <span>${tName}</span>
-            <span id="avail-status-${tName.replace('/', '_')}" style="font-size: 12px; color: #16a34a;">🟢 ว่าง</span>
+            <span id="avail-status-${tName.replace('/', '_')}" style="font-size: 12px; color: #475569;">🟢 ว่าง</span>
           </div>
           <div id="avail-timeline-${tName.replace('/', '_')}" style="font-size: 11px; color: #334155; line-height: 1.5;">
             เปิดว่าง: 12:00 - ปิดร้าน
@@ -1180,7 +1386,6 @@
     let globalActiveBookings = [];
     let globalClosedDates = {};
 
-    // 🌟 [อัปเกรด: เพิ่มแจ้งเตือนจำนวนครั้งที่แคนเซิลใต้เบอร์โทร]
     window.checkCustomerByPhone = function(phoneVal) {
       const cleanPhone = phoneVal.trim();
       const badgeEl = document.getElementById('customer-visit-badge');
@@ -1215,7 +1420,7 @@
         
         let badgeText = `⭐ ลูกค้าประจำ เคยมาทานแล้ว ${validVisits} ครั้ง`;
         if (totalCanceled > 0) {
-          badgeText += ` <span style="color: #dc2626;">(⚠️ แคนเซิล ${totalCanceled} ครั้ง)</span>`;
+          badgeText += ` <span style="color: #475569; font-weight: bold;">(⚠️ แคนเซิล ${totalCanceled} ครั้ง)</span>`;
         }
         badgeEl.innerHTML = badgeText;
       } else {
@@ -1242,24 +1447,30 @@
     }
 
     function autoSelectTables() {
+      if (isUserManualSelected) return;
+
       const pax = parseInt(paxInput.value) || 1;
       const dateVal = bookingDateInput.value;
       const timeVal = timeInput.value;
 
-      const checkedBoxes = document.querySelectorAll('input[name="selected-tables"]:checked');
-      if (checkedBoxes.length > 0) return;
-
+      document.querySelectorAll('input[name="selected-tables"]').forEach(cb => cb.checked = false);
       let selected = [];
 
-      if (pax >= 4) {
-        const free4 = tables4Pax.find(t => isTableFree(t, dateVal, timeVal));
-        if (free4) {
-          selected.push(free4);
+      if (pax === 4) {
+        if (isTableFree("3", dateVal, timeVal) && isTableFree("4", dateVal, timeVal)) {
+          selected = ["3", "4"];
+        } else if (isTableFree("11", dateVal, timeVal) && isTableFree("12", dateVal, timeVal)) {
+          selected = ["11", "12"];
         } else {
-          for (let t of tables2Pax) {
-            if (isTableFree(t, dateVal, timeVal)) {
-              selected.push(t);
-              if (selected.length === 2) break;
+          const free4 = tables4Pax.find(t => isTableFree(t, dateVal, timeVal));
+          if (free4) {
+            selected.push(free4);
+          } else {
+            for (let t of tables2Pax) {
+              if (isTableFree(t, dateVal, timeVal)) {
+                selected.push(t);
+                if (selected.length === 2) break;
+              }
             }
           }
         }
@@ -1275,6 +1486,22 @@
             }
           }
         }
+      } else if (pax > 4) {
+        let accumulatedCapacity = 0;
+        for (let t of tables4Pax) {
+          if (accumulatedCapacity < pax && isTableFree(t, dateVal, timeVal)) {
+            selected.push(t);
+            accumulatedCapacity += 4;
+          }
+        }
+        if (accumulatedCapacity < pax) {
+          for (let t of tables2Pax) {
+            if (accumulatedCapacity < pax && !selected.includes(t) && isTableFree(t, dateVal, timeVal)) {
+              selected.push(t);
+              accumulatedCapacity += 2;
+            }
+          }
+        }
       } else {
         const free2 = tables2Pax.find(t => isTableFree(t, dateVal, timeVal));
         if (free2) selected.push(free2);
@@ -1286,11 +1513,14 @@
       });
     }
 
-    paxInput.addEventListener('input', autoSelectTables);
+    paxInput.addEventListener('input', () => {
+      isUserManualSelected = false;
+      autoSelectTables();
+    });
     timeInput.addEventListener('change', autoSelectTables);
-    bookingDateInput.addEventListener('change', () => {
+    bookingDateInput.addEventListener('change', async () => {
       if (isMonday(bookingDateInput.value)) {
-        alert('❌ ร้านปิดทำการทุกวันจันทร์ครับ! กรุณาเลือกวันอื่น');
+        await showAppModal('❌ แจ้งเตือน', 'ร้านปิดทำการทุกวันจันทร์! กรุณาเลือกวันอื่น');
         const d = new Date(bookingDateInput.value);
         d.setDate(d.getDate() + 1);
         bookingDateInput.value = d.toISOString().split('T')[0];
@@ -1331,12 +1561,12 @@
       const targetDate = bookingDateInput.value;
 
       if (isMonday(targetDate)) {
-        alert('❌ ไม่สามารถจองได้! ร้านปิดทำการทุกวันจันทร์ครับ');
+        await showAppModal('❌ แจ้งเตือน', 'ไม่สามารถจองได้! ร้านปิดทำการทุกวันจันทร์');
         return;
       }
 
       if (globalClosedDates[targetDate]) {
-        alert(`❌ ไม่สามารถจองได้! วันที่ ${targetDate} ร้านปิดทำการพิเศษ (${globalClosedDates[targetDate]})`);
+        await showAppModal('❌ แจ้งเตือน', `ไม่สามารถจองได้! วันที่ ${targetDate} ร้านปิดทำการพิเศษ (${globalClosedDates[targetDate]})`);
         return;
       }
 
@@ -1351,16 +1581,16 @@
         selectedTables.push(cb.value);
       });
 
-      if (!targetDate) { alert('กรุณาเลือกวันที่จองด้วยครับ!'); return; }
-      if (!name) { alert('กรุณากรอกชื่อลูกค้าก่อนครับ!'); return; }
-      if (selectedTables.length === 0) { alert('กรุณาเลือกโต๊ะอย่างน้อย 1 โต๊ะครับ!'); return; }
-      if (!timeVal) { alert('กรุณาระบุเวลาจองครับ!'); return; }
+      if (!targetDate) { await showAppModal('❌ แจ้งเตือน', 'กรุณาเลือกวันที่จองด้วย!'); return; }
+      if (!name) { await showAppModal('❌ แจ้งเตือน', 'กรุณากรอกชื่อลูกค้าก่อน!'); return; }
+      if (selectedTables.length === 0) { await showAppModal('❌ แจ้งเตือน', 'กรุณาเลือกโต๊ะอย่างน้อย 1 โต๊ะ!'); return; }
+      if (!timeVal) { await showAppModal('❌ แจ้งเตือน', 'กรุณาระบุเวลาจอง!'); return; }
 
       const newStartMin = timeToMinutes(timeVal);
       const overlapCheck = checkOverlap(selectedTables, newStartMin);
 
       if (overlapCheck.isOverlap) {
-        alert(`❌ ไม่สามารถจองได้! เวลาชนกับคิวของคุณ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})\nติดจองช่วง 90 นาทีอยู่ครับ`);
+        await showAppModal('❌ แจ้งเตือน', `ไม่สามารถจองได้! เวลาชนกับคิวของคุณ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})<br>ติดจองช่วง 90 นาทีอยู่`);
         return;
       }
 
@@ -1382,8 +1612,9 @@
         document.getElementById('cust-name').value = '';
         document.getElementById('cust-note').value = '';
         document.getElementById('customer-visit-badge').innerHTML = '';
+        isUserManualSelected = false;
         autoSelectTables();
-        alert(`✅ บันทึกคิวจองเรียบร้อยแล้ว!\nวันที่: ${targetDate}`);
+        await showAppModal('✅ สำเร็จ', `บันทึกคิวจองเรียบร้อยแล้ว<br>วันที่: ${targetDate}`);
       } catch (err) {
         console.error(err);
       }
@@ -1423,13 +1654,8 @@
       };
 
       if (diffMins > 15) {
-        let confirmMove = confirm(
-          `🕒 ลูกค้ามาถึงก่อนเวลาจอง (${targetBooking.bookingTime} น.) ตั้ง ${diffMins} นาที\n\n` +
-          `กด [OK] = Move to ${currentTimeStr} (นับเวลาทาน 90 นาทีเต็มตั้งแต่นี้)\n` +
-          `กด [Cancel] = Keep at ${targetBooking.bookingTime} (ยึดเวลาหมดเขตตามรอบเดิม)`
-        );
-
-        if (confirmMove) {
+        let res = await showAppModal('🕒 แจ้งเตือนเวลา', `ลูกค้ามาถึงก่อนเวลาจอง (${targetBooking.bookingTime} น.) ตั้ง ${diffMins} นาที<br><br>ต้องการเลื่อนเวลาเริ่มนับรอบเป็น ${currentTimeStr} น. เลยหรือไม่?`, true);
+        if (res.success) {
           updatePayload.bookingTime = currentTimeStr;
         }
       }
@@ -1512,44 +1738,16 @@
         const layoutDate = layoutDatePicker.value;
 
         if (isMonday(layoutDate)) {
-          alert('❌ ร้านปิดทำการทุกวันจันทร์ครับ!');
+          await showAppModal('❌ แจ้งเตือน', 'ร้านปิดทำการทุกวันจันทร์');
           return;
         }
 
         if (globalClosedDates[layoutDate]) {
-          alert(`❌ วันที่ ${layoutDate} ร้านปิดทำการพิเศษ (${globalClosedDates[layoutDate]}) ไม่สามารถ Walk-in ได้ครับ`);
+          await showAppModal('❌ แจ้งเตือน', `วันที่ ${layoutDate} ร้านปิดทำการพิเศษ (${globalClosedDates[layoutDate]}) ไม่สามารถ Walk-in ได้`);
           return;
         }
 
-        let inputName = prompt(`Walk-in ด่วนที่โต๊ะ ${tName} (วันที่ ${layoutDate}):\nกรอกชื่อลูกค้า (กด OK ข้ามเพื่อใช้ชื่อ "Walk-in"):`, "");
-        if (inputName === null) return;
-        
-        const customerDisplayName = inputName.trim() === "" ? "Walk-in" : inputName.trim();
-        const pax = prompt('จำนวนคน (Pax):', '2');
-        
-        const now = new Date();
-        const timeVal = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-        const startMin = timeToMinutes(timeVal);
-
-        const overlapCheck = checkOverlap([tName], startMin);
-        if (overlapCheck.isOverlap) {
-          alert(`❌ โต๊ะนี้ติดจองเวลา ${overlapCheck.conflictTime} ไม่สามารถ Walk-in ได้`);
-          return;
-        }
-
-        await addDoc(collection(db, "cher_thai_restaurant_system"), {
-          bookingDate: layoutDate,
-          tableNames: [tName],
-          customerName: customerDisplayName,
-          phone: '',
-          pax: pax || '1',
-          bookingTime: timeVal,
-          note: 'Walk-in หน้าร้าน',
-          assignedTables: [tName],
-          status: 'seated',
-          seatedTimestamp: Date.now(),
-          timestamp: Date.now()
-        });
+        await showAppModal('🚶‍♂️ Walk-in ด่วน', `โต๊ะ ${tName} (วันที่ ${layoutDate})<br>ระบบรองรับการกด Walk-in โดยสามารถไปบันทึกเพิ่มในหน้าจองโต๊ะได้`);
       });
 
       box.addEventListener('dragover', (e) => e.preventDefault());
@@ -1564,7 +1762,7 @@
             const overlapCheck = checkOverlap(tablesToAssign, startMin, bookingId);
 
             if (overlapCheck.isOverlap) {
-              alert(`❌ ไม่สามารถวางที่โต๊ะนี้ได้! เวลาชนกับคิวของคุณ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})`);
+              await showAppModal('❌ แจ้งเตือน', `ไม่สามารถวางที่โต๊ะนี้ได้! เวลาชนกับคิวของ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})`);
               return;
             }
 
@@ -1580,7 +1778,7 @@
       const reason = document.getElementById('closure-page-reason').value.trim() || "ปิดร้านพิเศษ";
 
       if (!startDate || !endDate) {
-        alert("❌ กรุณาเลือกวันที่เริ่มต้นและวันที่สิ้นสุดให้ครบถ้วนครับ!");
+        await showAppModal('❌ แจ้งเตือน', 'กรุณาเลือกวันที่เริ่มต้นและวันที่สิ้นสุดให้ครบถ้วน');
         return;
       }
 
@@ -1589,7 +1787,7 @@
         const end = new Date(endDate);
 
         if (start > end) {
-          alert("❌ วันที่สิ้นสุดต้องมากกว่าหรือเท่ากับวันที่เริ่มต้นครับ!");
+          await showAppModal('❌ แจ้งเตือน', 'วันที่สิ้นสุดต้องมากกว่าหรือเท่ากับวันที่เริ่มต้น');
           return;
         }
 
@@ -1604,10 +1802,10 @@
           current.setDate(current.getDate() + 1);
         }
 
-        alert(`✅ บันทึกช่วงเวลาปิดร้านตั้งแต่วันที่ ${startDate} ถึง ${endDate} เรียบร้อยแล้ว!`);
+        await showAppModal('✅ สำเร็จ', `บันทึกช่วงเวลาปิดร้านตั้งแต่วันที่ ${startDate} ถึง ${endDate} เรียบร้อยแล้ว`);
       } catch (err) {
         console.error(err);
-        alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้งครับ");
+        await showAppModal('❌ เกิดข้อผิดพลาด', 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
       }
     };
 
@@ -1713,66 +1911,116 @@
           <td><b>${b.customerName || '-'}</b></td>
           <td>${b.phone || '-'}</td>
           <td style="text-align: center;">
-            <span style="color: #16a34a; font-weight: bold;">มา ${totalVisits} ครั้ง</span> 
-            ${totalCanceled > 0 ? `<span style="color: #dc2626; font-weight: bold;"> (แคนเซิล ${totalCanceled})</span>` : ''}
+            <span style="color: #334155; font-weight: bold;">มา ${totalVisits} ครั้ง</span> 
+            ${totalCanceled > 0 ? `<span style="color: #475569; font-weight: bold;"> (แคนเซิล ${totalCanceled})</span>` : ''}
           </td>
           <td style="text-align: center;">${b.pax || '-'}</td>
           <td><b>${assignedTableText}</b></td>
           <td>${b.note || '-'}</td>
           <td>${statusMap[b.status] || '🟡 รอเข้าร้าน'}</td>
           <td style="text-align: center; white-space: nowrap;">
-            <button onclick="window.changeBookingTimePrompt('${docId}')" style="background:#f59e0b; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:11px; margin-right:2px;" title="เปลี่ยนเวลาจอง">⏰ เปลี่ยนเวลา</button>
-            <button onclick="window.updateCustomerStatusFromReport('${docId}', 'confirmed')" style="background:#2563eb; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:11px; margin-right:2px;" title="คอนเฟิมคิว">✅</button>
-            <button onclick="window.updateCustomerStatusFromReport('${docId}', 'canceled')" style="background:#dc2626; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:11px;" title="ยกเลิก/ย้ายไป Canceled">❌</button>
+            <button onclick="window.updateCustomerStatusFromReport('${docId}', 'confirmed')" class="sr-btn sr-btn-confirm" title="คอนเฟิมคิว">Confirm</button>
+            <button onclick="window.openScoreBar('${docId}')" class="sr-btn sr-btn-edit" title="แก้ไขข้อมูลด่วน">Edit</button>
+            <button onclick="window.updateCustomerStatusFromReport('${docId}', 'canceled')" class="sr-btn sr-btn-cancel" title="แคนเซิลคิว">Cancel</button>
           </td>
         `;
         tbody.appendChild(tr);
       });
     };
 
-    window.changeBookingTimePrompt = async function(docId) {
+    window.openScoreBar = function(docId) {
       const targetBooking = globalAllBookings.find(b => b.id === docId);
       if (!targetBooking) return;
 
-      let newTime = prompt(`ระบุเวลาจองใหม่สำหรับวันที่ ${targetBooking.bookingDate} (รูปแบบ HH:MM เช่น 19:00):`, targetBooking.bookingTime);
-      if (newTime && newTime.trim() !== "") {
-        const targetTime = newTime.trim();
-        const newStart = timeToMinutes(targetTime);
-        const newEnd = newStart + 90;
-        const tablesArr = (targetBooking.assignedTables && targetBooking.assignedTables.length > 0) ? targetBooking.assignedTables : targetBooking.tableNames;
+      document.getElementById('edit-doc-id').value = docId;
+      document.getElementById('edit-cust-name').value = targetBooking.customerName || "";
+      document.getElementById('edit-cust-phone').value = targetBooking.phone || "";
+      document.getElementById('edit-cust-time').value = (targetBooking.bookingTime || "").replace(':', '');
+      document.getElementById('edit-cust-pax').value = targetBooking.pax || "2";
+      
+      const tablesArr = (targetBooking.assignedTables && targetBooking.assignedTables.length > 0) ? targetBooking.assignedTables : targetBooking.tableNames;
+      document.getElementById('edit-cust-tables').value = tablesArr ? tablesArr.join(', ') : "";
 
-        let isConflict = false;
-        let conflictName = "";
+      const scoreBar = document.getElementById('inline-score-bar');
+      scoreBar.style.display = 'block';
+      scoreBar.scrollIntoView({ behavior: 'smooth' });
+    };
 
-        for (let b of globalAllBookings) {
-          if (b.id !== docId && b.bookingDate === targetBooking.bookingDate && b.status !== 'left' && b.status !== 'noshow' && b.status !== 'canceled') {
-            const activeTables = (b.assignedTables && b.assignedTables.length > 0) ? b.assignedTables : b.tableNames;
-            const hasCommon = activeTables.some(t => tablesArr.includes(t));
-            if (hasCommon) {
-              const bStart = timeToMinutes(b.bookingTime);
-              const bEnd = bStart + 90;
-              if (newStart < bEnd && newEnd > bStart) {
-                isConflict = true;
-                conflictName = b.customerName;
-                break;
-              }
-            }
-          }
-        }
+    window.closeInlineEdit = function() {
+      document.getElementById('inline-score-bar').style.display = 'none';
+    };
 
-        if (isConflict) {
-          alert(`❌ ไม่สามารถเปลี่ยนเป็นเวลา ${targetTime} ได้!\nโต๊ะ ${tablesArr.join(', ')} ชนกับคิวของ "${conflictName}" ในช่วงเวลานี้อยู่ครับ`);
+    window.saveInlineEdit = async function() {
+      const docId = document.getElementById('edit-doc-id').value;
+      const targetBooking = globalAllBookings.find(b => b.id === docId);
+      if (!targetBooking) return;
+
+      const newName = document.getElementById('edit-cust-name').value.trim();
+      const newPhone = document.getElementById('edit-cust-phone').value.trim();
+      const rawTime = document.getElementById('edit-cust-time').value.trim();
+      const newPax = document.getElementById('edit-cust-pax').value.trim();
+      const newTablesInput = document.getElementById('edit-cust-tables').value.trim();
+
+      if (!newName || !rawTime || !newPax || !newTablesInput) {
+        await showAppModal('❌ แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน');
+        return;
+      }
+
+      let cleanInput = rawTime.replace(/[^0-9]/g, '');
+      let newTime = "";
+      if (cleanInput.length === 4) {
+        newTime = `${cleanInput.substring(0, 2)}:${cleanInput.substring(2, 4)}`;
+      } else {
+        await showAppModal('❌ แจ้งเตือน', 'รูปแบบเวลาไม่ถูกต้อง! กรุณากรอก 4 หลัก เช่น 1830');
+        return;
+      }
+
+      const newTablesArr = newTablesInput.split(',').map(s => s.trim()).filter(s => s !== "");
+
+      for (let t of newTablesArr) {
+        if (!isTableFree(t, targetBooking.bookingDate, newTime, docId)) {
+          await showAppModal('❌ แจ้งเตือน', `โต๊ะ ${t} ไม่ว่างในช่วงเวลา ${newTime} น. มีคิวจองทับซ้อนอยู่`);
           return;
         }
+      }
+
+      try {
+        await setDoc(doc(db, "cher_thai_restaurant_system", docId), {
+          customerName: newName,
+          phone: newPhone,
+          bookingTime: newTime,
+          pax: newPax,
+          tableNames: newTablesArr,
+          assignedTables: newTablesArr
+        }, { merge: true });
+
+        await showAppModal('✅ สำเร็จ', 'บันทึกการแก้ไขข้อมูลเรียบร้อยแล้ว');
+        document.getElementById('inline-score-bar').style.display = 'none';
+        renderCustomerTable();
+      } catch (err) {
+        console.error(err);
+        await showAppModal('❌ เกิดข้อผิดพลาด', 'ไม่สามารถบันทึกข้อมูลได้');
+      }
+    };
+
+    // 🌟 [ฟังก์ชันลบข้อมูลลูกค้าเชื่อมต่อ Firebase Database ภายใน Module Scope อย่างถูกต้อง]
+    window.promptDeleteCustomerRecord = async function() {
+      let res = await showAppModal('🔒 ยืนยันรหัสผ่านผู้จัดการ', 'กรุณากรอกรหัสผ่านเพื่อลบข้อมูลคิวนี้:', true, 'password');
+      if (res.success && res.value === "0000") {
+        const docId = document.getElementById('edit-doc-id').value;
+        if (!docId) return;
 
         try {
-          await setDoc(doc(db, "cher_thai_restaurant_system", docId), { bookingTime: targetTime }, { merge: true });
-          alert(`✅ เปลี่ยนเวลาจองเป็น ${targetTime} เรียบร้อยแล้ว!`);
+          await deleteDoc(doc(db, "cher_thai_restaurant_system", docId));
+          await showAppModal('✅ สำเร็จ', 'ลบข้อมูลคิวลูกค้าออกจากระบบเรียบร้อยแล้ว');
+          document.getElementById('inline-score-bar').style.display = 'none';
           renderCustomerTable();
         } catch (err) {
           console.error(err);
-          alert("เกิดข้อผิดพลาดในการเปลี่ยนเวลา");
+          await showAppModal('❌ เกิดข้อผิดพลาด', 'ไม่สามารถลบข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
         }
+      } else if (res.success) {
+        await showAppModal('❌ แจ้งเตือน', 'รหัสผ่านไม่ถูกต้อง');
       }
     };
 
@@ -1849,9 +2097,9 @@
         const timelineEl = document.getElementById(`avail-timeline-${tName.replace('/', '_')}`);
         if (availCard && statusEl && timelineEl) {
           availCard.className = 'availability-card';
-          statusEl.style.color = '#16a34a';
+          statusEl.style.color = '#475569';
           statusEl.innerText = '🟢 ว่าง';
-          timelineEl.innerHTML = '<span style="color: #16a34a;">ว่างตลอดเวลา (12:00 - ปิดร้าน)</span>';
+          timelineEl.innerHTML = '<span style="color: #475569;">ว่างตลอดเวลา (12:00 - ปิดร้าน)</span>';
         }
       });
 
@@ -1873,7 +2121,7 @@
 
         if (status !== 'left' && status !== 'noshow' && status !== 'canceled') {
           const totalItem = document.createElement('div');
-          totalItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px;";
+          totalItem.style.cssText = "padding: 5px; border-bottom: 1px solid #1e293b; font-size: 11px;";
           totalItem.innerHTML = `<b>${data.bookingTime}</b> - ${data.customerName} (${data.pax}น.) [${hasAssigned ? 'นั่งโต๊ะ: ' + data.assignedTables.join(', ') : 'รอเข้าร้าน'}]`;
           srListTotal.appendChild(totalItem);
         }
@@ -1891,7 +2139,7 @@
           const card = document.createElement('div');
           card.className = 'queue-item-drag';
           card.draggable = true;
-          card.style.borderColor = '#f87171';
+          card.style.borderColor = '#64748b';
           card.innerHTML = `❌ <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime}`;
           card.addEventListener('dragstart', (e) => e.dataTransfer.setData('bookingId', docId));
           srListNoshow.appendChild(card);
@@ -1900,8 +2148,8 @@
           const card = document.createElement('div');
           card.className = 'queue-item-drag';
           card.draggable = true;
-          card.style.borderColor = '#64748b';
-          card.innerHTML = `🚫 <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.updateStatus('${docId}', 'upcoming')" style="float:right; background:#3b82f6; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">คืนคิว</button>`;
+          card.style.borderColor = '#475569';
+          card.innerHTML = `🚫 <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.updateStatus('${docId}', 'upcoming')" style="float:right; background:#334155; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">คืนคิว</button>`;
           card.addEventListener('dragstart', (e) => e.dataTransfer.setData('bookingId', docId));
           srListCanceled.appendChild(card);
         } else if (!hasAssigned) {
@@ -1913,15 +2161,16 @@
           let confBadge = status === 'confirmed' ? ' 🔵[คอนเฟิมแล้ว]' : '';
           card.innerHTML = `
             <div>👤 ${data.customerName} (${data.pax}น.)${combinedBadge}${confBadge}</div>
-            <div style="font-size: 10px; color: #ffe0b2;">⏰ ${data.bookingTime} น. (โต๊ะ: ${data.tableNames.join(', ')}${phoneText})</div>
+            <div style="font-size: 10px; color: #94a3b8;">⏰ ${data.bookingTime} น. (โต๊ะ: ${data.tableNames.join(', ')}${phoneText})</div>
           `;
           
           card.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('bookingId', docId);
           });
           
-          card.addEventListener('click', () => {
-            if (confirm(`นำคุณ ${data.customerName} เข้านั่งที่โต๊ะ ${data.tableNames.join(', ')} ใช่ไหม?`)) {
+          card.addEventListener('click', async () => {
+            let res = await showAppModal('🪑 ยืนยันการนั่งโต๊ะ', `นำคุณ ${data.customerName} เข้านั่งที่โต๊ะ ${data.tableNames.join(', ')} ใช่ไหม?`, true);
+            if (res.success) {
               window.seatCustomer(docId, data.tableNames);
             }
           });
@@ -1930,7 +2179,7 @@
         } else {
           seatedCount++;
           const seatedItem = document.createElement('div');
-          seatedItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px;";
+          seatedItem.style.cssText = "padding: 5px; border-bottom: 1px solid #1e293b; font-size: 11px;";
           seatedItem.innerHTML = `<b>โต๊ะ ${data.assignedTables.join(', ')}</b>: ${data.customerName} (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.unseatCustomer('${docId}')" style="float:right; background:#ef4444; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">ดึงกลับคิว</button>`;
           srListSeated.appendChild(seatedItem);
 
@@ -1958,15 +2207,16 @@
                 e.dataTransfer.setData('bookingId', docId);
               });
 
-              chip.addEventListener('click', (e) => {
+              chip.addEventListener('click', async (e) => {
                 e.stopPropagation();
-                let realTimeMsg = `📊 ข้อมูลโต๊ะ ${tName}\n`;
-                realTimeMsg += `👤 ลูกค้า: ${data.customerName} (${data.pax} คน)\n`;
-                realTimeMsg += `⏰ เวลาจอง: ${data.bookingTime} น.\n`;
-                realTimeMsg += `⏱️ เวลานั่งจริง: ${timerText} (จำกัดรอบ 90 นาที)\n\n`;
+                let realTimeMsg = `📊 ข้อมูลโต๊ะ ${tName}<br>`;
+                realTimeMsg += `👤 ลูกค้า: ${data.customerName} (${data.pax} คน)<br>`;
+                realTimeMsg += `⏰ เวลาจอง: ${data.bookingTime} น.<br>`;
+                realTimeMsg += `⏱️ เวลานั่งจริง: ${timerText} (จำกัดรอบ 90 นาที)<br><br>`;
                 realTimeMsg += `ต้องการเช็คบิล / ให้ลูกค้าลุกจากโต๊ะนี้ใช่ไหม?`;
 
-                if (confirm(realTimeMsg)) {
+                let res = await showAppModal('💵 เช็คบิลด่วน', realTimeMsg, true);
+                if (res.success) {
                   window.updateStatus(docId, 'left');
                 }
               });
@@ -2004,6 +2254,14 @@
         }
       });
 
+      const tableCapacity = {
+        "3": 4, "4": 4, "11": 4, "12": 4, "17": 4,
+        "9": 3, "18": 3, "23": 3,
+        "O1": 2, "O2": 2, "O3": 2, "O4": 2, "O5": 2, "O6": 2,
+        "5": 2, "6": 2, "7": 2, "8": 2, "10": 2, "11/1": 2,
+        "13": 2, "14": 2, "15": 2, "16": 2, "19": 2, "20": 2, "21": 2
+      };
+
       Object.keys(bookingsByTable).forEach(tName => {
         const rowEl = document.getElementById(`timeline-row-${tName.replace('/', '_')}`);
         const availCard = document.getElementById(`avail-card-${tName.replace('/', '_')}`);
@@ -2013,27 +2271,76 @@
         if (rowEl) {
           rowEl.setAttribute('data-target-table', tName);
           rowEl.ondragover = (e) => e.preventDefault();
+          
           rowEl.ondrop = async (e) => {
             e.preventDefault();
             const bookingId = e.dataTransfer.getData('timelineBookingId');
             if (bookingId) {
               const targetBooking = globalAllBookings.find(b => b.id === bookingId);
               if (targetBooking) {
-                const newTable = tName;
+                let newTable = tName;
                 const dateVal = targetBooking.bookingDate;
                 const timeVal = targetBooking.bookingTime;
+                const bookingPax = parseInt(targetBooking.pax || 1);
 
-                if (!isTableFree(newTable, dateVal, timeVal, bookingId)) {
-                  alert(`❌ โต๊ะ ${newTable} ไม่ว่างในช่วงเวลา ${timeVal} น. มีคิวจองทับซ้อนอยู่ครับ!`);
-                  return;
+                let assignedTables = [newTable];
+                
+                if (bookingPax >= 3) {
+                  if (newTable === "3" || newTable === "4") {
+                    assignedTables = ["3", "4"];
+                  } else if (newTable === "11" || newTable === "12") {
+                    assignedTables = ["11", "12"];
+                  } else {
+                    const currentCap = tableCapacity[newTable] || 2;
+                    if (bookingPax > currentCap) {
+                      let resMerge = await showAppModal('⚠️ แจ้งเตือนรวมโต๊ะ', `ลูกค้ามีจำนวน ${bookingPax} ท่าน แต่โต๊ะ ${newTable} รองรับได้ ${currentCap} ท่าน<br><br>ต้องการ Merge (รวมโต๊ะ) กับโต๊ะข้างๆ ที่ว่างในช่วงเวลานี้อัตโนมัติหรือไม่?`, true);
+
+                      if (resMerge.success) {
+                        let foundNeighbor = null;
+                        if (newTable.startsWith('O')) {
+                          let num = parseInt(newTable.substring(1));
+                          let neighborNum = (num % 2 !== 0) ? num + 1 : num - 1;
+                          let nT = `O${neighborNum}`;
+                          if (tablesList.includes(nT) && isTableFree(nT, dateVal, timeVal, bookingId)) {
+                            foundNeighbor = nT;
+                          }
+                        } else {
+                          let tNum = parseInt(newTable);
+                          if (!isNaN(tNum)) {
+                            let candidates = [tNum + 1, tNum - 1].map(String);
+                            for (let c of candidates) {
+                              if (tablesList.includes(c) && isTableFree(c, dateVal, timeVal, bookingId)) {
+                                foundNeighbor = c;
+                                break;
+                              }
+                            }
+                          }
+                        }
+
+                        if (foundNeighbor) {
+                          assignedTables.push(foundNeighbor);
+                          await showAppModal('✅ สำเร็จ', `ระบบทำการรวมโต๊ะ ${newTable} เข้ากับโต๊ะ ${foundNeighbor} ให้เรียบร้อยแล้ว`);
+                        }
+                      } else {
+                        return;
+                      }
+                    }
+                  }
+                }
+
+                for (let t of assignedTables) {
+                  if (!isTableFree(t, dateVal, timeVal, bookingId)) {
+                    await showAppModal('❌ แจ้งเตือน', `โต๊ะ ${t} ไม่ว่างในช่วงเวลา ${timeVal} น. มีคิวจองทับซ้อนอยู่`);
+                    return;
+                  }
                 }
 
                 try {
-                  await setDoc(doc(db, "cher_thai_restaurant_system", bookingId), { tableNames: [newTable] }, { merge: true });
-                  alert(`✅ ย้ายคุณ "${targetBooking.customerName}" ไปที่โต๊ะ ${newTable} เรียบร้อยแล้ว!`);
+                  await setDoc(doc(db, "cher_thai_restaurant_system", bookingId), { tableNames: assignedTables, assignedTables: assignedTables }, { merge: true });
+                  await showAppModal('✅ สำเร็จ', `ย้ายคุณ "${targetBooking.customerName}" ไปที่โต๊ะ ${assignedTables.join(', ')} เรียบร้อยแล้ว`);
                 } catch (err) {
                   console.error(err);
-                  alert("เกิดข้อผิดพลาดในการย้ายโต๊ะ");
+                  await showAppModal('❌ เกิดข้อผิดพลาด', 'ไม่สามารถย้ายโต๊ะได้');
                 }
               }
             }
@@ -2054,7 +2361,7 @@
 
             cardsHtml += `
               <div class="timeline-card" draggable="true" ondragstart="event.dataTransfer.setData('timelineBookingId', '${b.id}')" title="ลากเพื่อย้ายโต๊ะ">
-                <div style="font-size: 11px; color: #ffe0b2;">⏰ ${timeRangeStr} น. (90 นาที)${combinedBadge}</div>
+                <div style="font-size: 11px; color: #cbd5e1;">⏰ ${timeRangeStr} น. (90 นาที)${combinedBadge}</div>
                 <div style="font-size: 13px;">${b.customerName} (${b.pax} คน)${phoneStr}</div>
                 ${b.note ? `<div style="font-size: 11px; opacity: 0.9;">📝 ${b.note}</div>` : ''}
                 <button class="delete-btn" onclick="window.deleteBooking('${b.id}')" title="ลบรายการ">✕</button>
@@ -2080,22 +2387,22 @@
             const bEnd = bStart + 90;
 
             if (bStart > lastCheckMin) {
-              scheduleHTML += `<div style="color: #16a34a; font-size: 11px;">🟢 ว่าง: ${minutesToTime(lastCheckMin)} - ${b.bookingTime}</div>`;
+              scheduleHTML += `<div style="color: #475569; font-size: 11px;">🟢 ว่าง: ${minutesToTime(lastCheckMin)} - ${b.bookingTime}</div>`;
             }
 
             let phoneInfo = b.phone ? ` [${b.phone}]` : '';
-            scheduleHTML += `<div style="color: #f97316; font-size: 11px;">🟠 ไม่ว่าง: ${b.bookingTime} - ${minutesToTime(bEnd)} (${b.customerName}${phoneInfo})</div>`;
+            scheduleHTML += `<div style="color: #64748b; font-size: 11px;">🟠 ไม่ว่าง: ${b.bookingTime} - ${minutesToTime(bEnd)} (${b.customerName}${phoneInfo})</div>`;
             
             lastCheckMin = Math.max(lastCheckMin, bEnd);
           });
 
           if (lastCheckMin < CLOSE_MIN) {
-            scheduleHTML += `<div style="color: #16a34a; font-size: 11px;">🟢 ว่าง: ${minutesToTime(lastCheckMin)} - 23:00</div>`;
+            scheduleHTML += `<div style="color: #475569; font-size: 11px;">🟢 ว่าง: ${minutesToTime(lastCheckMin)} - 23:00</div>`;
           }
 
           if (availCard && statusEl && timelineEl) {
             availCard.className = 'availability-card has-booking';
-            statusEl.style.color = '#f97316';
+            statusEl.style.color = '#475569';
             statusEl.innerText = '🟠 มีคิวจอง';
             timelineEl.innerHTML = scheduleHTML;
           }
@@ -2104,14 +2411,16 @@
     }
 
     window.reopenStore = async function(dateStr) {
-      if (confirm(`คุณต้องการปลดล็อคเปิดร้านสำหรับวันที่ ${dateStr} ใช่ไหม?`)) {
+      let res = await showAppModal('🔓 ปลดล็อคเปิดร้าน', `คุณต้องการปลดล็อคเปิดร้านสำหรับวันที่ ${dateStr} ใช่ไหม?`, true);
+      if (res.success) {
         await deleteDoc(doc(db, "cher_thai_store_closures", dateStr));
-        alert('ปลดล็อคเปิดร้านเรียบร้อยแล้ว!');
+        await showAppModal('✅ สำเร็จ', 'ปลดล็อคเปิดร้านเรียบร้อยแล้ว');
       }
     };
 
     window.deleteBooking = async function(docId) {
-      if (confirm('ต้องการยกเลิกและย้ายรายการจองนี้ไปที่ช่อง Canceled ใช่ไหม?')) {
+      let res = await showAppModal('🚫 ยกเลิกการจอง', 'ต้องการยกเลิกและย้ายรายการจองนี้ไปที่ช่อง Canceled ใช่ไหม?', true);
+      if (res.success) {
         await setDoc(doc(db, "cher_thai_restaurant_system", docId), { status: 'canceled', assignedTables: [], seatedTimestamp: null }, { merge: true });
       }
     };
