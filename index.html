@@ -1030,7 +1030,7 @@
             <input type="date" id="customer-report-date-picker" onchange="renderCustomerTable()" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: bold; font-size: 13px;">
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร (ค้นหาทั้งหมด):</label>
+            <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร (พิมพ์เพื่อค้นหาข้ามวัน):</label>
             <input type="text" id="customer-search-input" placeholder="พิมพ์ค้นหา..." oninput="renderCustomerTable()">
           </div>
           <div>
@@ -1490,7 +1490,7 @@
           for (let t of tables2Pax) {
             if (isTableFree(t, dateVal, timeVal)) {
               selected.push(t);
-              if (selected.length === 2) break;
+              break;
             }
           }
         }
@@ -1878,9 +1878,10 @@
       }
     });
 
-    // 🌟 [อัปเกรดระบบค้นหาหน้าข้อมูลลูกค้า: ค้นหาทั้งหมดจากฐานข้อมูลแบบ Global Search ไม่จำกัดเฉพาะวันที่]
+    // 🌟 [Smart Search สำหรับหน้าข้อมูลลูกค้า: ถ้าว่างจะแสดงวันที่เลือก ถ้าพิมพ์ค้นหาจะแสดงผลทั้งหมดข้ามวันทันที]
     window.renderCustomerTable = function() {
       const tbody = document.getElementById('customer-report-body');
+      const selectedDateFilter = document.getElementById('customer-report-date-picker').value;
       const searchKeyword = (document.getElementById('customer-search-input').value || "").toLowerCase().trim();
       
       tbody.innerHTML = '';
@@ -1888,8 +1889,11 @@
       let filtered = globalAllBookings.filter(b => {
         const name = (b.customerName || "").toLowerCase();
         const phone = (b.phone || "").toLowerCase();
-        const matchSearch = !searchKeyword || name.includes(searchKeyword) || phone.includes(searchKeyword);
-        return matchSearch;
+        const matchSearch = searchKeyword !== "" && (name.includes(searchKeyword) || phone.includes(searchKeyword));
+        const matchDate = !selectedDateFilter || b.bookingDate === selectedDateFilter;
+
+        // ถ้ามีการพิมพ์ค้นหา จะค้นหาจากฐานข้อมูลทั้งหมดข้ามวันทันที แต่ถ้าช่องค้นหาว่าง จะแสดงเฉพาะวันที่เลือก
+        return searchKeyword !== "" ? matchSearch : matchDate;
       });
 
       filtered.sort((a, b) => (b.bookingDate || "").localeCompare(a.bookingDate || ""));
