@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
   <title>Cher Thai Eatery - Ultimate Management System</title>
   <!-- ตัวช่วยลากวางบนมือถือ/iPad -->
   <script src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
@@ -12,8 +12,10 @@
       background-color: #f4f6f8;
       margin: 0;
       display: flex;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto; /* 🔓 ปลดล็อคการ Scroll เลื่อนหน้าจอ */
+      -webkit-overflow-scrolling: touch;
       color: #333;
     }
     .sidebar {
@@ -25,6 +27,7 @@
       flex-shrink: 0;
       transition: width 0.3s ease;
       position: relative;
+      z-index: 100;
     }
     .sidebar.collapsed {
       width: 60px;
@@ -99,17 +102,16 @@
     .main-content {
       flex: 1;
       padding: 15px;
-      overflow-y: auto;
-      height: 100vh;
+      overflow-y: auto; /* 🔓 ให้พื้นที่หลักรูดเลื่อนขึ้นลงได้สบายๆ */
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
     .page-section {
       display: none;
       flex: 1;
       flex-direction: column;
-      overflow: hidden;
     }
     .page-section.active {
       display: flex;
@@ -304,27 +306,26 @@
       cursor: pointer;
     }
 
-    /* 🗺️ เลย์เอาต์ผังร้านมือถือและแท็บเล็ต */
+    /* 🗺️ เลย์เอาต์ผังร้านและแถบคิว */
     .layout-page-container {
       display: flex;
-      gap: 12px;
+      gap: 15px;
       flex: 1;
-      overflow: hidden;
     }
     .queue-sidebar {
-      width: 270px;
+      width: 290px;
       flex-shrink: 0;
       background: #1e293b;
       color: #f8fafc;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       overflow-y: auto;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .queue-sidebar.collapsed {
-      width: 65px;
-      padding: 6px;
+      width: 75px;
+      padding: 8px;
     }
     .queue-sidebar.collapsed .sr-content,
     .queue-sidebar.collapsed .checkout-drop-zone,
@@ -409,26 +410,19 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
-      overflow: auto;
+      overflow: auto; /* 🔓 รองรับการเลื่อนดูผังร้าน */
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* 🗺️ ควบคุมการ Scroll ผังร้านบนมือถือให้สมบูรณ์แบบ */
-    .restaurant-layout-wrapper {
-      flex: 1;
-      overflow: auto;
-      background: #e9ecef;
-      border-radius: 8px;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
     .restaurant-layout {
       background: #e9ecef;
+      padding: 15px;
+      border-radius: 10px;
       position: relative;
       width: 700px;
       height: 520px;
       flex-shrink: 0;
+      margin: 0 auto;
     }
 
     .table-box {
@@ -512,22 +506,22 @@
       height: 26px;
     }
 
-    /* 📱 Responsive สำหรับมือถือ (หน้าจอแคบกว่า 768px) */
-    @media (max-width: 768px) {
+    /* 📱 Responsive สำหรับมือถือและ iPad (หน้าจอแคบกว่า 900px) */
+    @media (max-width: 900px) {
       body {
         flex-direction: column;
-        overflow: auto;
+        overflow-y: auto;
       }
       .sidebar {
         width: 100% !important;
-        height: 50px;
+        height: auto;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
       }
       .sidebar-brand {
         border-bottom: none;
-        padding: 5px 15px;
+        padding: 8px 12px;
       }
       .sidebar-menu {
         display: flex;
@@ -538,19 +532,28 @@
         padding: 8px 12px;
         font-size: 12px;
       }
-      .sidebar-footer, .sidebar.collapsed {
+      .sidebar-footer, .sidebar .toggle-btn {
         display: none !important;
       }
       .main-content {
-        height: calc(100vh - 50px);
+        height: auto;
         padding: 10px;
+        overflow: visible;
       }
       .layout-page-container {
         flex-direction: column;
       }
       .queue-sidebar {
         width: 100% !important;
-        max-height: 180px;
+        max-height: 280px;
+      }
+      .queue-sidebar.collapsed {
+        width: 100% !important;
+        max-height: 50px;
+      }
+      .restaurant-layout-box {
+        width: 100%;
+        box-sizing: border-box;
       }
     }
 
@@ -616,7 +619,7 @@
     <div id="availability-page" class="page-section active">
       <h1>เช็คเวลาโต๊ะว่าง (Table Availability Timeline)</h1>
       <p style="color: #64748b; font-size: 12px; margin-bottom: 15px;">
-        ℹ️ แสดงช่วงเวลาที่ "ว่าง" และ "ไม่ว่าง" ตามวันที่เลือกแบบละเอียด (รอบนั่งทาน 90 นาที)
+        ℹ️ แสดงช่วงเวลาที่ "ว่าง" และ "ไม่ว่าง" ตามวันที่เลือกแบบรายละเอียด (รอบนั่งทาน 90 นาที)
       </p>
       <div class="availability-grid" id="availability-grid-container"></div>
     </div>
@@ -683,7 +686,7 @@
     <div id="layout-page" class="page-section">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; background: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <button onclick="toggleQueueSidebar()" id="toggle-queue-btn" style="padding: 6px 10px; background: #475569; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;" title="ซ่อน/แสดงแถบคิว">◀ ซ่อนคิว</button>
+          <button onclick="toggleQueueSidebar()" id="toggle-queue-btn" style="padding: 6px 10px; background: #475569; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;" title="ซ่อน/แสดงแถบคิว">◀ ย่อแถบคิว</button>
           <h1 style="margin: 0; font-size: 16px;">ผังร้านอาหาร</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 6px;">
@@ -772,53 +775,51 @@
           </div>
         </div>
 
-        <!-- 🗺️ ผังร้านแบบ Scrollable Wrapper รองรับการเปิดบนมือถือและแท็บเล็ตทุกขนาด -->
+        <!-- 🗺️ ผังร้านแบบ Fix พิกัด สัดส่วนสวยงาม ล็อคไม่ให้บิดเบี้ยว -->
         <div class="restaurant-layout-box">
-          <div class="restaurant-layout-wrapper">
-            <div class="restaurant-layout">
-              
-              <!-- โซน O1 - O6 (ด้านบนสุด นอกร้าน) -->
-              <div class="table-box round" id="layout-O1" data-table="O1" style="left: 20px; top: 15px; width: 55px; height: 55px;">O1</div>
-              <div class="table-box round" id="layout-O2" data-table="O2" style="left: 90px; top: 15px; width: 55px; height: 55px;">O2</div>
-              <div class="table-box round" id="layout-O3" data-table="O3" style="left: 160px; top: 15px; width: 55px; height: 55px;">O3</div>
-              <div class="table-box round" id="layout-O4" data-table="O4" style="left: 230px; top: 15px; width: 55px; height: 55px;">O4</div>
-              <div class="table-box round" id="layout-O5" data-table="O5" style="left: 300px; top: 15px; width: 55px; height: 55px;">O5</div>
-              <div class="table-box round" id="layout-O6" data-table="O6" style="left: 370px; top: 15px; width: 55px; height: 55px;">O6</div>
+          <div class="restaurant-layout">
+            
+            <!-- โซน O1 - O6 (ด้านบนสุด นอกร้าน) -->
+            <div class="table-box round" id="layout-O1" data-table="O1" style="left: 20px; top: 15px; width: 55px; height: 55px;">O1</div>
+            <div class="table-box round" id="layout-O2" data-table="O2" style="left: 90px; top: 15px; width: 55px; height: 55px;">O2</div>
+            <div class="table-box round" id="layout-O3" data-table="O3" style="left: 160px; top: 15px; width: 55px; height: 55px;">O3</div>
+            <div class="table-box round" id="layout-O4" data-table="O4" style="left: 230px; top: 15px; width: 55px; height: 55px;">O4</div>
+            <div class="table-box round" id="layout-O5" data-table="O5" style="left: 300px; top: 15px; width: 55px; height: 55px;">O5</div>
+            <div class="table-box round" id="layout-O6" data-table="O6" style="left: 370px; top: 15px; width: 55px; height: 55px;">O6</div>
 
-              <!-- Gate พาดขวางยาว -->
-              <div class="gate-box">Gate</div>
+            <!-- Gate พาดขวางยาว -->
+            <div class="gate-box">Gate</div>
 
-              <!-- BAR ซ้ายสุด -->
-              <div class="bar-box">BAR</div>
+            <!-- BAR ซ้ายสุด -->
+            <div class="bar-box">BAR</div>
 
-              <!-- แถวซ้าย: โต๊ะ 3 ถึง 9 -->
-              <div class="table-box" id="layout-3" data-table="3" style="left: 65px; top: 80px; width: 65px; height: 52px;">3</div>
-              <div class="table-box" id="layout-4" data-table="4" style="left: 65px; top: 138px; width: 65px; height: 52px;">4</div>
-              <div class="table-box" id="layout-5" data-table="5" style="left: 65px; top: 196px; width: 65px; height: 52px;">5</div>
-              <div class="table-box" id="layout-6" data-table="6" style="left: 65px; top: 254px; width: 65px; height: 52px;">6</div>
-              <div class="table-box" id="layout-7" data-table="7" style="left: 65px; top: 312px; width: 65px; height: 52px;">7</div>
-              <div class="table-box" id="layout-8" data-table="8" style="left: 65px; top: 370px; width: 65px; height: 52px;">8</div>
-              <div class="table-box" id="layout-9" data-table="9" style="left: 65px; top: 428px; width: 65px; height: 52px;">9</div>
+            <!-- แถวซ้าย: โต๊ะ 3 ถึง 9 -->
+            <div class="table-box" id="layout-3" data-table="3" style="left: 65px; top: 80px; width: 65px; height: 52px;">3</div>
+            <div class="table-box" id="layout-4" data-table="4" style="left: 65px; top: 138px; width: 65px; height: 52px;">4</div>
+            <div class="table-box" id="layout-5" data-table="5" style="left: 65px; top: 196px; width: 65px; height: 52px;">5</div>
+            <div class="table-box" id="layout-6" data-table="6" style="left: 65px; top: 254px; width: 65px; height: 52px;">6</div>
+            <div class="table-box" id="layout-7" data-table="7" style="left: 65px; top: 312px; width: 65px; height: 52px;">7</div>
+            <div class="table-box" id="layout-8" data-table="8" style="left: 65px; top: 370px; width: 65px; height: 52px;">8</div>
+            <div class="table-box" id="layout-9" data-table="9" style="left: 65px; top: 428px; width: 65px; height: 52px;">9</div>
 
-              <!-- แถวกลาง: โต๊ะ 10 ถึง 17 และ 11/1 -->
-              <div class="table-box" id="layout-10" data-table="10" style="left: 235px; top: 120px; width: 65px; height: 52px;">10</div>
-              <div class="table-box" id="layout-11" data-table="11" style="left: 235px; top: 178px; width: 65px; height: 52px;">11</div>
-              <div class="table-box round" id="layout-11_1" data-table="11/1" style="left: 305px; top: 178px; width: 52px; height: 52px;">11/1</div>
-              <div class="table-box" id="layout-12" data-table="12" style="left: 235px; top: 236px; width: 65px; height: 52px;">12</div>
-              <div class="table-box" id="layout-13" data-table="13" style="left: 235px; top: 294px; width: 65px; height: 52px;">13</div>
-              <div class="table-box" id="layout-14" data-table="14" style="left: 235px; top: 352px; width: 65px; height: 52px;">14</div>
-              <div class="table-box" id="layout-15" data-table="15" style="left: 235px; top: 410px; width: 65px; height: 52px;">15</div>
-              <div class="table-box" id="layout-16" data-table="16" style="left: 305px; top: 410px; width: 65px; height: 52px;">16</div>
-              <div class="table-box" id="layout-17" data-table="17" style="left: 235px; top: 468px; width: 135px; height: 32px;">17</div>
+            <!-- แถวกลาง: โต๊ะ 10 ถึง 17 และ 11/1 -->
+            <div class="table-box" id="layout-10" data-table="10" style="left: 235px; top: 120px; width: 65px; height: 52px;">10</div>
+            <div class="table-box" id="layout-11" data-table="11" style="left: 235px; top: 178px; width: 65px; height: 52px;">11</div>
+            <div class="table-box round" id="layout-11_1" data-table="11/1" style="left: 305px; top: 178px; width: 52px; height: 52px;">11/1</div>
+            <div class="table-box" id="layout-12" data-table="12" style="left: 235px; top: 236px; width: 65px; height: 52px;">12</div>
+            <div class="table-box" id="layout-13" data-table="13" style="left: 235px; top: 294px; width: 65px; height: 52px;">13</div>
+            <div class="table-box" id="layout-14" data-table="14" style="left: 235px; top: 352px; width: 65px; height: 52px;">14</div>
+            <div class="table-box" id="layout-15" data-table="15" style="left: 235px; top: 410px; width: 65px; height: 52px;">15</div>
+            <div class="table-box" id="layout-16" data-table="16" style="left: 305px; top: 410px; width: 65px; height: 52px;">16</div>
+            <div class="table-box" id="layout-17" data-table="17" style="left: 235px; top: 468px; width: 135px; height: 32px;">17</div>
 
-              <!-- แถวขวา: โต๊ะ 18 ถึง 23 -->
-              <div class="table-box" id="layout-18" data-table="18" style="left: 450px; top: 80px; width: 65px; height: 52px;">18</div>
-              <div class="table-box" id="layout-19" data-table="19" style="left: 450px; top: 138px; width: 65px; height: 52px;">19</div>
-              <div class="table-box" id="layout-20" data-table="20" style="left: 450px; top: 196px; width: 65px; height: 52px;">20</div>
-              <div class="table-box" id="layout-21" data-table="21" style="left: 450px; top: 254px; width: 65px; height: 52px;">21</div>
-              <div class="table-box" id="layout-23" data-table="23" style="left: 535px; top: 196px; width: 80px; height: 52px;">23</div>
+            <!-- แถวขวา: โต๊ะ 18 ถึง 23 -->
+            <div class="table-box" id="layout-18" data-table="18" style="left: 450px; top: 80px; width: 65px; height: 52px;">18</div>
+            <div class="table-box" id="layout-19" data-table="19" style="left: 450px; top: 138px; width: 65px; height: 52px;">19</div>
+            <div class="table-box" id="layout-20" data-table="20" style="left: 450px; top: 196px; width: 65px; height: 52px;">20</div>
+            <div class="table-box" id="layout-21" data-table="21" style="left: 450px; top: 254px; width: 65px; height: 52px;">21</div>
+            <div class="table-box" id="layout-23" data-table="23" style="left: 535px; top: 196px; width: 80px; height: 52px;">23</div>
 
-            </div>
           </div>
         </div>
 
@@ -853,7 +854,7 @@
       const panel = document.getElementById('queue-sidebar-panel');
       const btn = document.getElementById('toggle-queue-btn');
       panel.classList.toggle('collapsed');
-      btn.innerText = panel.classList.contains('collapsed') ? '▶ ขยายคิว' : '◀ ซ่อนคิว';
+      btn.innerText = panel.classList.contains('collapsed') ? '▶ ขยายคิว' : '◀ ย่อแถบคิว';
     }
 
     window.toggleSection = function(contentId) {
