@@ -1207,7 +1207,9 @@
 
       if (pageId === 'customer-page') {
         if (!document.getElementById('customer-report-date-picker').value) {
-          document.getElementById('customer-report-date-picker').value = new Date().toISOString().split('T')[0];
+          const now = new Date();
+          const localToday = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+          document.getElementById('customer-report-date-picker').value = localToday;
         }
         renderCustomerTable();
       }
@@ -1249,9 +1251,10 @@
       let res = await showAppModal('🔒 ยืนยันรหัสผ่านผู้จัดการ', 'กรุณากรอกรหัสผ่านเพื่อเข้าสู่หน้าตั้งค่าปิดร้าน:', true, 'password');
       if (res.success && res.value === "0000") {
         switchPage('closure-page', element);
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('closure-page-start').value = today;
-        document.getElementById('closure-page-end').value = today;
+        const now = new Date();
+        const localToday = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+        document.getElementById('closure-page-start').value = localToday;
+        document.getElementById('closure-page-end').value = localToday;
       } else if (res.success) {
         await showAppModal('❌ แจ้งเตือน', 'รหัสผ่านไม่ถูกต้อง');
       }
@@ -1285,10 +1288,14 @@
     const layoutDatePicker = document.getElementById('layout-date-picker');
     const customerReportDatePicker = document.getElementById('customer-report-date-picker');
 
-    const getTodayString = () => new Date().toISOString().split('T')[0];
+    // 🌟 [แก้ปัญหา Timezone: คำนวณวันที่ตามเวลาท้องถิ่นประเทศไทย (Local Date YYYY-MM-DD) แบบแม่นยำ]
+    const getTodayString = () => {
+      const now = new Date();
+      const localDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
+      return localDate.toISOString().split('T')[0];
+    };
     const todayStr = getTodayString();
     
-    // 🌟 [บังคับเช็คและเคลียร์วันเก่าทิ้ง บังคับให้เป็นวันปัจจุบันจริงเสมอเมื่อเปิดเว็บ]
     viewDatePicker.value = todayStr;
     bookingDateInput.value = todayStr;
     layoutDatePicker.value = todayStr;
@@ -2087,7 +2094,6 @@
     }, 10000);
 
     function renderDashboard() {
-      // 🌟 [เช็คและบังคับอัปเดตวันที่เป็นวันนี้แบบ Real-time ถ้าข้ามวันแล้วเปิดแอปค้างไว้]
       const currentRealToday = getTodayString();
       if (viewDatePicker.value !== currentRealToday && !viewDatePicker.matches(':focus')) {
         viewDatePicker.value = currentRealToday;
