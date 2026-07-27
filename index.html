@@ -106,6 +106,7 @@
     .main-content {
       flex: 1;
       padding: 15px;
+      padding-bottom: 80px; /* เว้นพื้นที่ด้านล่างบนมือถือไม่ให้เมนูบังเนื้อหา */
       overflow-y: auto;
       box-sizing: border-box;
       display: flex;
@@ -627,38 +628,65 @@
       }
     }
 
-    /* 📱 Responsive สำหรับมือถือและ iPad (หน้าจอแคบกว่า 900px) */
+    /* 📱 Responsive สำหรับมือถือและ iPad (หน้าจอแคบกว่า 900px): ย้ายเมนูไปไว้ด้านล่างสุดของจอ */
     @media (max-width: 900px) {
       body {
         flex-direction: column;
         overflow-y: auto;
       }
       .sidebar {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
         width: 100% !important;
-        height: auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+        height: 60px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-around !important;
+        background-color: #0f172a !important;
+        border-top: 1px solid #1e293b;
+        z-index: 1000 !important;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
       }
-      .sidebar-brand {
-        border-bottom: none;
-        padding: 8px 12px;
+      .sidebar-brand, .sidebar-footer, .sidebar .toggle-btn {
+        display: none !important;
       }
       .sidebar-menu {
-        display: flex;
-        flex-direction: row;
-        padding: 0;
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        justify-content: space-around !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
       .sidebar-item {
-        padding: 8px 12px;
-        font-size: 12px;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 2px !important;
+        font-size: 10px !important;
+        gap: 2px !important;
+        text-align: center;
+        border-left: none !important;
+        color: #94a3b8;
       }
-      .sidebar-footer, .sidebar .toggle-btn {
-        display: none !important;
+      .sidebar-item span:first-child {
+        font-size: 18px !important;
+      }
+      .sidebar-item.active {
+        color: #ffffff !important;
+        background-color: transparent !important;
+        font-weight: bold;
+      }
+      .sidebar-text {
+        display: block !important;
+        font-size: 9px !important;
       }
       .main-content {
         height: auto;
         padding: 10px;
+        padding-bottom: 75px; /* เผื่อพื้นที่ไม่ให้เนื้อหาโดนเมนูด้านล่างบัง */
         overflow: visible;
       }
       .layout-page-container {
@@ -719,7 +747,7 @@
     </div>
   </div>
 
-  <!-- 🗂️ แถบ Sidebar ด้านซ้าย -->
+  <!-- 🗂️ แถบ Sidebar ด้านซ้าย (บนมือถือจะย้ายไปอยู่ด้านล่างสุด Fixed ตลอดเวลา) -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <span class="sidebar-brand-text">🍽️ Cher Thai Eatery</span>
@@ -1030,7 +1058,7 @@
             <input type="date" id="customer-report-date-picker" onchange="renderCustomerTable()" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: bold; font-size: 13px;">
           </div>
           <div style="flex: 1; min-width: 200px;">
-            <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร (พิมพ์เพื่อค้นหาข้ามวัน):</label>
+            <label style="font-size: 12px; margin-bottom: 2px;">🔍 ค้นหาชื่อ หรือ เบอร์โทร (Smart Search):</label>
             <input type="text" id="customer-search-input" placeholder="พิมพ์ค้นหา..." oninput="renderCustomerTable()">
           </div>
           <div>
@@ -1878,7 +1906,7 @@
       }
     });
 
-    // 🌟 [Smart Search สำหรับหน้าข้อมูลลูกค้า: ถ้าว่างจะแสดงวันที่เลือก ถ้าพิมพ์ค้นหาจะแสดงผลทั้งหมดข้ามวันทันที]
+    // 🌟 [Smart Search อัจฉริยะ: ช่องว่างแสดงวันที่เลือก | พิมพ์ค้นหาแสดงทั้งหมดข้ามวัน | ลบคำค้นหากลับมาแสดงวันนั้นทันที]
     window.renderCustomerTable = function() {
       const tbody = document.getElementById('customer-report-body');
       const selectedDateFilter = document.getElementById('customer-report-date-picker').value;
@@ -1892,7 +1920,7 @@
         const matchSearch = searchKeyword !== "" && (name.includes(searchKeyword) || phone.includes(searchKeyword));
         const matchDate = !selectedDateFilter || b.bookingDate === selectedDateFilter;
 
-        // ถ้ามีการพิมพ์ค้นหา จะค้นหาจากฐานข้อมูลทั้งหมดข้ามวันทันที แต่ถ้าช่องค้นหาว่าง จะแสดงเฉพาะวันที่เลือก
+        // ถ้ากำลังพิมพ์ค้นหา ให้แสดงผลตามคำค้นหาข้ามวัน แต่ถ้าช่องค้นหาว่าง ให้กลับมาแสดงเฉพาะวันที่เลือกตามปกติ
         return searchKeyword !== "" ? matchSearch : matchDate;
       });
 
