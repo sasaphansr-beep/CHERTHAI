@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Cher Thai Eatery - Ultimate Management System</title>
   <!-- ตัวช่วยลากวางบนมือถือ/iPad -->
   <script src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
@@ -17,7 +17,7 @@
       color: #333;
     }
     .sidebar {
-      width: 240px;
+      width: 220px;
       background-color: #1e293b;
       color: white;
       display: flex;
@@ -27,11 +27,11 @@
       position: relative;
     }
     .sidebar.collapsed {
-      width: 65px;
+      width: 60px;
     }
     .sidebar-brand {
-      padding: 20px 10px;
-      font-size: 15px;
+      padding: 15px 10px;
+      font-size: 14px;
       font-weight: bold;
       background-color: #0f172a;
       border-bottom: 1px solid #334155;
@@ -59,18 +59,18 @@
     }
     .sidebar-menu {
       list-style: none;
-      padding: 10px 0;
+      padding: 5px 0;
       margin: 0;
       flex: 1;
       overflow: hidden;
     }
     .sidebar-item {
-      padding: 12px 20px;
+      padding: 12px 15px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       transition: background 0.2s;
       white-space: nowrap;
     }
@@ -85,8 +85,8 @@
       display: none;
     }
     .sidebar-footer {
-      padding: 15px;
-      font-size: 11px;
+      padding: 12px;
+      font-size: 10px;
       color: #94a3b8;
       border-top: 1px solid #334155;
       white-space: nowrap;
@@ -98,7 +98,7 @@
     
     .main-content {
       flex: 1;
-      padding: 20px;
+      padding: 15px;
       overflow-y: auto;
       height: 100vh;
       box-sizing: border-box;
@@ -117,27 +117,28 @@
 
     .date-bar {
       background: #ffffff;
-      padding: 12px 20px;
-      border-radius: 10px;
+      padding: 10px 15px;
+      border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       flex-shrink: 0;
     }
     .date-bar-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .date-bar-left input[type="date"], .layout-date-picker {
-      padding: 8px 12px;
+      padding: 6px 10px;
       border: 1px solid #2563eb;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
       color: #1e293b;
       cursor: pointer;
@@ -145,9 +146,9 @@
     .summary-badge {
       background: #e0f2fe;
       color: #0369a1;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
     }
 
@@ -155,46 +156,47 @@
       display: none;
       background-color: #ef4444;
       color: white;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
       font-weight: bold;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
     }
 
     h1, h2 {
       color: #1e293b;
       margin-top: 0;
+      font-size: 18px;
     }
     .main-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
     }
     .panel-box {
       background: white;
-      padding: 20px;
-      border-radius: 12px;
+      padding: 15px;
+      border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     label {
       display: block;
       font-weight: bold;
-      margin-bottom: 5px;
-      font-size: 14px;
+      margin-bottom: 4px;
+      font-size: 13px;
     }
     input, select {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
       -webkit-appearance: none;
     }
     button.save-btn {
@@ -202,27 +204,24 @@
       background-color: #27ae60;
       color: white;
       border: none;
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 10px;
-    }
-    button.save-btn:hover {
-      background-color: #219653;
+      margin-top: 8px;
     }
 
     .table-checkbox-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
-      gap: 6px;
-      max-height: 140px;
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      gap: 5px;
+      max-height: 120px;
       overflow-y: auto;
       background: #f8fafc;
-      padding: 8px;
+      padding: 6px;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .table-checkbox-item {
       display: inline-block;
@@ -235,39 +234,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 2px;
+      padding: 5px 2px;
       background-color: #ffffff;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 12px;
+      border-radius: 5px;
+      font-size: 11px;
       font-weight: bold;
       color: #334155;
       cursor: pointer;
-      user-select: none;
-      transition: all 0.2s;
-      text-align: center;
     }
     .table-checkbox-item input[type="checkbox"]:checked + span {
       background-color: #2563eb;
       color: #ffffff;
       border-color: #1d4ed8;
-      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
     }
 
     .timeline-container {
       background: white;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow-x: auto;
-      max-height: 600px;
+      max-height: 500px;
     }
     table.timeline-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 12px;
     }
     table.timeline-table th, table.timeline-table td {
       border: 1px solid #cbd5e1;
-      padding: 10px;
+      padding: 8px;
       vertical-align: middle;
     }
     table.timeline-table th {
@@ -283,55 +278,53 @@
       background-color: #e2e8f0;
       font-weight: bold;
       text-align: center;
-      width: 90px;
-      font-size: 14px;
+      width: 80px;
+      font-size: 13px;
     }
     .timeline-card {
       background-color: #ff9800;
       color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
+      padding: 6px 10px;
+      border-radius: 5px;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       position: relative;
-      font-size: 12px;
+      font-size: 11px;
       display: inline-block;
-      margin-right: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-right: 6px;
     }
     .timeline-card .delete-btn {
       position: absolute;
-      top: 2px;
-      right: 4px;
+      top: 1px;
+      right: 3px;
       background: none;
       border: none;
       color: white;
-      font-size: 11px;
+      font-size: 10px;
       cursor: pointer;
     }
 
-    /* 🗺️ เลย์เอาต์ผังร้านและแถบคิว */
+    /* 🗺️ เลย์เอาต์ผังร้านมือถือและแท็บเล็ต */
     .layout-page-container {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       flex: 1;
       overflow: hidden;
     }
     .queue-sidebar {
-      width: 290px;
+      width: 270px;
       flex-shrink: 0;
       background: #1e293b;
       color: #f8fafc;
-      padding: 12px;
-      border-radius: 12px;
+      padding: 10px;
+      border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       overflow-y: auto;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    /* โหมดซ่อนคิว: เหลือแค่กล่องเลขโต๊ะสรุปย่อขนาดกะทัดรัด */
     .queue-sidebar.collapsed {
-      width: 75px;
-      padding: 8px;
+      width: 65px;
+      padding: 6px;
     }
     .queue-sidebar.collapsed .sr-content,
     .queue-sidebar.collapsed .checkout-drop-zone,
@@ -353,18 +346,18 @@
     }
 
     .sr-section {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       border-bottom: 1px solid #334155;
       background: #0f172a;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
     }
     .sr-header {
-      padding: 10px 12px;
+      padding: 8px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: bold;
       color: #94a3b8;
       cursor: pointer;
@@ -375,10 +368,10 @@
       color: #fff;
     }
     .sr-content {
-      padding: 8px;
+      padding: 6px;
       display: none;
       background: #1e293b;
-      min-height: 40px;
+      min-height: 30px;
     }
     .sr-content.open {
       display: block;
@@ -388,50 +381,53 @@
       background-color: #334155;
       border-left: 4px solid #f59e0b;
       color: white;
-      padding: 8px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      margin-bottom: 6px;
+      padding: 6px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      margin-bottom: 5px;
       cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-      transition: background 0.2s;
-    }
-    .queue-card:hover {
-      background-color: #475569;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
 
     .checkout-drop-zone {
       background: #064e3b;
       border: 2px dashed #10b981;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 10px;
+      border-radius: 6px;
       text-align: center;
       color: #34d399;
       font-weight: bold;
-      font-size: 12px;
-      margin-top: 15px;
+      font-size: 11px;
+      margin-top: 10px;
     }
 
     .restaurant-layout-box {
       flex: 1;
       background: white;
-      padding: 15px;
-      border-radius: 12px;
+      padding: 12px;
+      border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
       overflow: auto;
     }
 
-    /* 🗺️ โครงสร้างผังร้าน Fixed Coordinates ตรงตามต้นฉบับเป๊ะๆ 100% ไม่มียืดเพี้ยน */
+    /* 🗺️ ควบคุมการ Scroll ผังร้านบนมือถือให้สมบูรณ์แบบ */
+    .restaurant-layout-wrapper {
+      flex: 1;
+      overflow: auto;
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .restaurant-layout {
       background: #e9ecef;
-      padding: 15px;
-      border-radius: 10px;
       position: relative;
-      width: 720px;
-      height: 540px;
-      margin: 0 auto;
+      width: 700px;
+      height: 520px;
       flex-shrink: 0;
     }
 
@@ -439,8 +435,8 @@
       background: #9e9e9e;
       border: 2px solid #555;
       color: #111;
-      border-radius: 6px;
-      padding: 3px;
+      border-radius: 5px;
+      padding: 2px;
       text-align: center;
       font-weight: bold;
       font-size: 11px;
@@ -451,7 +447,7 @@
       align-items: center;
       cursor: pointer;
       overflow-y: auto;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
     }
     .table-box.occupied {
       background-color: #f1f5f9;
@@ -465,14 +461,14 @@
 
     .table-occupant-chip {
       color: white;
-      border-radius: 4px;
-      padding: 2px 4px;
+      border-radius: 3px;
+      padding: 2px 3px;
       font-size: 9px;
       width: 92%;
       box-sizing: border-box;
       cursor: pointer;
       box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-      margin-top: 2px;
+      margin-top: 1px;
     }
     .table-occupant-chip.status-green { background-color: #16a34a; }
     .table-occupant-chip.status-yellow { background-color: #eab308; color: #1e293b; font-weight: bold; }
@@ -492,13 +488,13 @@
       justify-content: center;
       writing-mode: vertical-rl;
       font-weight: bold;
-      font-size: 12px;
+      font-size: 11px;
       border-radius: 4px;
       position: absolute;
       left: 15px;
-      top: 85px;
-      width: 30px;
-      height: 420px;
+      top: 80px;
+      width: 28px;
+      height: 410px;
     }
     .gate-box {
       background: #c62828;
@@ -506,27 +502,69 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: bold;
       border-radius: 4px;
       position: absolute;
-      left: 200px;
-      top: 85px;
+      left: 195px;
+      top: 80px;
       width: 135px;
-      height: 28px;
+      height: 26px;
+    }
+
+    /* 📱 Responsive สำหรับมือถือ (หน้าจอแคบกว่า 768px) */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        overflow: auto;
+      }
+      .sidebar {
+        width: 100% !important;
+        height: 50px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .sidebar-brand {
+        border-bottom: none;
+        padding: 5px 15px;
+      }
+      .sidebar-menu {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+      }
+      .sidebar-item {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+      .sidebar-footer, .sidebar.collapsed {
+        display: none !important;
+      }
+      .main-content {
+        height: calc(100vh - 50px);
+        padding: 10px;
+      }
+      .layout-page-container {
+        flex-direction: column;
+      }
+      .queue-sidebar {
+        width: 100% !important;
+        max-height: 180px;
+      }
     }
 
     .availability-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
     }
     .availability-card {
       background: white;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      border-left: 5px solid #22c55e;
+      border-left: 4px solid #22c55e;
     }
     .availability-card.has-booking {
       border-left-color: #f97316;
@@ -546,10 +584,10 @@
         <span>⏰</span> <span class="sidebar-text">เช็คโต๊ะว่าง</span>
       </li>
       <li class="sidebar-item" onclick="switchPage('grid-page', this)" title="ระบบจองโต๊ะ">
-        <span>📊</span> <span class="sidebar-text">ระบบจอง (Timeline)</span>
+        <span>📊</span> <span class="sidebar-text">ระบบจอง</span>
       </li>
       <li class="sidebar-item" onclick="switchPage('layout-page', this)" title="ผังร้าน & จัดการคิว">
-        <span>🗺️</span> <span class="sidebar-text">ผังร้าน & จัดการคิว</span>
+        <span>🗺️</span> <span class="sidebar-text">ผังร้าน</span>
       </li>
     </ul>
     <div class="sidebar-footer" id="today-hours-badge"></div>
@@ -561,13 +599,13 @@
     <!-- 📅 แถบเลือกวันที่สำหรับหน้า 1 และ หน้า 2 -->
     <div class="date-bar" id="top-date-bar">
       <div class="date-bar-left">
-        <label style="margin:0; font-size:15px; font-weight:bold;">📅 เลือกวันที่ต้องการดู / จอง:</label>
+        <label style="margin:0; font-size:14px; font-weight:bold;">📅 เลือกวันที่:</label>
         <input type="date" id="view-date-picker">
-        <button onclick="setTodayDate()" style="padding: 8px 12px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">วันนี้</button>
-        <button onclick="manageStoreClosure()" style="padding: 8px 12px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px;">🔴 ตั้งค่าปิดร้าน (พิเศษ / ปิดยาว)</button>
+        <button onclick="setTodayDate()" style="padding: 6px 10px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">วันนี้</button>
+        <button onclick="manageStoreClosure()" style="padding: 6px 10px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">🔴 ปิดร้านพิเศษ</button>
       </div>
       <div class="summary-badge" id="daily-summary-text">
-        📊 ยอดจองประจำวัน: 0 รายการ (รวม 0 คน)
+        📊 ยอดจอง: 0 รายการ
       </div>
     </div>
 
@@ -577,7 +615,7 @@
     <!-- 📄 หน้าที่ 1: เช็คเวลาโต๊ะว่าง -->
     <div id="availability-page" class="page-section active">
       <h1>เช็คเวลาโต๊ะว่าง (Table Availability Timeline)</h1>
-      <p style="color: #64748b; font-size: 13px; margin-bottom: 20px;">
+      <p style="color: #64748b; font-size: 12px; margin-bottom: 15px;">
         ℹ️ แสดงช่วงเวลาที่ "ว่าง" และ "ไม่ว่าง" ตามวันที่เลือกแบบละเอียด (รอบนั่งทาน 90 นาที)
       </p>
       <div class="availability-grid" id="availability-grid-container"></div>
@@ -588,7 +626,7 @@
       <h1>ระบบลงทะเบียนจองโต๊ะ (บล็อกเวลาอัตโนมัติ 90 นาที)</h1>
       <div class="main-container">
         
-        <div class="panel-box" style="flex: 1; min-width: 290px;">
+        <div class="panel-box" style="flex: 1; min-width: 260px;">
           <h2>📝 ลงทะเบียนจองโต๊ะ</h2>
           
           <div class="form-group">
@@ -613,7 +651,7 @@
             <input type="number" id="cust-pax" placeholder="เช่น 4" value="2" min="1">
           </div>
           <div class="form-group">
-            <label>🍽️ เลือกโต๊ะ (ระบบเลือกให้อัตโนมัติ):</label>
+            <label>🍽️ เลือกโต๊ะ:</label>
             <div class="table-checkbox-grid" id="table-checkboxes"></div>
           </div>
           <div class="form-group">
@@ -623,17 +661,14 @@
           <button class="save-btn" id="save-booking-btn">บันทึกการจอง</button>
         </div>
 
-        <div class="panel-box" style="flex: 2; min-width: 500px;">
+        <div class="panel-box" style="flex: 2; min-width: 300px;">
           <h2 style="color: #1e293b;">📅 ตารางรายการจองแยกตามโต๊ะ</h2>
-          <div style="font-size: 11px; color: #64748b; margin-bottom: 10px;">
-            ℹ️ รวมรายการจองทั้งหมดของวันที่เลือก
-          </div>
           <div class="timeline-container">
             <table class="timeline-table">
               <thead>
                 <tr>
-                  <th style="width: 90px;">โต๊ะ</th>
-                  <th>รายการจองและช่วงเวลานั่งทาน (90 นาที)</th>
+                  <th style="width: 80px;">โต๊ะ</th>
+                  <th>รายการจอง (รอบ 90 นาที)</th>
                 </tr>
               </thead>
               <tbody id="timeline-body"></tbody>
@@ -646,15 +681,15 @@
 
     <!-- 📄 หน้าที่ 3: ผังร้าน & จัดการคิวสไตล์ SevenRooms -->
     <div id="layout-page" class="page-section">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; background: white; padding: 12px 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <button onclick="toggleQueueSidebar()" id="toggle-queue-btn" style="padding: 8px 12px; background: #475569; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px;" title="ซ่อน/แสดงแถบคิว">◀ ซ่อนคิว</button>
-          <h1 style="margin: 0; font-size: 20px;">ผังร้านอาหาร</h1>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; background: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button onclick="toggleQueueSidebar()" id="toggle-queue-btn" style="padding: 6px 10px; background: #475569; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;" title="ซ่อน/แสดงแถบคิว">◀ ซ่อนคิว</button>
+          <h1 style="margin: 0; font-size: 16px;">ผังร้านอาหาร</h1>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <label style="margin: 0; font-weight: bold; font-size: 14px;">🗺️ เลือกวันที่ผังร้าน:</label>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <label style="margin: 0; font-weight: bold; font-size: 13px;">🗺️ เลือกวันที่:</label>
           <input type="date" id="layout-date-picker" class="layout-date-picker">
-          <button onclick="setLayoutTodayDate()" style="padding: 6px 12px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px;">วันนี้</button>
+          <button onclick="setLayoutTodayDate()" style="padding: 5px 10px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">วันนี้</button>
         </div>
       </div>
       
@@ -662,7 +697,7 @@
         
         <!-- แถบคิวซ้ายสไตล์ SevenRooms -->
         <div class="queue-sidebar" id="queue-sidebar-panel">
-          <h3 style="color: #f8fafc; margin-top:0; font-size: 14px; border-bottom: 1px solid #334155; padding-bottom: 8px;">
+          <h3 style="color: #f8fafc; margin-top:0; font-size: 13px; border-bottom: 1px solid #334155; padding-bottom: 6px;">
             <span class="short-title">📋 จัดการคิว</span>
           </h3>
 
@@ -684,7 +719,7 @@
               <span id="sr-upcoming-count" class="badge-count">0 (0)</span>
             </div>
             <div class="sr-content open" id="sr-upcoming-content">
-              <div id="waiting-queue-container" style="min-height: 40px;"></div>
+              <div id="waiting-queue-container" style="min-height: 30px;"></div>
             </div>
           </div>
 
@@ -733,55 +768,57 @@
           </div>
 
           <div class="checkout-drop-zone" id="checkout-zone">
-            💵 เช็คบิล (ลากมาปล่อย หรือ แตะชื่อ)
+            💵 เช็คบิล (ลาก/แตะชื่อ)
           </div>
         </div>
 
-        <!-- 🗺️ ผังร้านแบบ Fix พิกัดต้นฉบับเป๊ะๆ สัดส่วนสวยงาม -->
+        <!-- 🗺️ ผังร้านแบบ Scrollable Wrapper รองรับการเปิดบนมือถือและแท็บเล็ตทุกขนาด -->
         <div class="restaurant-layout-box">
-          <div class="restaurant-layout">
-            
-            <!-- โซน O1 - O6 (ด้านบนสุด นอกร้าน) -->
-            <div class="table-box round" id="layout-O1" data-table="O1" style="left: 20px; top: 15px; width: 55px; height: 55px;">O1</div>
-            <div class="table-box round" id="layout-O2" data-table="O2" style="left: 90px; top: 15px; width: 55px; height: 55px;">O2</div>
-            <div class="table-box round" id="layout-O3" data-table="O3" style="left: 160px; top: 15px; width: 55px; height: 55px;">O3</div>
-            <div class="table-box round" id="layout-O4" data-table="O4" style="left: 230px; top: 15px; width: 55px; height: 55px;">O4</div>
-            <div class="table-box round" id="layout-O5" data-table="O5" style="left: 300px; top: 15px; width: 55px; height: 55px;">O5</div>
-            <div class="table-box round" id="layout-O6" data-table="O6" style="left: 370px; top: 15px; width: 55px; height: 55px;">O6</div>
+          <div class="restaurant-layout-wrapper">
+            <div class="restaurant-layout">
+              
+              <!-- โซน O1 - O6 (ด้านบนสุด นอกร้าน) -->
+              <div class="table-box round" id="layout-O1" data-table="O1" style="left: 20px; top: 15px; width: 55px; height: 55px;">O1</div>
+              <div class="table-box round" id="layout-O2" data-table="O2" style="left: 90px; top: 15px; width: 55px; height: 55px;">O2</div>
+              <div class="table-box round" id="layout-O3" data-table="O3" style="left: 160px; top: 15px; width: 55px; height: 55px;">O3</div>
+              <div class="table-box round" id="layout-O4" data-table="O4" style="left: 230px; top: 15px; width: 55px; height: 55px;">O4</div>
+              <div class="table-box round" id="layout-O5" data-table="O5" style="left: 300px; top: 15px; width: 55px; height: 55px;">O5</div>
+              <div class="table-box round" id="layout-O6" data-table="O6" style="left: 370px; top: 15px; width: 55px; height: 55px;">O6</div>
 
-            <!-- Gate พาดขวางยาว -->
-            <div class="gate-box">Gate</div>
+              <!-- Gate พาดขวางยาว -->
+              <div class="gate-box">Gate</div>
 
-            <!-- BAR ซ้ายสุด -->
-            <div class="bar-box">BAR</div>
+              <!-- BAR ซ้ายสุด -->
+              <div class="bar-box">BAR</div>
 
-            <!-- แถวซ้าย: โต๊ะ 3 ถึง 9 -->
-            <div class="table-box" id="layout-3" data-table="3" style="left: 65px; top: 85px; width: 65px; height: 55px;">3</div>
-            <div class="table-box" id="layout-4" data-table="4" style="left: 65px; top: 145px; width: 65px; height: 55px;">4</div>
-            <div class="table-box" id="layout-5" data-table="5" style="left: 65px; top: 205px; width: 65px; height: 55px;">5</div>
-            <div class="table-box" id="layout-6" data-table="6" style="left: 65px; top: 265px; width: 65px; height: 55px;">6</div>
-            <div class="table-box" id="layout-7" data-table="7" style="left: 65px; top: 325px; width: 65px; height: 55px;">7</div>
-            <div class="table-box" id="layout-8" data-table="8" style="left: 65px; top: 385px; width: 65px; height: 55px;">8</div>
-            <div class="table-box" id="layout-9" data-table="9" style="left: 65px; top: 445px; width: 65px; height: 55px;">9</div>
+              <!-- แถวซ้าย: โต๊ะ 3 ถึง 9 -->
+              <div class="table-box" id="layout-3" data-table="3" style="left: 65px; top: 80px; width: 65px; height: 52px;">3</div>
+              <div class="table-box" id="layout-4" data-table="4" style="left: 65px; top: 138px; width: 65px; height: 52px;">4</div>
+              <div class="table-box" id="layout-5" data-table="5" style="left: 65px; top: 196px; width: 65px; height: 52px;">5</div>
+              <div class="table-box" id="layout-6" data-table="6" style="left: 65px; top: 254px; width: 65px; height: 52px;">6</div>
+              <div class="table-box" id="layout-7" data-table="7" style="left: 65px; top: 312px; width: 65px; height: 52px;">7</div>
+              <div class="table-box" id="layout-8" data-table="8" style="left: 65px; top: 370px; width: 65px; height: 52px;">8</div>
+              <div class="table-box" id="layout-9" data-table="9" style="left: 65px; top: 428px; width: 65px; height: 52px;">9</div>
 
-            <!-- แถวกลาง: โต๊ะ 10 ถึง 17 และ 11/1 -->
-            <div class="table-box" id="layout-10" data-table="10" style="left: 235px; top: 125px; width: 65px; height: 55px;">10</div>
-            <div class="table-box" id="layout-11" data-table="11" style="left: 235px; top: 185px; width: 65px; height: 55px;">11</div>
-            <div class="table-box round" id="layout-11_1" data-table="11/1" style="left: 305px; top: 185px; width: 55px; height: 55px;">11/1</div>
-            <div class="table-box" id="layout-12" data-table="12" style="left: 235px; top: 245px; width: 65px; height: 55px;">12</div>
-            <div class="table-box" id="layout-13" data-table="13" style="left: 235px; top: 305px; width: 65px; height: 55px;">13</div>
-            <div class="table-box" id="layout-14" data-table="14" style="left: 235px; top: 365px; width: 65px; height: 55px;">14</div>
-            <div class="table-box" id="layout-15" data-table="15" style="left: 235px; top: 425px; width: 65px; height: 55px;">15</div>
-            <div class="table-box" id="layout-16" data-table="16" style="left: 305px; top: 425px; width: 65px; height: 55px;">16</div>
-            <div class="table-box" id="layout-17" data-table="17" style="left: 235px; top: 485px; width: 135px; height: 32px;">17</div>
+              <!-- แถวกลาง: โต๊ะ 10 ถึง 17 และ 11/1 -->
+              <div class="table-box" id="layout-10" data-table="10" style="left: 235px; top: 120px; width: 65px; height: 52px;">10</div>
+              <div class="table-box" id="layout-11" data-table="11" style="left: 235px; top: 178px; width: 65px; height: 52px;">11</div>
+              <div class="table-box round" id="layout-11_1" data-table="11/1" style="left: 305px; top: 178px; width: 52px; height: 52px;">11/1</div>
+              <div class="table-box" id="layout-12" data-table="12" style="left: 235px; top: 236px; width: 65px; height: 52px;">12</div>
+              <div class="table-box" id="layout-13" data-table="13" style="left: 235px; top: 294px; width: 65px; height: 52px;">13</div>
+              <div class="table-box" id="layout-14" data-table="14" style="left: 235px; top: 352px; width: 65px; height: 52px;">14</div>
+              <div class="table-box" id="layout-15" data-table="15" style="left: 235px; top: 410px; width: 65px; height: 52px;">15</div>
+              <div class="table-box" id="layout-16" data-table="16" style="left: 305px; top: 410px; width: 65px; height: 52px;">16</div>
+              <div class="table-box" id="layout-17" data-table="17" style="left: 235px; top: 468px; width: 135px; height: 32px;">17</div>
 
-            <!-- แถวขวา: โต๊ะ 18 ถึง 23 -->
-            <div class="table-box" id="layout-18" data-table="18" style="left: 450px; top: 85px; width: 65px; height: 55px;">18</div>
-            <div class="table-box" id="layout-19" data-table="19" style="left: 450px; top: 145px; width: 65px; height: 55px;">19</div>
-            <div class="table-box" id="layout-20" data-table="20" style="left: 450px; top: 205px; width: 65px; height: 55px;">20</div>
-            <div class="table-box" id="layout-21" data-table="21" style="left: 450px; top: 265px; width: 65px; height: 55px;">21</div>
-            <div class="table-box" id="layout-23" data-table="23" style="left: 535px; top: 205px; width: 80px; height: 55px;">23</div>
+              <!-- แถวขวา: โต๊ะ 18 ถึง 23 -->
+              <div class="table-box" id="layout-18" data-table="18" style="left: 450px; top: 80px; width: 65px; height: 52px;">18</div>
+              <div class="table-box" id="layout-19" data-table="19" style="left: 450px; top: 138px; width: 65px; height: 52px;">19</div>
+              <div class="table-box" id="layout-20" data-table="20" style="left: 450px; top: 196px; width: 65px; height: 52px;">20</div>
+              <div class="table-box" id="layout-21" data-table="21" style="left: 450px; top: 254px; width: 65px; height: 52px;">21</div>
+              <div class="table-box" id="layout-23" data-table="23" style="left: 535px; top: 196px; width: 80px; height: 52px;">23</div>
 
+            </div>
           </div>
         </div>
 
@@ -816,7 +853,7 @@
       const panel = document.getElementById('queue-sidebar-panel');
       const btn = document.getElementById('toggle-queue-btn');
       panel.classList.toggle('collapsed');
-      btn.innerText = panel.classList.contains('collapsed') ? '▶ แสดงคิว' : '◀ ซ่อนคิว';
+      btn.innerText = panel.classList.contains('collapsed') ? '▶ ขยายคิว' : '◀ ซ่อนคิว';
     }
 
     window.toggleSection = function(contentId) {
@@ -1373,7 +1410,7 @@
         const box = document.getElementById(`layout-${tName.replace('/', '_')}`);
         if (box) {
           const isRound = (tName.startsWith('O') || tName === '11/1');
-          box.innerHTML = `<span style="font-size:11px; color:#1e293b; font-weight:bold; margin-bottom:2px;">${tName}</span>`;
+          box.innerHTML = `<span style="font-size:10px; color:#1e293b; font-weight:bold; margin-bottom:1px;">${tName}</span>`;
           box.className = `table-box ${isRound ? 'round' : ''}`;
         }
         const rowEl = document.getElementById(`timeline-row-${tName.replace('/', '_')}`);
@@ -1408,7 +1445,7 @@
 
         if (status !== 'left' && status !== 'noshow' && status !== 'canceled') {
           const totalItem = document.createElement('div');
-          totalItem.style.cssText = "padding: 6px; border-bottom: 1px solid #334155; font-size: 11px;";
+          totalItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px;";
           totalItem.innerHTML = `<b>${data.bookingTime}</b> - ${data.customerName} (${data.pax}น.) [${hasAssigned ? 'นั่งโต๊ะ: ' + data.assignedTables.join(', ') : 'รอเข้าร้าน'}]`;
           srListTotal.appendChild(totalItem);
         }
@@ -1416,19 +1453,19 @@
         if (status === 'left') {
           leftCount++;
           const leftItem = document.createElement('div');
-          leftItem.style.cssText = "padding: 6px; border-bottom: 1px solid #334155; font-size: 11px; color: #94a3b8;";
+          leftItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px; color: #94a3b8;";
           leftItem.innerHTML = `✅ <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime} ${phoneText}`;
           srListLeft.appendChild(leftItem);
         } else if (status === 'noshow') {
           noshowCount++;
           const nsItem = document.createElement('div');
-          nsItem.style.cssText = "padding: 6px; border-bottom: 1px solid #334155; font-size: 11px; color: #f87171;";
+          nsItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px; color: #f87171;";
           nsItem.innerHTML = `❌ <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.updateStatus('${docId}', 'upcoming')" style="float:right; background:#3b82f6; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">คืนคิว</button>`;
           srListNoshow.appendChild(nsItem);
         } else if (status === 'canceled') {
           canceledCount++;
           const cItem = document.createElement('div');
-          cItem.style.cssText = "padding: 6px; border-bottom: 1px solid #334155; font-size: 11px; color: #94a3b8;";
+          cItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px; color: #94a3b8;";
           cItem.innerHTML = `🚫 <b>${data.customerName}</b> (${data.pax}น.) ⏰${data.bookingTime}`;
           srListCanceled.appendChild(cItem);
         } else if (!hasAssigned) {
@@ -1439,10 +1476,10 @@
           let combinedBadge = data.tableNames.length > 1 ? ` 🔗[รวมโต๊ะ: ${data.tableNames.join(', ')}]` : '';
           card.innerHTML = `
             <div>👤 ${data.customerName} (${data.pax}น.)${combinedBadge}</div>
-            <div style="font-size: 11px; color: #ffe0b2;">⏰ ${data.bookingTime} น. (โต๊ะ: ${data.tableNames.join(', ')}${phoneText})</div>
-            <div style="margin-top:6px; display:flex; gap:4px;">
-              <button onclick="event.stopPropagation(); window.updateStatus('${docId}', 'noshow')" style="background:#dc2626; color:white; border:none; padding:2px 6px; border-radius:3px; font-size:9px; cursor:pointer;">No Show</button>
-              <button onclick="event.stopPropagation(); window.updateStatus('${docId}', 'canceled')" style="background:#64748b; color:white; border:none; padding:2px 6px; border-radius:3px; font-size:9px; cursor:pointer;">Cancel</button>
+            <div style="font-size: 10px; color: #ffe0b2;">⏰ ${data.bookingTime} น. (โต๊ะ: ${data.tableNames.join(', ')}${phoneText})</div>
+            <div style="margin-top:4px; display:flex; gap:4px;">
+              <button onclick="event.stopPropagation(); window.updateStatus('${docId}', 'noshow')" style="background:#dc2626; color:white; border:none; padding:2px 5px; border-radius:3px; font-size:9px; cursor:pointer;">No Show</button>
+              <button onclick="event.stopPropagation(); window.updateStatus('${docId}', 'canceled')" style="background:#64748b; color:white; border:none; padding:2px 5px; border-radius:3px; font-size:9px; cursor:pointer;">Cancel</button>
             </div>
           `;
           
@@ -1460,8 +1497,8 @@
         } else {
           seatedCount++;
           const seatedItem = document.createElement('div');
-          seatedItem.style.cssText = "padding: 6px; border-bottom: 1px solid #334155; font-size: 11px;";
-          seatedItem.innerHTML = `<b>โต๊ะ ${data.assignedTables.join(', ')}</b>: ${data.customerName} (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.unseatCustomer('${docId}')" style="float:right; background:#ef4444; color:white; border:none; padding:1px 6px; border-radius:3px; cursor:pointer; font-size:9px;">ดึงกลับคิวรอ</button>`;
+          seatedItem.style.cssText = "padding: 5px; border-bottom: 1px solid #334155; font-size: 11px;";
+          seatedItem.innerHTML = `<b>โต๊ะ ${data.assignedTables.join(', ')}</b>: ${data.customerName} (${data.pax}น.) ⏰${data.bookingTime} <button onclick="window.unseatCustomer('${docId}')" style="float:right; background:#ef4444; color:white; border:none; padding:1px 5px; border-radius:3px; cursor:pointer; font-size:9px;">ดึงกลับคิว</button>`;
           srListSeated.appendChild(seatedItem);
 
           data.assignedTables.forEach(tName => {
