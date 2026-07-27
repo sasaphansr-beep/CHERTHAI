@@ -582,7 +582,7 @@
       border-color: #ef4444;
     }
 
-    /* 🔒 Custom Modal สไตล์ SevenRooms หรูหรา ทั้งแบบแจ้งเตือนและยืนยัน */
+    /* 🔒 Custom Modal สไตล์ SevenRooms ทั้งแบบแจ้งเตือนและยืนยัน */
     .custom-modal-overlay {
       display: none;
       position: fixed;
@@ -722,7 +722,7 @@
   <!-- 🗂️ แถบ Sidebar ด้านซ้าย -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <span class="sidebar-brand-text">🍽️ Cher Thai</span>
+      <span class="sidebar-brand-text">🍽️ Cher Thai Eatery</span>
       <button class="toggle-btn" onclick="toggleSidebar()" title="พับ/ขยายเมนู">◀</button>
     </div>
     <ul class="sidebar-menu">
@@ -767,14 +767,14 @@
     <div id="availability-page" class="page-section active">
       <h1>เช็คเวลาโต๊ะว่าง (Table Availability Timeline)</h1>
       <p style="color: #64748b; font-size: 12px; margin-bottom: 15px;">
-        ℹ️ แสดงช่วงเวลาที่ว่างและไม่ว่างตามวันที่เลือก — คลิกการ์ดเพื่อจองด่วน
+        ℹ️ แสดงช่วงเวลาที่ว่างและไม่ว่างตามวันที่เลือก — คลิกโต๊ะเพื่อจอง
       </p>
       <div class="availability-grid" id="availability-grid-container"></div>
     </div>
 
     <!-- 📄 หน้าที่ 2: ระบบจองโต๊ะ -->
     <div id="grid-page" class="page-section">
-      <h1>ระบบลงทะเบียนจองโต๊ะ (บล็อกเวลาอัตโนมัติ 90 นาที)</h1>
+      <h1>ระบบลงทะเบียนจองโต๊ะ</h1>
       <div class="main-container">
         
         <div class="panel-box" style="flex: 1; min-width: 260px;">
@@ -792,23 +792,23 @@
           </div>
           <div class="form-group">
             <label>👤 ชื่อลูกค้า:</label>
-            <input type="text" id="cust-name" placeholder="เช่น Khun Ryan">
+            <input type="text" id="cust-name" placeholder="เช่น Ryan">
           </div>
           <div class="form-group">
             <label>⏰ เวลาที่จอง:</label>
-            <input type="time" id="cust-time" value="18:00">
+            <input type="time" id="cust-time" value="12:00">
           </div>
           <div class="form-group">
             <label>👥 จำนวนคน (Pax):</label>
             <input type="number" id="cust-pax" placeholder="เช่น 4" value="2" min="1">
           </div>
           <div class="form-group">
-            <label>🍽️ เลือกโต๊ะ (เลือกเอง Manual หรือปล่อยระบบจัดให้):</label>
+            <label>🍽️ เลือกโต๊ะ (เลือกเองหรือระบบจัดให้):</label>
             <div class="table-checkbox-grid" id="table-checkboxes"></div>
           </div>
           <div class="form-group">
             <label>📝 หมายเหตุ (Note):</label>
-            <input type="text" id="cust-note" placeholder="เช่น แพ้อาหารทะเล / วันเกิด">
+            <input type="text" id="cust-note" placeholder="เช่น แพ้อาหาร / วันเกิด">
           </div>
           <button class="save-btn" id="save-booking-btn">บันทึกการจอง</button>
         </div>
@@ -820,7 +820,7 @@
               <thead>
                 <tr>
                   <th style="width: 80px;">โต๊ะ</th>
-                  <th>รายการจอง (รอบ 90 นาที)</th>
+                  <th>รายการจอง (90 นาที)</th>
                 </tr>
               </thead>
               <tbody id="timeline-body"></tbody>
@@ -849,7 +849,7 @@
         
         <!-- แถบคิวซ้ายสไตล์ SevenRooms -->
         <div class="queue-sidebar" id="queue-sidebar-panel">
-          <h3 style="color: #f8fafc; margin-top:0; font-size: 13px; border-bottom: 1px solid #1e293b; padding-bottom: 6px;">
+          <h3 style="color: #f8fafc; margin-top:0; font-size: 13px; border-bottom: 1px solid #334155; padding-bottom: 6px;">
             <span class="short-title">📋 จัดการคิว</span>
           </h3>
 
@@ -979,7 +979,7 @@
     <div id="customer-page" class="page-section">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
         <h1 style="margin: 0;">รายงานข้อมูลลูกค้า (Customer Directory & Reports)</h1>
-        <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">📥 บันทึกเป็น PDF / ปริ้นท์รายงาน</button>
+        <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">บันทึกเป็น PDF / ปริ้นท์รายงาน</button>
       </div>
       
       <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">
@@ -1109,7 +1109,7 @@
   </div>
 
   <script>
-    // 🌟 ระบบ Custom Modal แทน alert / confirm แบบเดิมทั้งระบบ
+    // 🌟 ระบบ Custom Modal (ลบคำว่า "ครับ" ทั้งหมดเพื่อความเป็นมืออาชีพ)
     function showAppModal(title, htmlContent, isConfirm = false, inputType = null) {
       return new Promise((resolve) => {
         const modal = document.getElementById('app-modal');
@@ -1243,9 +1243,10 @@
 
     const tablesList = ["O1", "O2", "O3", "O4", "O5", "O6", "3", "4", "5", "6", "7", "8", "9", "10", "11", "11/1", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "23"];
     
-    const tables4Pax = ["3", "4", "11", "12", "17"];
+    // 🌟 โต๊ะหลัก 4 คน (โต๊ะ 3-4 และ 11-11/1) สามารถแยกเป็นโต๊ะ 2 คนได้อิสระ
+    const tables4Pax = ["3", "4", "11", "11/1", "17"];
     const tables3Pax = ["9", "18", "23"];
-    const tables2Pax = ["O1", "O2", "O3", "O4", "O5", "O6", "5", "6", "7", "8", "10", "11/1", "13", "14", "15", "16", "19", "20", "21"];
+    const tables2Pax = ["O1", "O2", "O3", "O4", "O5", "O6", "3", "4", "5", "6", "7", "8", "10", "11", "11/1", "12", "13", "14", "15", "16", "19", "20", "21"];
 
     const viewDatePicker = document.getElementById('view-date-picker');
     const bookingDateInput = document.getElementById('booking-date-input');
@@ -1365,7 +1366,7 @@
       else if (dayOfWeek === 5) text += "• 12:00-15:00 / 18:00-23:00";
       else if (dayOfWeek === 6) text += "• 12:00-23:00 (เปิดยาว)";
       else if (dayOfWeek === 0) text += "• 12:00-22:00";
-      else text += "• 🔴 ปิดร้านวันจันทร์";
+      else text += "• 🔴 ร้านหยุดวันจันทร์";
       document.getElementById('today-hours-badge').innerHTML = text;
     }
     updateSidebarBadge();
@@ -1418,13 +1419,13 @@
         const validVisits = matched.filter(item => item.status !== 'canceled' && item.status !== 'noshow').length;
         const totalCanceled = matched.filter(item => item.status === 'canceled' || item.status === 'noshow').length;
         
-        let badgeText = `⭐ ลูกค้าประจำ เคยมาทานแล้ว ${validVisits} ครั้ง`;
+        let badgeText = `⭐ ลูกค้าประจำ เคยมาแล้ว ${validVisits} ครั้ง`;
         if (totalCanceled > 0) {
-          badgeText += ` <span style="color: #475569; font-weight: bold;">(⚠️ แคนเซิล ${totalCanceled} ครั้ง)</span>`;
+          badgeText += ` <span style="color: #475569; font-weight: bold;">(⚠️ Cancel ${totalCanceled} ครั้ง)</span>`;
         }
         badgeEl.innerHTML = badgeText;
       } else {
-        badgeEl.innerHTML = `✨ ลูกค้าใหม่ (ยังไม่พบประวัติในระบบ)`;
+        badgeEl.innerHTML = `✨ ลูกค้าใหม่ (ไม่พบประวัติในระบบ)`;
       }
     };
 
@@ -1446,6 +1447,7 @@
       return true;
     }
 
+    // 🌟 [ระบบจัดโต๊ะอัจฉริยะ โต๊ะ 4 คนหลักคือ 3-4 และ 11-11/1 แต่ยืดหยุ่นแยกเดี่ยวได้]
     function autoSelectTables() {
       if (isUserManualSelected) return;
 
@@ -1459,8 +1461,8 @@
       if (pax === 4) {
         if (isTableFree("3", dateVal, timeVal) && isTableFree("4", dateVal, timeVal)) {
           selected = ["3", "4"];
-        } else if (isTableFree("11", dateVal, timeVal) && isTableFree("12", dateVal, timeVal)) {
-          selected = ["11", "12"];
+        } else if (isTableFree("11", dateVal, timeVal) && isTableFree("11/1", dateVal, timeVal)) {
+          selected = ["11", "11/1"];
         } else {
           const free4 = tables4Pax.find(t => isTableFree(t, dateVal, timeVal));
           if (free4) {
@@ -1520,7 +1522,7 @@
     timeInput.addEventListener('change', autoSelectTables);
     bookingDateInput.addEventListener('change', async () => {
       if (isMonday(bookingDateInput.value)) {
-        await showAppModal('❌ แจ้งเตือน', 'ร้านปิดทำการทุกวันจันทร์! กรุณาเลือกวันอื่น');
+        await showAppModal('❌ แจ้งเตือน', 'ร้านหยุดทุกวันจันทร์! กรุณาเลือกวันอื่น');
         const d = new Date(bookingDateInput.value);
         d.setDate(d.getDate() + 1);
         bookingDateInput.value = d.toISOString().split('T')[0];
@@ -1561,7 +1563,7 @@
       const targetDate = bookingDateInput.value;
 
       if (isMonday(targetDate)) {
-        await showAppModal('❌ แจ้งเตือน', 'ไม่สามารถจองได้! ร้านปิดทำการทุกวันจันทร์');
+        await showAppModal('❌ แจ้งเตือน', 'ไม่สามารถจองได้! ร้านหยุดทุกวันจันทร์');
         return;
       }
 
@@ -1590,7 +1592,7 @@
       const overlapCheck = checkOverlap(selectedTables, newStartMin);
 
       if (overlapCheck.isOverlap) {
-        await showAppModal('❌ แจ้งเตือน', `ไม่สามารถจองได้! เวลาชนกับคิวของคุณ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})<br>ติดจองช่วง 90 นาทีอยู่`);
+        await showAppModal('❌ แจ้งเตือน', `ไม่สามารถจองได้! เวลาชนกับคิวของ "${overlapCheck.conflictCustomer}" (${overlapCheck.conflictTime})<br>ติดจองช่วง 90 นาทีอยู่`);
         return;
       }
 
@@ -1738,7 +1740,7 @@
         const layoutDate = layoutDatePicker.value;
 
         if (isMonday(layoutDate)) {
-          await showAppModal('❌ แจ้งเตือน', 'ร้านปิดทำการทุกวันจันทร์');
+          await showAppModal('❌ แจ้งเตือน', 'ร้านหยุดทุกวันจันทร์');
           return;
         }
 
@@ -2003,7 +2005,6 @@
       }
     };
 
-    // 🌟 [ฟังก์ชันลบข้อมูลลูกค้าเชื่อมต่อ Firebase Database ภายใน Module Scope อย่างถูกต้อง]
     window.promptDeleteCustomerRecord = async function() {
       let res = await showAppModal('🔒 ยืนยันรหัสผ่านผู้จัดการ', 'กรุณากรอกรหัสผ่านเพื่อลบข้อมูลคิวนี้:', true, 'password');
       if (res.success && res.value === "0000") {
@@ -2065,7 +2066,7 @@
       
       if (isMonday(selectedDate)) {
         closedBanner.style.display = 'block';
-        closedBanner.innerHTML = '⛔ ร้านปิดทำการทุกวันจันทร์';
+        closedBanner.innerHTML = '⛔ ร้านหยุดทุกวันจันทร์';
       } else if (globalClosedDates[selectedDate]) {
         closedBanner.style.display = 'block';
         closedBanner.innerHTML = `⛔ ร้านปิดทำการพิเศษวันที่ ${selectedDate} (${globalClosedDates[selectedDate]})`;
@@ -2215,7 +2216,7 @@
                 realTimeMsg += `⏱️ เวลานั่งจริง: ${timerText} (จำกัดรอบ 90 นาที)<br><br>`;
                 realTimeMsg += `ต้องการเช็คบิล / ให้ลูกค้าลุกจากโต๊ะนี้ใช่ไหม?`;
 
-                let res = await showAppModal('💵 เช็คบิลด่วน', realTimeMsg, true);
+                let res = await showAppModal('💵 เช็คบิล', realTimeMsg, true);
                 if (res.success) {
                   window.updateStatus(docId, 'left');
                 }
@@ -2255,10 +2256,10 @@
       });
 
       const tableCapacity = {
-        "3": 4, "4": 4, "11": 4, "12": 4, "17": 4,
+        "3": 4, "4": 4, "11": 4, "11/1": 2, "12": 4, "17": 4,
         "9": 3, "18": 3, "23": 3,
         "O1": 2, "O2": 2, "O3": 2, "O4": 2, "O5": 2, "O6": 2,
-        "5": 2, "6": 2, "7": 2, "8": 2, "10": 2, "11/1": 2,
+        "5": 2, "6": 2, "7": 2, "8": 2, "10": 2,
         "13": 2, "14": 2, "15": 2, "16": 2, "19": 2, "20": 2, "21": 2
       };
 
@@ -2285,11 +2286,12 @@
 
                 let assignedTables = [newTable];
                 
+                // 🌟 [ตรรกะจับคู่โต๊ะ 3-4 และ 11-11/1 สำหรับ 4 คน เมื่อวันปกติ]
                 if (bookingPax >= 3) {
                   if (newTable === "3" || newTable === "4") {
                     assignedTables = ["3", "4"];
-                  } else if (newTable === "11" || newTable === "12") {
-                    assignedTables = ["11", "12"];
+                  } else if (newTable === "11" || newTable === "11/1") {
+                    assignedTables = ["11", "11/1"];
                   } else {
                     const currentCap = tableCapacity[newTable] || 2;
                     if (bookingPax > currentCap) {
@@ -2411,7 +2413,7 @@
     }
 
     window.reopenStore = async function(dateStr) {
-      let res = await showAppModal('🔓 ปลดล็อคเปิดร้าน', `คุณต้องการปลดล็อคเปิดร้านสำหรับวันที่ ${dateStr} ใช่ไหม?`, true);
+      let res = await showAppModal('🔓 ปลดล็อคเปิดร้าน', `คุณต้องการปลดล็อคเปิดร้านสำหรับวันที่ ${dateStr} หรือไม่?`, true);
       if (res.success) {
         await deleteDoc(doc(db, "cher_thai_store_closures", dateStr));
         await showAppModal('✅ สำเร็จ', 'ปลดล็อคเปิดร้านเรียบร้อยแล้ว');
@@ -2419,7 +2421,7 @@
     };
 
     window.deleteBooking = async function(docId) {
-      let res = await showAppModal('🚫 ยกเลิกการจอง', 'ต้องการยกเลิกและย้ายรายการจองนี้ไปที่ช่อง Canceled ใช่ไหม?', true);
+      let res = await showAppModal('🚫 ยกเลิกการจอง', 'ต้องการยกเลิกรายการจองนี้หรือไม่?', true);
       if (res.success) {
         await setDoc(doc(db, "cher_thai_restaurant_system", docId), { status: 'canceled', assignedTables: [], seatedTimestamp: null }, { merge: true });
       }
