@@ -518,7 +518,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js";
+    import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDZZGaMx86u09DLVyE5l63uRJp24Gwvh5o",
@@ -537,7 +537,7 @@
     // 🔑 Site Key จาก reCAPTCHA v3 ใส่เรียบร้อยแล้ว
     // ==========================================
     const appCheck = initializeAppCheck(app, {
-      provider: new ReCaptchaV3Provider('6Lc1GmstAAAAAPDGf9NKmrIdft6qhbhPBOlraBF_'),
+      provider: new ReCaptchaEnterpriseProvider('6Lc1GmstAAAAAPDGf9NKmrIdft6qhbhPBOlraBF_'),
       isTokenAutoRefreshEnabled: true
     });
 
